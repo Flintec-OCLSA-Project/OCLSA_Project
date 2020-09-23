@@ -52,12 +52,17 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox1 = new WindowsFormsAero.TextBox();
+            this.button1 = new WindowsFormsAero.Button();
+            this.button2 = new WindowsFormsAero.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.horizontalPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -290,6 +295,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.aeroLinkLabel1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 182);
             this.groupBox1.Name = "groupBox1";
@@ -297,6 +306,48 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Load Cell Information";
+            // 
+            // aeroLinkLabel1
+            // 
+            this.aeroLinkLabel1.AutoSize = true;
+            this.aeroLinkLabel1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aeroLinkLabel1.Location = new System.Drawing.Point(3, 44);
+            this.aeroLinkLabel1.Name = "aeroLinkLabel1";
+            this.aeroLinkLabel1.Size = new System.Drawing.Size(140, 25);
+            this.aeroLinkLabel1.TabIndex = 0;
+            this.aeroLinkLabel1.TabStop = true;
+            this.aeroLinkLabel1.Text = "Serial Number";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(149, 44);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(176, 25);
+            this.textBox1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.LimeGreen;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(8, 100);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 49);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Red;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button2.Location = new System.Drawing.Point(175, 100);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(150, 49);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Stop";
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -324,6 +375,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.horizontalPanel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,6 +407,10 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private WindowsFormsAero.TextBox textBox1;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
+        private WindowsFormsAero.Button button2;
+        private WindowsFormsAero.Button button1;
     }
 }
 
