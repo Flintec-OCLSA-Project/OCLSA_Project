@@ -1,0 +1,5 @@
+C:\projects\aerosuite\AeroSuite\bin\Release\AeroSuite.dll
+C:\projects\aerosuite\AeroSuite\bin\Release\AeroSuite.pdb
+C:\projects\aerosuite\AeroSuite\obj\Release\AeroSuite.csprojResolveAssemblyReference.cache
+C:\projects\aerosuite\AeroSuite\obj\Release\AeroSuite.dll
+C:\projects\aerosuite\AeroSuite\obj\Release\AeroSuite.pdb
