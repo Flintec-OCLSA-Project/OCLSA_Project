@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menu01ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,33 +37,87 @@
             this.menu03ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.horizontalPanel1 = new WindowsFormsAero.HorizontalPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
-            this.textBox1 = new WindowsFormsAero.TextBox();
-            this.button1 = new WindowsFormsAero.Button();
             this.button2 = new WindowsFormsAero.Button();
+            this.button1 = new WindowsFormsAero.Button();
+            this.textBox1 = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel3 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel4 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel5 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel6 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel7 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel8 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel9 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel10 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel12 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel14 = new AeroSuite.Controls.AeroLinkLabel();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.aeroLinkLabel15 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel16 = new AeroSuite.Controls.AeroLinkLabel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.textBox25 = new System.Windows.Forms.TextBox();
+            this.clmTrimmingCycle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFront = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmLeft = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmBack = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCenter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTimePerOneCycle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.horizontalPanel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -88,7 +143,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // menu02ToolStripMenuItem
@@ -126,7 +181,50 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1078, 100);
             this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label10.Location = new System.Drawing.Point(912, 67);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(78, 25);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Waiting";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label9.Location = new System.Drawing.Point(912, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(78, 25);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Waiting";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(30, 67);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(78, 25);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Waiting";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label7.Location = new System.Drawing.Point(219, 4);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(170, 65);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "mV/ V";
             // 
             // label2
             // 
@@ -138,7 +236,6 @@
             this.label2.Size = new System.Drawing.Size(166, 65);
             this.label2.TabIndex = 0;
             this.label2.Text = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // panel2
             // 
@@ -153,37 +250,15 @@
             this.panel2.Size = new System.Drawing.Size(264, 100);
             this.panel2.TabIndex = 3;
             // 
-            // pictureBox1
+            // label6
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(166, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(98, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(26, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 21);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Opeartor Name";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(26, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 21);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Opeartor ID";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(26, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 21);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Station";
             // 
             // label5
             // 
@@ -195,60 +270,35 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Location";
             // 
-            // label6
+            // label4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 74);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 21);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Station";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(26, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 21);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Opeartor ID";
             // 
-            // label7
+            // label3
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label7.Location = new System.Drawing.Point(219, 4);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(170, 65);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "mV/ V";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(26, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(124, 21);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Opeartor Name";
             // 
-            // label8
+            // pictureBox1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(30, 67);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(78, 25);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Waiting";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(912, 24);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 25);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Waiting";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label10.Location = new System.Drawing.Point(912, 67);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(78, 25);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Waiting";
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(166, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(98, 100);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panel3
             // 
@@ -262,6 +312,7 @@
             // horizontalPanel1
             // 
             this.horizontalPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.horizontalPanel1.Controls.Add(this.groupBox6);
             this.horizontalPanel1.Controls.Add(this.groupBox3);
             this.horizontalPanel1.Controls.Add(this.groupBox2);
             this.horizontalPanel1.Controls.Add(this.groupBox1);
@@ -274,10 +325,23 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.dataGridView1);
+            this.groupBox3.Controls.Add(this.textBox25);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel16);
+            this.groupBox3.Controls.Add(this.textBox24);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel15);
+            this.groupBox3.Controls.Add(this.textBox23);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel14);
+            this.groupBox3.Controls.Add(this.textBox22);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel13);
+            this.groupBox3.Controls.Add(this.textBox21);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel12);
+            this.groupBox3.Controls.Add(this.textBox20);
+            this.groupBox3.Controls.Add(this.aeroLinkLabel11);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(352, 429);
+            this.groupBox3.Location = new System.Drawing.Point(352, 456);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1000, 269);
+            this.groupBox3.Size = new System.Drawing.Size(1000, 242);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Summary";
@@ -286,15 +350,17 @@
             // groupBox2
             // 
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(354, 182);
+            this.groupBox2.Location = new System.Drawing.Point(352, 182);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(998, 241);
+            this.groupBox2.Size = new System.Drawing.Size(413, 268);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Cornering and Trimming";
+            this.groupBox2.Text = "Graphical Display";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox5);
+            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.textBox1);
@@ -307,23 +373,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Load Cell Information";
             // 
-            // aeroLinkLabel1
+            // button2
             // 
-            this.aeroLinkLabel1.AutoSize = true;
-            this.aeroLinkLabel1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aeroLinkLabel1.Location = new System.Drawing.Point(3, 44);
-            this.aeroLinkLabel1.Name = "aeroLinkLabel1";
-            this.aeroLinkLabel1.Size = new System.Drawing.Size(140, 25);
-            this.aeroLinkLabel1.TabIndex = 0;
-            this.aeroLinkLabel1.TabStop = true;
-            this.aeroLinkLabel1.Text = "Serial Number";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(149, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(176, 25);
-            this.textBox1.TabIndex = 1;
+            this.button2.BackColor = System.Drawing.Color.Red;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button2.Location = new System.Drawing.Point(175, 100);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(150, 49);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Stop";
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
@@ -337,17 +397,455 @@
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // textBox1
             // 
-            this.button2.BackColor = System.Drawing.Color.Red;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(175, 100);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 49);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = false;
+            this.textBox1.Location = new System.Drawing.Point(149, 44);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(176, 25);
+            this.textBox1.TabIndex = 1;
+            // 
+            // aeroLinkLabel1
+            // 
+            this.aeroLinkLabel1.AutoSize = true;
+            this.aeroLinkLabel1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aeroLinkLabel1.Location = new System.Drawing.Point(3, 44);
+            this.aeroLinkLabel1.Name = "aeroLinkLabel1";
+            this.aeroLinkLabel1.Size = new System.Drawing.Size(140, 25);
+            this.aeroLinkLabel1.TabIndex = 0;
+            this.aeroLinkLabel1.TabStop = true;
+            this.aeroLinkLabel1.Text = "Serial Number";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Location = new System.Drawing.Point(8, 173);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(317, 207);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Corner and Center Range";
+            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(8, 386);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(317, 124);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Pass Fail Range";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBox18);
+            this.groupBox6.Controls.Add(this.textBox16);
+            this.groupBox6.Controls.Add(this.textBox19);
+            this.groupBox6.Controls.Add(this.textBox14);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel10);
+            this.groupBox6.Controls.Add(this.textBox17);
+            this.groupBox6.Controls.Add(this.textBox15);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel9);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel8);
+            this.groupBox6.Controls.Add(this.textBox12);
+            this.groupBox6.Controls.Add(this.textBox13);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel7);
+            this.groupBox6.Controls.Add(this.textBox10);
+            this.groupBox6.Controls.Add(this.textBox11);
+            this.groupBox6.Controls.Add(this.textBox8);
+            this.groupBox6.Controls.Add(this.textBox9);
+            this.groupBox6.Controls.Add(this.textBox6);
+            this.groupBox6.Controls.Add(this.textBox7);
+            this.groupBox6.Controls.Add(this.textBox4);
+            this.groupBox6.Controls.Add(this.textBox5);
+            this.groupBox6.Controls.Add(this.textBox3);
+            this.groupBox6.Controls.Add(this.textBox2);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel6);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel5);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel4);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel3);
+            this.groupBox6.Controls.Add(this.aeroLinkLabel2);
+            this.groupBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(774, 182);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(578, 268);
+            this.groupBox6.TabIndex = 10;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Corners and Center Readings ";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // aeroLinkLabel2
+            // 
+            this.aeroLinkLabel2.AutoSize = true;
+            this.aeroLinkLabel2.Location = new System.Drawing.Point(267, 99);
+            this.aeroLinkLabel2.Name = "aeroLinkLabel2";
+            this.aeroLinkLabel2.Size = new System.Drawing.Size(48, 17);
+            this.aeroLinkLabel2.TabIndex = 0;
+            this.aeroLinkLabel2.TabStop = true;
+            this.aeroLinkLabel2.Text = "Center";
+            // 
+            // aeroLinkLabel3
+            // 
+            this.aeroLinkLabel3.AutoSize = true;
+            this.aeroLinkLabel3.Location = new System.Drawing.Point(84, 99);
+            this.aeroLinkLabel3.Name = "aeroLinkLabel3";
+            this.aeroLinkLabel3.Size = new System.Drawing.Size(30, 17);
+            this.aeroLinkLabel3.TabIndex = 3;
+            this.aeroLinkLabel3.TabStop = true;
+            this.aeroLinkLabel3.Text = "Left";
+            // 
+            // aeroLinkLabel4
+            // 
+            this.aeroLinkLabel4.AutoSize = true;
+            this.aeroLinkLabel4.Location = new System.Drawing.Point(267, 181);
+            this.aeroLinkLabel4.Name = "aeroLinkLabel4";
+            this.aeroLinkLabel4.Size = new System.Drawing.Size(41, 17);
+            this.aeroLinkLabel4.TabIndex = 6;
+            this.aeroLinkLabel4.TabStop = true;
+            this.aeroLinkLabel4.Text = "Front";
+            // 
+            // aeroLinkLabel5
+            // 
+            this.aeroLinkLabel5.AutoSize = true;
+            this.aeroLinkLabel5.Location = new System.Drawing.Point(466, 99);
+            this.aeroLinkLabel5.Name = "aeroLinkLabel5";
+            this.aeroLinkLabel5.Size = new System.Drawing.Size(40, 17);
+            this.aeroLinkLabel5.TabIndex = 9;
+            this.aeroLinkLabel5.TabStop = true;
+            this.aeroLinkLabel5.Text = "Right";
+            // 
+            // aeroLinkLabel6
+            // 
+            this.aeroLinkLabel6.AutoSize = true;
+            this.aeroLinkLabel6.Location = new System.Drawing.Point(267, 15);
+            this.aeroLinkLabel6.Name = "aeroLinkLabel6";
+            this.aeroLinkLabel6.Size = new System.Drawing.Size(36, 17);
+            this.aeroLinkLabel6.TabIndex = 12;
+            this.aeroLinkLabel6.TabStop = true;
+            this.aeroLinkLabel6.Text = "Back";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(232, 119);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(120, 25);
+            this.textBox2.TabIndex = 15;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(232, 150);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(120, 25);
+            this.textBox3.TabIndex = 16;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(232, 234);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(120, 25);
+            this.textBox4.TabIndex = 18;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(232, 203);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(120, 25);
+            this.textBox5.TabIndex = 17;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(232, 66);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(120, 25);
+            this.textBox6.TabIndex = 20;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(232, 35);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(120, 25);
+            this.textBox7.TabIndex = 19;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(40, 150);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(120, 25);
+            this.textBox8.TabIndex = 22;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(40, 119);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(120, 25);
+            this.textBox9.TabIndex = 21;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(423, 150);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(120, 25);
+            this.textBox10.TabIndex = 24;
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(423, 119);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(120, 25);
+            this.textBox11.TabIndex = 23;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(40, 234);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(120, 25);
+            this.textBox12.TabIndex = 27;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(40, 203);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(120, 25);
+            this.textBox13.TabIndex = 26;
+            // 
+            // aeroLinkLabel7
+            // 
+            this.aeroLinkLabel7.AutoSize = true;
+            this.aeroLinkLabel7.Location = new System.Drawing.Point(84, 181);
+            this.aeroLinkLabel7.Name = "aeroLinkLabel7";
+            this.aeroLinkLabel7.Size = new System.Drawing.Size(24, 17);
+            this.aeroLinkLabel7.TabIndex = 25;
+            this.aeroLinkLabel7.TabStop = true;
+            this.aeroLinkLabel7.Text = "D4";
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(423, 234);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(120, 25);
+            this.textBox14.TabIndex = 30;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(423, 203);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(120, 25);
+            this.textBox15.TabIndex = 29;
+            // 
+            // aeroLinkLabel8
+            // 
+            this.aeroLinkLabel8.AutoSize = true;
+            this.aeroLinkLabel8.Location = new System.Drawing.Point(475, 183);
+            this.aeroLinkLabel8.Name = "aeroLinkLabel8";
+            this.aeroLinkLabel8.Size = new System.Drawing.Size(24, 17);
+            this.aeroLinkLabel8.TabIndex = 28;
+            this.aeroLinkLabel8.TabStop = true;
+            this.aeroLinkLabel8.Text = "D3";
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(38, 68);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(120, 25);
+            this.textBox16.TabIndex = 21;
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(38, 37);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(120, 25);
+            this.textBox17.TabIndex = 20;
+            // 
+            // aeroLinkLabel9
+            // 
+            this.aeroLinkLabel9.AutoSize = true;
+            this.aeroLinkLabel9.Location = new System.Drawing.Point(84, 17);
+            this.aeroLinkLabel9.Name = "aeroLinkLabel9";
+            this.aeroLinkLabel9.Size = new System.Drawing.Size(29, 17);
+            this.aeroLinkLabel9.TabIndex = 19;
+            this.aeroLinkLabel9.TabStop = true;
+            this.aeroLinkLabel9.Text = "D01";
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(423, 68);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(120, 25);
+            this.textBox18.TabIndex = 21;
+            // 
+            // textBox19
+            // 
+            this.textBox19.Location = new System.Drawing.Point(423, 37);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(120, 25);
+            this.textBox19.TabIndex = 20;
+            // 
+            // aeroLinkLabel10
+            // 
+            this.aeroLinkLabel10.AutoSize = true;
+            this.aeroLinkLabel10.Location = new System.Drawing.Point(475, 17);
+            this.aeroLinkLabel10.Name = "aeroLinkLabel10";
+            this.aeroLinkLabel10.Size = new System.Drawing.Size(24, 17);
+            this.aeroLinkLabel10.TabIndex = 19;
+            this.aeroLinkLabel10.TabStop = true;
+            this.aeroLinkLabel10.Text = "D2";
+            // 
+            // aeroLinkLabel11
+            // 
+            this.aeroLinkLabel11.AutoSize = true;
+            this.aeroLinkLabel11.Location = new System.Drawing.Point(19, 30);
+            this.aeroLinkLabel11.Name = "aeroLinkLabel11";
+            this.aeroLinkLabel11.Size = new System.Drawing.Size(114, 17);
+            this.aeroLinkLabel11.TabIndex = 4;
+            this.aeroLinkLabel11.TabStop = true;
+            this.aeroLinkLabel11.Text = "Bridge Unbalance";
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(172, 27);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(147, 25);
+            this.textBox20.TabIndex = 31;
+            // 
+            // textBox21
+            // 
+            this.textBox21.Location = new System.Drawing.Point(172, 64);
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new System.Drawing.Size(147, 25);
+            this.textBox21.TabIndex = 33;
+            // 
+            // aeroLinkLabel12
+            // 
+            this.aeroLinkLabel12.AutoSize = true;
+            this.aeroLinkLabel12.Location = new System.Drawing.Point(19, 67);
+            this.aeroLinkLabel12.Name = "aeroLinkLabel12";
+            this.aeroLinkLabel12.Size = new System.Drawing.Size(69, 17);
+            this.aeroLinkLabel12.TabIndex = 32;
+            this.aeroLinkLabel12.TabStop = true;
+            this.aeroLinkLabel12.Text = "Initial FSO";
+            // 
+            // textBox22
+            // 
+            this.textBox22.Location = new System.Drawing.Point(172, 100);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(147, 25);
+            this.textBox22.TabIndex = 35;
+            // 
+            // aeroLinkLabel13
+            // 
+            this.aeroLinkLabel13.AutoSize = true;
+            this.aeroLinkLabel13.Location = new System.Drawing.Point(19, 103);
+            this.aeroLinkLabel13.Name = "aeroLinkLabel13";
+            this.aeroLinkLabel13.Size = new System.Drawing.Size(64, 17);
+            this.aeroLinkLabel13.TabIndex = 34;
+            this.aeroLinkLabel13.TabStop = true;
+            this.aeroLinkLabel13.Text = "Final FSO";
+            // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(172, 137);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(147, 25);
+            this.textBox23.TabIndex = 37;
+            // 
+            // aeroLinkLabel14
+            // 
+            this.aeroLinkLabel14.AutoSize = true;
+            this.aeroLinkLabel14.Location = new System.Drawing.Point(19, 140);
+            this.aeroLinkLabel14.Name = "aeroLinkLabel14";
+            this.aeroLinkLabel14.Size = new System.Drawing.Size(140, 17);
+            this.aeroLinkLabel14.TabIndex = 36;
+            this.aeroLinkLabel14.TabStop = true;
+            this.aeroLinkLabel14.Text = "No of Trimmed Cycles";
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(172, 174);
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(147, 25);
+            this.textBox24.TabIndex = 39;
+            // 
+            // aeroLinkLabel15
+            // 
+            this.aeroLinkLabel15.AutoSize = true;
+            this.aeroLinkLabel15.Location = new System.Drawing.Point(19, 177);
+            this.aeroLinkLabel15.Name = "aeroLinkLabel15";
+            this.aeroLinkLabel15.Size = new System.Drawing.Size(70, 17);
+            this.aeroLinkLabel15.TabIndex = 38;
+            this.aeroLinkLabel15.TabStop = true;
+            this.aeroLinkLabel15.Text = "Total Time";
+            // 
+            // aeroLinkLabel16
+            // 
+            this.aeroLinkLabel16.AutoSize = true;
+            this.aeroLinkLabel16.Location = new System.Drawing.Point(19, 211);
+            this.aeroLinkLabel16.Name = "aeroLinkLabel16";
+            this.aeroLinkLabel16.Size = new System.Drawing.Size(46, 17);
+            this.aeroLinkLabel16.TabIndex = 40;
+            this.aeroLinkLabel16.TabStop = true;
+            this.aeroLinkLabel16.Text = "Status";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmTrimmingCycle,
+            this.clmFront,
+            this.clmLeft,
+            this.clmBack,
+            this.clmRight,
+            this.clmCenter,
+            this.clmTimePerOneCycle});
+            this.dataGridView1.Location = new System.Drawing.Point(335, 24);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(659, 212);
+            this.dataGridView1.TabIndex = 42;
+            // 
+            // textBox25
+            // 
+            this.textBox25.Location = new System.Drawing.Point(172, 208);
+            this.textBox25.Name = "textBox25";
+            this.textBox25.Size = new System.Drawing.Size(147, 25);
+            this.textBox25.TabIndex = 41;
+            // 
+            // clmTrimmingCycle
+            // 
+            this.clmTrimmingCycle.HeaderText = "Trimming Cycle";
+            this.clmTrimmingCycle.Name = "clmTrimmingCycle";
+            // 
+            // clmFront
+            // 
+            this.clmFront.HeaderText = "Front";
+            this.clmFront.Name = "clmFront";
+            // 
+            // clmLeft
+            // 
+            this.clmLeft.HeaderText = "Left";
+            this.clmLeft.Name = "clmLeft";
+            // 
+            // clmBack
+            // 
+            this.clmBack.HeaderText = "Back";
+            this.clmBack.Name = "clmBack";
+            // 
+            // clmRight
+            // 
+            this.clmRight.HeaderText = "Right";
+            this.clmRight.Name = "clmRight";
+            // 
+            // clmCenter
+            // 
+            this.clmCenter.HeaderText = "Center";
+            this.clmCenter.Name = "clmCenter";
+            // 
+            // clmTimePerOneCycle
+            // 
+            this.clmTimePerOneCycle.HeaderText = "Time Per One Cycle";
+            this.clmTimePerOneCycle.Name = "clmTimePerOneCycle";
             // 
             // Form1
             // 
@@ -364,7 +862,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -375,8 +872,13 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.horizontalPanel1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,6 +913,57 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
         private WindowsFormsAero.Button button2;
         private WindowsFormsAero.Button button1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel6;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel5;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel4;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel3;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox15;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel8;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox textBox13;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
+        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.TextBox textBox19;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel10;
+        private System.Windows.Forms.TextBox textBox17;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel9;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel16;
+        private System.Windows.Forms.TextBox textBox24;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel15;
+        private System.Windows.Forms.TextBox textBox23;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel14;
+        private System.Windows.Forms.TextBox textBox22;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel13;
+        private System.Windows.Forms.TextBox textBox21;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel12;
+        private System.Windows.Forms.TextBox textBox20;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel11;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTrimmingCycle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmFront;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmLeft;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmBack;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmRight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCenter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTimePerOneCycle;
     }
 }
 

@@ -17,67 +17,42 @@ namespace OCLSA_Project_Version_01
             InitializeComponent();
         }
 
-        private void display1_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void aeroLinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void labeledDivider1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bottomPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void bottomPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
+        private void groupBox4_Enter(object sender, EventArgs e)
         {
 
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cueTextBox9_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cueTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cueTextBox10_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cueTextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
         {
 
         }
