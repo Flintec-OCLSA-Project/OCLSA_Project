@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\TestMode.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +78,10 @@
     <Compile Include="Migrations\202101050605011_ChangedTypeModel.Designer.cs">
       <DependentUpon>202101050605011_ChangedTypeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101051147355_AddedTestModeToTypeModel.cs" />
+    <Compile Include="Migrations\202101051147355_AddedTestModeToTypeModel.Designer.cs">
+      <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -94,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101050605011_ChangedTypeModel.resx">
       <DependentUpon>202101050605011_ChangedTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101051147355_AddedTestModeToTypeModel.resx">
+      <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

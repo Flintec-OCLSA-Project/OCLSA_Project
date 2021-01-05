@@ -136,6 +136,7 @@ namespace OCLSA_Project_Version_01
                 MessageBox.Show(@"Load Cell is not stable. Please Check Again!!!");
             }
 
+            //Bridge Unbalance Check
             var bridgeUnbalance = lblReading.Text;
             tbBridgeUnbalance.Text = bridgeUnbalance;
 
@@ -151,6 +152,7 @@ namespace OCLSA_Project_Version_01
 
             MessageBox.Show(@"Keep weight on center");
 
+            //Weight Check
             var readingAfterWeight = currentReading + 0.00050;
 
             if (Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)
@@ -158,6 +160,7 @@ namespace OCLSA_Project_Version_01
                 MessageBox.Show(@"Check weight on center...!!!");
             }
 
+            //FSO Check
             var initialFso = lblReading.Text;
             tbInitialFSO.Text = initialFso;
 
@@ -167,12 +170,14 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
+            //Exercise
             MessageBox.Show(@"Give exercise to load cell...");
 
             CountTimer.Start();
             lblWaiting.Text = @"Wait" + @" " + counter.ToString();
 
             //Corner Check
+
         }
 
         private void CountTimer_Tick(object sender, EventArgs e)

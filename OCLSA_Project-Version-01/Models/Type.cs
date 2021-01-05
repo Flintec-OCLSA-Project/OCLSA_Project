@@ -15,6 +15,9 @@ namespace OCLSA_Project_Version_01.Models
         public string Name { get; set; }
 
         [Required]
+        public string TestMode { get; set; }
+
+        [Required]
         public double MaximumCenterReading { get; set; }
 
         public double? FrontCorner { get; set; }
