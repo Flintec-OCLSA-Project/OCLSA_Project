@@ -37,7 +37,7 @@ namespace OCLSA_Project_Version_01
         {
             if (tbSerialNumber.Text == "")
             {
-                MessageBox.Show(@"Please Enter the Serial Number...");
+                ShowMessage(@"Please Enter the Serial Number...");
                 return;
             }
             
@@ -46,7 +46,7 @@ namespace OCLSA_Project_Version_01
 
             if (loadCell == null)
             {
-                MessageBox.Show(@"Load cell not found");
+                ShowMessage(@"Load cell not found");
                 tbSerialNumber.Text = "";
             }
             else
@@ -68,7 +68,7 @@ namespace OCLSA_Project_Version_01
                 //Display default corner readings
 
 
-                MessageBox.Show(@"Press Start to continue...");
+                ShowMessage(@"Press Start to continue...");
 
                 btnStart.Enabled = true;
                 btnStop.Enabled = true;
@@ -97,7 +97,7 @@ namespace OCLSA_Project_Version_01
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                ShowMessage(exception.Message);
             }
 
             initialTimer.Start();
@@ -119,10 +119,18 @@ namespace OCLSA_Project_Version_01
 
         private void WriteCommand(string command)
         {
-            serialPortVT400.WriteLine(command);
+            try
+            { 
+                serialPortVT400.WriteLine(command);
+            }
+            catch (Exception error)
+            { 
+                ShowMessage(error.Message);
+            }
+            
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
             if (tbSerialNumber.TextLength <= 0) return;
 
@@ -133,7 +141,7 @@ namespace OCLSA_Project_Version_01
             else
             {
                 lblStable.Text = @"Not Stable";
-                MessageBox.Show(@"Load Cell is not stable. Please Check Again!!!");
+                ShowMessage(@"Load Cell is not stable. Please Check Again!!!");
             }
 
             //Bridge Unbalance Check
@@ -142,7 +150,7 @@ namespace OCLSA_Project_Version_01
 
             if (Convert.ToDouble(bridgeUnbalance) <= MinimumUnbalanceReading && MaximumUnbalanceReading <= Convert.ToDouble(bridgeUnbalance))
             {
-                MessageBox.Show(@"Initial Bridge Reading is not within the range...!!!");
+                ShowMessage(@"Initial Bridge Reading is not within the range...!!!");
                 return;
             }
 
@@ -150,7 +158,10 @@ namespace OCLSA_Project_Version_01
 
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
-            MessageBox.Show(@"Keep weight on center");
+            ShowMessage(@"Keep weight on center");
+
+            CountTimer.Start();
+            await Task.Delay(10000);
 
             //Weight Check
             var readingAfterWeight = currentReading + 0.00050;
@@ -162,30 +173,114 @@ namespace OCLSA_Project_Version_01
 
             //FSO Check
             var initialFso = lblReading.Text;
-            tbInitialFSO.Text = initialFso;
 
-            if (Convert.ToDouble(initialFso) <= MinimumFsoReading && MaximumFsoReading <= Convert.ToDouble(initialFso))
+            if (Convert.ToDouble(initialFso) <= MinimumFsoReading || MaximumFsoReading <= Convert.ToDouble(initialFso))
             {
-                MessageBox.Show(@"Initial FSO is too high or low...!!!");
+                ShowMessage(@"Initial FSO is too high or low...!!!");
                 return;
             }
 
-            //Exercise
-            MessageBox.Show(@"Give exercise to load cell...");
+            tbInitialFSO.Text = initialFso;
+
+            //Taring the instrument readings
+            WriteCommand("01");
+
+            ShowMessage(@"Move weight to one corner...");
 
             CountTimer.Start();
-            lblWaiting.Text = @"Wait" + @" " + counter.ToString();
+            await Task.Delay(10000);
+
+            //Exercise
+            ShowMessage(@"Give exercise to load cell...");
+
+            CountTimer.Start();
+            await Task.Delay(10000);
+
+            ShowMessage(@"Move weight to center...");
+
+            CountTimer.Start();
+            await Task.Delay(10000);
+
+            WriteCommand("01");
+
+            ShowMessage(@"Move weight to one corner...");
+
+            CountTimer.Start();
+            await Task.Delay(10000);
 
             //Corner Check
 
+            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+
+            if (loadCell == null) return;
+
+            var testModeInDb = loadCell.Type.TestMode;
+
+            switch (testModeInDb)
+            {
+                case TestMode.CornerTest:
+                {
+                    //Message - Rotate armature to left position
+                    //timer-5s
+                    //Save reading to a variable and display - inside cell
+
+                    //Message - Rotate armature to back position
+                    //timer-5s
+                    //Save reading to a variable and display - inside cell
+
+                    //Message - Rotate armature to right position
+                    //timer-5s
+                    //Save reading to a variable and display - inside cell
+
+                    //Message - Rotate armature to front position
+                    //timer-5s
+                    //Save reading to a variable and display - inside cell
+
+
+                    //Message - Move weight to center
+                    //timer-5s
+                    //Save reading to a variable and display - inside cell
+
+                    //Check whether corner readings have excessive values - reject or proceed
+
+                    //
+
+                    break;
+                }
+                    
+
+                case TestMode.DiagonalTest:
+                    break;
+
+                case TestMode.FullTest:
+                    break;
+
+                default:
+                    ShowMessage(@"Error in selecting test mode...");
+                    break;
+            }
+
+        }
+
+        private static void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
         }
 
         private void CountTimer_Tick(object sender, EventArgs e)
         {
             counter--;
-            if (counter == 0) CountTimer.Stop();
 
-            lblWaiting.Text = @"Wait" + @" " + counter.ToString();
+            if (counter < 0)
+            {
+                CountTimer.Stop();
+                lblWaiting.Text = "";
+                counter = 10;
+            }
+            else
+            {
+                lblWaiting.Text = @"Wait" + @" " + counter.ToString();
+            }
         }
     }
 }
