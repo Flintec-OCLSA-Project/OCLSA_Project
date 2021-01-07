@@ -241,7 +241,7 @@ namespace OCLSA_Project_Version_01
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(3));
 
-                        initialCornerReadings.Add(label1.Text);
+                        initialCornerReadings.Add(lblReading.Text);
                     }
 
                     tbInitialLeftCornerReading.Text = initialCornerReadings[0];
@@ -304,7 +304,7 @@ namespace OCLSA_Project_Version_01
         {
             _fiveSecondsCount--;
 
-            if (_tenSecondsCount < 0)
+            if (_fiveSecondsCount < 0)
             {
                 FiveSecondsCounter.Stop();
                 lblWaiting.Text = "";
