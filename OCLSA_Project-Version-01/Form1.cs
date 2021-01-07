@@ -24,7 +24,8 @@ namespace OCLSA_Project_Version_01
         public double MaximumFsoReading { get; set; }
         public double MinimumFsoReading { get; set; }
 
-        private int counter = 10;
+        private int _tenSecondsCount = 10;
+        private int _fiveSecondsCount = 5;
 
         public Form1()
         {
@@ -33,14 +34,42 @@ namespace OCLSA_Project_Version_01
             _context = new ApplicationDbContext();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
+            btnStart.Enabled = false;
+            btnStop.Enabled = false;
+
+            try
+            {
+                if (serialPortVT400.IsOpen)
+                {
+                    serialPortVT400.Close();
+                }
+                else
+                {
+                    serialPortVT400.Open();
+                    serialPortVT400.DiscardInBuffer();
+                    serialPortVT400.DiscardOutBuffer();
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowMessage(exception.Message);
+            }
+
+            initialTimer.Start();
+        }
+
+        private void tbSerialNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != Convert.ToChar(Keys.Return)) return;
+
             if (tbSerialNumber.Text == "")
             {
                 ShowMessage(@"Please Enter the Serial Number...");
                 return;
             }
-            
+
             var enteredId = tbSerialNumber.Text;
             var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == enteredId);
 
@@ -73,34 +102,6 @@ namespace OCLSA_Project_Version_01
                 btnStart.Enabled = true;
                 btnStop.Enabled = true;
             }
-
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            btnStart.Enabled = false;
-            btnStop.Enabled = false;
-
-            try
-            {
-                if (serialPortVT400.IsOpen)
-                {
-                    serialPortVT400.Close();
-                }
-                else
-                {
-                    serialPortVT400.Open();
-                    serialPortVT400.DiscardInBuffer();
-                    serialPortVT400.DiscardOutBuffer();
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowMessage(exception.Message);
-            }
-
-            initialTimer.Start();
         }
 
         private void initialTimer_Tick(object sender, EventArgs e)
@@ -127,7 +128,6 @@ namespace OCLSA_Project_Version_01
             { 
                 ShowMessage(error.Message);
             }
-            
         }
 
         private async void btnStart_Click(object sender, EventArgs e)
@@ -160,15 +160,15 @@ namespace OCLSA_Project_Version_01
 
             ShowMessage(@"Keep weight on center");
 
-            CountTimer.Start();
-            await Task.Delay(10000);
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
 
             //Weight Check
             var readingAfterWeight = currentReading + 0.00050;
 
             if (Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)
             {
-                MessageBox.Show(@"Check weight on center...!!!");
+                ShowMessage(@"Check weight on center...!!!");
             }
 
             //FSO Check
@@ -187,26 +187,26 @@ namespace OCLSA_Project_Version_01
 
             ShowMessage(@"Move weight to one corner...");
 
-            CountTimer.Start();
-            await Task.Delay(10000);
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
 
             //Exercise
             ShowMessage(@"Give exercise to load cell...");
 
-            CountTimer.Start();
-            await Task.Delay(10000);
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
 
             ShowMessage(@"Move weight to center...");
 
-            CountTimer.Start();
-            await Task.Delay(10000);
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
 
             WriteCommand("01");
 
             ShowMessage(@"Move weight to one corner...");
 
-            CountTimer.Start();
-            await Task.Delay(10000);
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
 
             //Corner Check
 
@@ -220,30 +220,47 @@ namespace OCLSA_Project_Version_01
             {
                 case TestMode.CornerTest:
                 {
-                    //Message - Rotate armature to left position
-                    //timer-5s
-                    //Save reading to a variable and display - inside cell
+                    //Initial corner testing
 
-                    //Message - Rotate armature to back position
-                    //timer-5s
-                    //Save reading to a variable and display - inside cell
+                    /*ShowMessage("Rotate armature to left position...");
+                    FiveSecondsCounter.Start();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
 
-                    //Message - Rotate armature to right position
-                    //timer-5s
-                    //Save reading to a variable and display - inside cell
+                    var initialLeftCornerReading = lblReading.Text;
 
-                    //Message - Rotate armature to front position
-                    //timer-5s
-                    //Save reading to a variable and display - inside cell
+                    tbInitialLeftCornerReading.Text = initialLeftCornerReading;*/
+                    
+                    var cornerList = new List<string> { "Left", "Back", "Right", "Front"};
 
+                    var initialCornerReadings = new List<string>();
 
-                    //Message - Move weight to center
-                    //timer-5s
-                    //Save reading to a variable and display - inside cell
+                    foreach (var corner in cornerList)
+                    {
+                        MessageBox.Show($@"Rotate armature to {corner} position...");
+
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(3));
+
+                        initialCornerReadings.Add(label1.Text);
+                    }
+
+                    tbInitialLeftCornerReading.Text = initialCornerReadings[0];
+                    tbInitialBackCornerReading.Text = initialCornerReadings[1];
+                    tbInitialRightCornerReading.Text = initialCornerReadings[2];
+                    tbInitialFrontCornerReading.Text = initialCornerReadings[3];
+
+                    //Getting initial center reading
+                    ShowMessage("Move weight to center...");
+
+                    FiveSecondsCounter.Start();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
+
+                    var initialCenterReading = lblReading.Text;
+
+                    tbInitialCenterReading.Text = initialCenterReading;
 
                     //Check whether corner readings have excessive values - reject or proceed
-
-                    //
+                    
 
                     break;
                 }
@@ -267,19 +284,35 @@ namespace OCLSA_Project_Version_01
             MessageBox.Show(message);
         }
 
-        private void CountTimer_Tick(object sender, EventArgs e)
+        private void TenSecondsCounter_Tick(object sender, EventArgs e)
         {
-            counter--;
+            _tenSecondsCount--;
 
-            if (counter < 0)
+            if (_tenSecondsCount < 0)
             {
-                CountTimer.Stop();
+                TenSecondsCounter.Stop();
                 lblWaiting.Text = "";
-                counter = 10;
+                _tenSecondsCount = 10;
             }
             else
             {
-                lblWaiting.Text = @"Wait" + @" " + counter.ToString();
+                lblWaiting.Text = @"Wait" + @" " + _tenSecondsCount.ToString();
+            }
+        }
+
+        private void FiveSecondsCounter_Tick(object sender, EventArgs e)
+        {
+            _fiveSecondsCount--;
+
+            if (_tenSecondsCount < 0)
+            {
+                FiveSecondsCounter.Stop();
+                lblWaiting.Text = "";
+                _fiveSecondsCount = 5;
+            }
+            else
+            {
+                lblWaiting.Text = @"Wait" + @" " + _fiveSecondsCount.ToString();
             }
         }
     }
