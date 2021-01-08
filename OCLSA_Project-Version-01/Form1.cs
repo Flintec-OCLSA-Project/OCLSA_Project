@@ -110,7 +110,7 @@ namespace OCLSA_Project_Version_01
 
             Thread.Sleep(100);
 
-            string dataReading = Convert.ToString(serialPortVT400.ReadExisting());
+            var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
 
             if (dataReading.Split('P').Length > 1)
             {
@@ -209,7 +209,6 @@ namespace OCLSA_Project_Version_01
             await Task.Delay(TimeSpan.FromSeconds(10));
 
             //Corner Check
-
             var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
 
             if (loadCell == null) return;
@@ -221,46 +220,34 @@ namespace OCLSA_Project_Version_01
                 case TestMode.CornerTest:
                 {
                     //Initial corner testing
-
-                    /*ShowMessage("Rotate armature to left position...");
-                    FiveSecondsCounter.Start();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-
-                    var initialLeftCornerReading = lblReading.Text;
-
-                    tbInitialLeftCornerReading.Text = initialLeftCornerReading;*/
-                    
-                    var cornerList = new List<string> { "Left", "Back", "Right", "Front"};
-
-                    var initialCornerReadings = new List<string>();
-
-                    foreach (var corner in cornerList)
-                    {
-                        MessageBox.Show($@"Rotate armature to {corner} position...");
-
-                        FiveSecondsCounter.Start();
-                        await Task.Delay(TimeSpan.FromSeconds(3));
-
-                        initialCornerReadings.Add(lblReading.Text);
-                    }
-
-                    tbInitialLeftCornerReading.Text = initialCornerReadings[0];
-                    tbInitialBackCornerReading.Text = initialCornerReadings[1];
-                    tbInitialRightCornerReading.Text = initialCornerReadings[2];
-                    tbInitialFrontCornerReading.Text = initialCornerReadings[3];
+                    await GetInitialCornerReadings("Left", tbInitialLeftCornerReading);
+                    await GetInitialCornerReadings("Back", tbInitialBackCornerReading);
+                    await GetInitialCornerReadings("Right", tbInitialRightCornerReading);
+                    await GetInitialCornerReadings("Front", tbInitialFrontCornerReading);
 
                     //Getting initial center reading
-                    ShowMessage("Move weight to center...");
-
-                    FiveSecondsCounter.Start();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-
-                    var initialCenterReading = lblReading.Text;
-
-                    tbInitialCenterReading.Text = initialCenterReading;
+                    await GetInitialCornerReadings("Center", tbInitialCenterReading, true);
 
                     //Check whether corner readings have excessive values - reject or proceed
-                    
+
+                    //Display message - To remove the weight
+                    ShowMessage(@"Please remove the weight...");
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+
+                    //Compare the values that got from initial readings and select the lowest negative value with its corner name
+                    var minCorner = InitialCornerReadings
+                                                            .Aggregate((l, r) => l.Value < r.Value ? l : r);
+
+                    var minCornerName = minCorner.Key;
+                    var minCornerValue = minCorner.Value;
+
+                    //Message = Direct to trim with the corner name and corner image
+                    ShowMessage($@"Trim the {minCornerName} corner. Look Image...");
+
+                    //Show cornerImage
+                    ShowTrimPosition(minCornerName);
+
+
 
                     break;
                 }
@@ -296,7 +283,7 @@ namespace OCLSA_Project_Version_01
             }
             else
             {
-                lblWaiting.Text = @"Wait" + @" " + _tenSecondsCount.ToString();
+                lblWaiting.Text = @"Wait" + @" " + _tenSecondsCount;
             }
         }
 
@@ -312,7 +299,57 @@ namespace OCLSA_Project_Version_01
             }
             else
             {
-                lblWaiting.Text = @"Wait" + @" " + _fiveSecondsCount.ToString();
+                lblWaiting.Text = @"Wait" + @" " + _fiveSecondsCount;
+            }
+        }
+
+        public string InitialCenterReading { get; set; }
+        public Dictionary<string, double> InitialCornerReadings { get; set; } = new Dictionary<string, double>();
+
+        private async Task GetInitialCornerReadings(string corner, Control textBox, bool isCenter = false)
+        {
+            ShowMessage(
+                isCenter == false ? $@"Rotate armature to {corner} position..." : $@"Move weight to {corner}...");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            var currentCornerReading = lblReading.Text;
+
+            if (corner == "Center")
+            {
+                InitialCenterReading = currentCornerReading;
+            }
+            else
+            {
+                InitialCornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
+            }
+
+            textBox.Text = currentCornerReading;
+        }
+
+        private void ShowTrimPosition(string positionName)
+        {
+            switch (positionName)
+            {
+                case "Left":
+                    pbLeft.Show();
+                    break;
+
+                case "Back":
+                    pbBack.Show();
+                    break;
+
+                case "Right":
+                    pbRight.Show();
+                    break;
+
+                case "Front":
+                    pbFront.Show();
+                    break;
+
+                default:
+                    break;
             }
         }
     }

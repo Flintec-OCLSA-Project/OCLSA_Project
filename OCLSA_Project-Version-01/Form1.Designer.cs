@@ -83,11 +83,11 @@
             this.tbBridgeUnbalance = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.PictureBox_none = new System.Windows.Forms.PictureBox();
-            this.PictureBox_back = new System.Windows.Forms.PictureBox();
-            this.PictureBox_front = new System.Windows.Forms.PictureBox();
-            this.PictureBox_left_R = new System.Windows.Forms.PictureBox();
-            this.PictureBox_right = new System.Windows.Forms.PictureBox();
+            this.pbLoadCell = new System.Windows.Forms.PictureBox();
+            this.pbBack = new System.Windows.Forms.PictureBox();
+            this.pbFront = new System.Windows.Forms.PictureBox();
+            this.pbLeft = new System.Windows.Forms.PictureBox();
+            this.pbRight = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnClear = new WindowsFormsAero.Button();
             this.btnSearch = new WindowsFormsAero.Button();
@@ -152,11 +152,11 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_none)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_back)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_front)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_left_R)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_right)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -622,11 +622,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.PictureBox_none);
-            this.groupBox2.Controls.Add(this.PictureBox_back);
-            this.groupBox2.Controls.Add(this.PictureBox_front);
-            this.groupBox2.Controls.Add(this.PictureBox_left_R);
-            this.groupBox2.Controls.Add(this.PictureBox_right);
+            this.groupBox2.Controls.Add(this.pbFront);
+            this.groupBox2.Controls.Add(this.pbLoadCell);
+            this.groupBox2.Controls.Add(this.pbBack);
+            this.groupBox2.Controls.Add(this.pbLeft);
+            this.groupBox2.Controls.Add(this.pbRight);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(352, 182);
             this.groupBox2.Name = "groupBox2";
@@ -635,59 +635,60 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graphical Display";
             // 
-            // PictureBox_none
+            // pbLoadCell
             // 
-            this.PictureBox_none.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PictureBox_none.BackgroundImage")));
-            this.PictureBox_none.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PictureBox_none.Location = new System.Drawing.Point(93, 50);
-            this.PictureBox_none.Name = "PictureBox_none";
-            this.PictureBox_none.Size = new System.Drawing.Size(226, 168);
-            this.PictureBox_none.TabIndex = 48;
-            this.PictureBox_none.TabStop = false;
+            this.pbLoadCell.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLoadCell.BackgroundImage")));
+            this.pbLoadCell.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbLoadCell.Location = new System.Drawing.Point(6, 17);
+            this.pbLoadCell.Name = "pbLoadCell";
+            this.pbLoadCell.Size = new System.Drawing.Size(401, 245);
+            this.pbLoadCell.TabIndex = 48;
+            this.pbLoadCell.TabStop = false;
+            this.pbLoadCell.Visible = false;
             // 
-            // PictureBox_back
+            // pbBack
             // 
-            this.PictureBox_back.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PictureBox_back.BackgroundImage")));
-            this.PictureBox_back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PictureBox_back.Location = new System.Drawing.Point(6, 17);
-            this.PictureBox_back.Name = "PictureBox_back";
-            this.PictureBox_back.Size = new System.Drawing.Size(196, 127);
-            this.PictureBox_back.TabIndex = 50;
-            this.PictureBox_back.TabStop = false;
-            this.PictureBox_back.Visible = false;
+            this.pbBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbBack.BackgroundImage")));
+            this.pbBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbBack.Location = new System.Drawing.Point(6, 17);
+            this.pbBack.Name = "pbBack";
+            this.pbBack.Size = new System.Drawing.Size(401, 245);
+            this.pbBack.TabIndex = 50;
+            this.pbBack.TabStop = false;
+            this.pbBack.Visible = false;
             // 
-            // PictureBox_front
+            // pbFront
             // 
-            this.PictureBox_front.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PictureBox_front.BackgroundImage")));
-            this.PictureBox_front.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PictureBox_front.Location = new System.Drawing.Point(205, 144);
-            this.PictureBox_front.Name = "PictureBox_front";
-            this.PictureBox_front.Size = new System.Drawing.Size(207, 124);
-            this.PictureBox_front.TabIndex = 49;
-            this.PictureBox_front.TabStop = false;
-            this.PictureBox_front.Visible = false;
+            this.pbFront.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbFront.BackgroundImage")));
+            this.pbFront.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbFront.Location = new System.Drawing.Point(6, 17);
+            this.pbFront.Name = "pbFront";
+            this.pbFront.Size = new System.Drawing.Size(401, 245);
+            this.pbFront.TabIndex = 49;
+            this.pbFront.TabStop = false;
+            this.pbFront.Visible = false;
             // 
-            // PictureBox_left_R
+            // pbLeft
             // 
-            this.PictureBox_left_R.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PictureBox_left_R.BackgroundImage")));
-            this.PictureBox_left_R.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PictureBox_left_R.Location = new System.Drawing.Point(205, 17);
-            this.PictureBox_left_R.Name = "PictureBox_left_R";
-            this.PictureBox_left_R.Size = new System.Drawing.Size(207, 127);
-            this.PictureBox_left_R.TabIndex = 47;
-            this.PictureBox_left_R.TabStop = false;
-            this.PictureBox_left_R.Visible = false;
+            this.pbLeft.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLeft.BackgroundImage")));
+            this.pbLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbLeft.Location = new System.Drawing.Point(6, 17);
+            this.pbLeft.Name = "pbLeft";
+            this.pbLeft.Size = new System.Drawing.Size(401, 245);
+            this.pbLeft.TabIndex = 47;
+            this.pbLeft.TabStop = false;
+            this.pbLeft.Visible = false;
             // 
-            // PictureBox_right
+            // pbRight
             // 
-            this.PictureBox_right.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PictureBox_right.BackgroundImage")));
-            this.PictureBox_right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PictureBox_right.Location = new System.Drawing.Point(6, 144);
-            this.PictureBox_right.Name = "PictureBox_right";
-            this.PictureBox_right.Size = new System.Drawing.Size(196, 124);
-            this.PictureBox_right.TabIndex = 45;
-            this.PictureBox_right.TabStop = false;
-            this.PictureBox_right.Visible = false;
+            this.pbRight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRight.BackgroundImage")));
+            this.pbRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbRight.Location = new System.Drawing.Point(6, 17);
+            this.pbRight.Name = "pbRight";
+            this.pbRight.Size = new System.Drawing.Size(401, 245);
+            this.pbRight.TabIndex = 45;
+            this.pbRight.TabStop = false;
+            this.pbRight.Visible = false;
             // 
             // groupBox1
             // 
@@ -1344,11 +1345,11 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_none)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_back)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_front)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_left_R)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_right)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1421,11 +1422,11 @@
         private System.Windows.Forms.TextBox tbBridgeUnbalance;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel11;
         private System.Windows.Forms.GroupBox groupBox2;
-        internal System.Windows.Forms.PictureBox PictureBox_none;
-        internal System.Windows.Forms.PictureBox PictureBox_back;
-        internal System.Windows.Forms.PictureBox PictureBox_front;
-        internal System.Windows.Forms.PictureBox PictureBox_left_R;
-        internal System.Windows.Forms.PictureBox PictureBox_right;
+        internal System.Windows.Forms.PictureBox pbLoadCell;
+        internal System.Windows.Forms.PictureBox pbBack;
+        internal System.Windows.Forms.PictureBox pbFront;
+        internal System.Windows.Forms.PictureBox pbLeft;
+        internal System.Windows.Forms.PictureBox pbRight;
         private System.Windows.Forms.GroupBox groupBox1;
         private WindowsFormsAero.Button btnClear;
         private WindowsFormsAero.Button btnSearch;
