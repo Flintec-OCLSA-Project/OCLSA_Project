@@ -18,28 +18,39 @@ namespace OCLSA_Project_Version_01.Models
         public string TestMode { get; set; }
 
         [Required]
-        public double MaximumCenterReading { get; set; }
+        public double MaximumCenterValue { get; set; }
 
-        public double? FrontCorner { get; set; }
-        public double? BackCorner{ get; set; }
-        public double? LeftCorner{ get; set; }
-        public double? RightCorner{ get; set; }
-        public double? DiagonalFrontRightCorner{ get; set; }
-        public double? DiagonalFrontLeftCorner { get; set; }
-        public double? DiagonalBackRightCorner { get; set; }
-        public double? DiagonalBackLeftCorner  { get; set; }
+        public double? FrontCornerTrimValue { get; set; }
+        public double? BackCornerTrimValue { get; set; }
+        public double? LeftCornerTrimValue { get; set; }
+        public double? RightCornerTrimValue { get; set; }
+        public double? FrontRightCornerTrimValue { get; set; }
+        public double? FrontLeftCornerTrimValue { get; set; }
+        public double? BackRightCornerTrimValue { get; set; }
+        public double? BackLeftCornerTrimValue { get; set; }
 
-        [Required]
-        public double MaximumUnbalanceReading { get; set; }
-
-        [Required]
-        public double MinimumUnbalanceReading { get; set; }
+        public double? CornerTrimValue { get; set; }
 
         [Required]
-        public double MaximumFsoReading { get; set; }
+        public double ExcessiveCornerValue { get; set; }
 
         [Required]
-        public double MinimumFsoReading { get; set; }
+        public double LeftRightCornerDifference { get; set; }
+
+        [Required]
+        public double FrontBackCornerDifference { get; set; }
+
+        [Required]
+        public double MaximumUnbalanceValue { get; set; }
+
+        [Required]
+        public double MinimumUnbalanceValue { get; set; }
+
+        [Required]
+        public double MaximumFsoValue { get; set; }
+
+        [Required]
+        public double MinimumFsoValue { get; set; }
 
     }
 }

@@ -23,6 +23,16 @@ namespace OCLSA_Project_Version_01
         public double MinimumUnbalanceReading { get; set; }
         public double MaximumFsoReading { get; set; }
         public double MinimumFsoReading { get; set; }
+        public double CornerTrimValue { get; set; }
+
+        public double LeftCornerTrimValue { get; set; }
+        public double BackCornerTrimValue { get; set; }
+        public double RightCornerTrimValue { get; set; }
+        public double FrontCornerTrimValue { get; set; }
+        public double LeftFrontCornerTrimValue { get; set; }
+        public double LeftBackCornerTrimValue { get; set; }
+        public double RightFrontCornerTrimValue { get; set; }
+        public double RightBackCornerTrimValue { get; set; }
 
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
@@ -76,32 +86,62 @@ namespace OCLSA_Project_Version_01
             if (loadCell == null)
             {
                 ShowMessage(@"Load cell not found");
-                tbSerialNumber.Text = "";
+                tbSerialNumber.Clear();
+                return;
+            }
+            
+            if (loadCell.Type.CornerTrimValue != null)
+            {
+                CornerTrimValue = (double) loadCell.Type.CornerTrimValue;
+
+                var trimCornerLabels = new List<Control> { lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner };
+
+                foreach (var cornerLabel in trimCornerLabels)
+                {
+                    cornerLabel.Text = CornerTrimValue.ToString(CultureInfo.InvariantCulture);
+                }
+
             }
             else
             {
-                MaximumCenterReading = loadCell.Type.MaximumCenterReading;
-                MaximumUnbalanceReading = loadCell.Type.MaximumUnbalanceReading;
-                MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceReading;
-                MaximumFsoReading = loadCell.Type.MaximumFsoReading;
-                MinimumFsoReading = loadCell.Type.MinimumFsoReading;
+                if (loadCell.Type.LeftCornerTrimValue != null)
+                    LeftCornerTrimValue = (double) loadCell.Type.LeftCornerTrimValue;
 
-                //Get other default corner readings
+                if (loadCell.Type.BackCornerTrimValue != null)
+                    BackCornerTrimValue = (double) loadCell.Type.BackCornerTrimValue;
 
-                lblMaximumCenter.Text = MaximumCenterReading.ToString(CultureInfo.InvariantCulture);
-                lblMaximumUnbalance.Text = MaximumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
-                lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
-                lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
-                lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
+                if (loadCell.Type.RightCornerTrimValue != null)
+                    RightCornerTrimValue = (double) loadCell.Type.RightCornerTrimValue;
 
-                //Display default corner readings
+                if (loadCell.Type.FrontCornerTrimValue != null)
+                    FrontCornerTrimValue = (double) loadCell.Type.FrontCornerTrimValue;
 
+                lblLeftCorner.Text = LeftCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+                lblBackCorner.Text = BackCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+                lblRightCorner.Text = RightCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+                lblFrontCorner.Text = FrontCornerTrimValue.ToString(CultureInfo.CurrentCulture);
 
-                ShowMessage(@"Press Start to continue...");
-
-                btnStart.Enabled = true;
-                btnStop.Enabled = true;
             }
+
+            MaximumCenterReading = loadCell.Type.MaximumCenterValue;
+            MaximumUnbalanceReading = loadCell.Type.MaximumUnbalanceValue;
+            MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
+            MaximumFsoReading = loadCell.Type.MaximumFsoValue;
+            MinimumFsoReading = loadCell.Type.MinimumFsoValue;
+
+            lblMaximumCenter.Text = MaximumCenterReading.ToString(CultureInfo.InvariantCulture);
+            lblMaximumUnbalance.Text = MaximumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
+            lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
+            lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
+            lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
+
+            tbSerialNumber.ReadOnly = true;
+
+            ShowMessage(@"Press Start to continue...");
+
+            btnStart.Enabled = true;
+            btnStop.Enabled = true;
+            
         }
 
         private void initialTimer_Tick(object sender, EventArgs e)
@@ -115,6 +155,11 @@ namespace OCLSA_Project_Version_01
             if (dataReading.Split('P').Length > 1)
             {
                 lblReading.Text = dataReading.Split('P')[1];
+            }
+
+            if (dataReading.Split('T').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('T')[1];
             }
         }
 
@@ -142,6 +187,7 @@ namespace OCLSA_Project_Version_01
             {
                 lblStable.Text = @"Not Stable";
                 ShowMessage(@"Load Cell is not stable. Please Check Again!!!");
+                return;
             }
 
             //Bridge Unbalance Check
@@ -229,6 +275,11 @@ namespace OCLSA_Project_Version_01
                     await GetInitialCornerReadings("Center", tbInitialCenterReading, true);
 
                     //Check whether corner readings have excessive values - reject or proceed
+                    if (InitialCornerReadings.Any(initialCornerReading => loadCell.Type.ExcessiveCornerValue < initialCornerReading.Value))
+                    {
+                        ShowMessage(@"Load Cell has excessive corners. Load Cell is rejected...");
+                        return;
+                    }
 
                     //Display message - To remove the weight
                     ShowMessage(@"Please remove the weight...");
@@ -247,6 +298,8 @@ namespace OCLSA_Project_Version_01
                     //Show cornerImage
                     ShowTrimPosition(minCornerName);
 
+                    //Trim corners until success
+                    
 
 
                     break;
@@ -283,7 +336,7 @@ namespace OCLSA_Project_Version_01
             }
             else
             {
-                lblWaiting.Text = @"Wait" + @" " + _tenSecondsCount;
+                lblWaiting.Text = $@"Wait {_tenSecondsCount}";
             }
         }
 
@@ -299,7 +352,7 @@ namespace OCLSA_Project_Version_01
             }
             else
             {
-                lblWaiting.Text = @"Wait" + @" " + _fiveSecondsCount;
+                lblWaiting.Text = $@"Wait {_fiveSecondsCount}";
             }
         }
 

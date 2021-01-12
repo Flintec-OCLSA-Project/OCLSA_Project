@@ -81,6 +81,18 @@
     <Compile Include="Migrations\202101051147355_AddedTestModeToTypeModel.Designer.cs">
       <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.cs" />
+    <Compile Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.Designer.cs">
+      <DependentUpon>202101120533529_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.cs" />
+    <Compile Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.Designer.cs">
+      <DependentUpon>202101120547525_ChangedNewFieldsInTypeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.cs" />
+    <Compile Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.Designer.cs">
+      <DependentUpon>202101120703201_FixedSpellingMistakeInTypeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -102,6 +114,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101051147355_AddedTestModeToTypeModel.resx">
       <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.resx">
+      <DependentUpon>202101120533529_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.resx">
+      <DependentUpon>202101120547525_ChangedNewFieldsInTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.resx">
+      <DependentUpon>202101120703201_FixedSpellingMistakeInTypeModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
