@@ -65,6 +65,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MasterDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterDataForm.Designer.cs">
+      <DependentUpon>MasterDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202101050454133_AddedInitialModel.cs" />
     <Compile Include="Migrations\202101050454133_AddedInitialModel.Designer.cs">
       <DependentUpon>202101050454133_AddedInitialModel.cs</DependentUpon>
@@ -102,6 +108,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterDataForm.resx">
+      <DependentUpon>MasterDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101050454133_AddedInitialModel.resx">
       <DependentUpon>202101050454133_AddedInitialModel.cs</DependentUpon>
