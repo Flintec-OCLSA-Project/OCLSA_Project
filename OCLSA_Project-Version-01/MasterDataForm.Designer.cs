@@ -210,6 +210,7 @@ namespace OCLSA_Project_Version_01
             this.cbLoadCellType.Name = "cbLoadCellType";
             this.cbLoadCellType.Size = new System.Drawing.Size(121, 23);
             this.cbLoadCellType.TabIndex = 26;
+            this.cbLoadCellType.SelectedValueChanged += new System.EventHandler(this.cbLoadCellType_SelectedValueChanged);
             // 
             // aeroLinkLabel1
             // 
