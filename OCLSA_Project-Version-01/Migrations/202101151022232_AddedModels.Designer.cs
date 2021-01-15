@@ -7,13 +7,13 @@ namespace OCLSA_Project_Version_01.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedNewFieldsToLoadCell : IMigrationMetadata
+    public sealed partial class AddedModels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedNewFieldsToLoadCell));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedModels));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101050522543_AddedNewFieldsToLoadCell"; }
+            get { return "202101151022232_AddedModels"; }
         }
         
         string IMigrationMetadata.Source

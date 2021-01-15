@@ -71,33 +71,9 @@
     <Compile Include="MasterDataForm.Designer.cs">
       <DependentUpon>MasterDataForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101050454133_AddedInitialModel.cs" />
-    <Compile Include="Migrations\202101050454133_AddedInitialModel.Designer.cs">
-      <DependentUpon>202101050454133_AddedInitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101050522543_AddedNewFieldsToLoadCell.cs" />
-    <Compile Include="Migrations\202101050522543_AddedNewFieldsToLoadCell.Designer.cs">
-      <DependentUpon>202101050522543_AddedNewFieldsToLoadCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101050605011_ChangedTypeModel.cs" />
-    <Compile Include="Migrations\202101050605011_ChangedTypeModel.Designer.cs">
-      <DependentUpon>202101050605011_ChangedTypeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101051147355_AddedTestModeToTypeModel.cs" />
-    <Compile Include="Migrations\202101051147355_AddedTestModeToTypeModel.Designer.cs">
-      <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.cs" />
-    <Compile Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.Designer.cs">
-      <DependentUpon>202101120533529_AddedNewFieldsToTypeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.cs" />
-    <Compile Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.Designer.cs">
-      <DependentUpon>202101120547525_ChangedNewFieldsInTypeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.cs" />
-    <Compile Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.Designer.cs">
-      <DependentUpon>202101120703201_FixedSpellingMistakeInTypeModel.cs</DependentUpon>
+    <Compile Include="Migrations\202101151022232_AddedModels.cs" />
+    <Compile Include="Migrations\202101151022232_AddedModels.Designer.cs">
+      <DependentUpon>202101151022232_AddedModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -112,26 +88,8 @@
     <EmbeddedResource Include="MasterDataForm.resx">
       <DependentUpon>MasterDataForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101050454133_AddedInitialModel.resx">
-      <DependentUpon>202101050454133_AddedInitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101050522543_AddedNewFieldsToLoadCell.resx">
-      <DependentUpon>202101050522543_AddedNewFieldsToLoadCell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101050605011_ChangedTypeModel.resx">
-      <DependentUpon>202101050605011_ChangedTypeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101051147355_AddedTestModeToTypeModel.resx">
-      <DependentUpon>202101051147355_AddedTestModeToTypeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101120533529_AddedNewFieldsToTypeModel.resx">
-      <DependentUpon>202101120533529_AddedNewFieldsToTypeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101120547525_ChangedNewFieldsInTypeModel.resx">
-      <DependentUpon>202101120547525_ChangedNewFieldsInTypeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101120703201_FixedSpellingMistakeInTypeModel.resx">
-      <DependentUpon>202101120703201_FixedSpellingMistakeInTypeModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101151022232_AddedModels.resx">
+      <DependentUpon>202101151022232_AddedModels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

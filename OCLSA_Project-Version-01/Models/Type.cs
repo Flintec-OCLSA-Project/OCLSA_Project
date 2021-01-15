@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,8 @@ namespace OCLSA_Project_Version_01.Models
 {
     public class Type
     {
-        public byte Id { get; set; }
-
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Name { get; set; }
 
         [Required]
@@ -28,7 +28,6 @@ namespace OCLSA_Project_Version_01.Models
         public double? FrontLeftCornerTrimValue { get; set; }
         public double? BackRightCornerTrimValue { get; set; }
         public double? BackLeftCornerTrimValue { get; set; }
-
         public double? CornerTrimValue { get; set; }
 
         [Required]

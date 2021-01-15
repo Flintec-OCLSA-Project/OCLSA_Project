@@ -17,11 +17,5 @@ E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.SqlServer.dll
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.xml
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.SqlServer.xml
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedInitialModel.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedNewFieldsToLoadCell.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.ChangedTypeModel.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedTestModeToTypeModel.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedNewFieldsToTypeModel.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.ChangedNewFieldsInTypeModel.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.FixedSpellingMistakeInTypeModel.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.MasterDataForm.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedModels.resources
