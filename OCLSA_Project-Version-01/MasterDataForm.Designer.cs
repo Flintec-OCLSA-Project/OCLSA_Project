@@ -38,12 +38,9 @@ namespace OCLSA_Project_Version_01
             this.tbMinimumFso = new WindowsFormsAero.TextBox();
             this.tbMaximumFso = new WindowsFormsAero.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cbLoadCellType = new WindowsFormsAero.ComboBox();
             this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
-            this.tbSerialNumber = new WindowsFormsAero.TextBox();
+            this.tbLoadCellType = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
-            this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
-            this.cbTestMode = new WindowsFormsAero.ComboBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.aeroLinkLabel7 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel6 = new AeroSuite.Controls.AeroLinkLabel();
@@ -89,6 +86,7 @@ namespace OCLSA_Project_Version_01
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbTestMode = new WindowsFormsAero.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -124,9 +122,9 @@ namespace OCLSA_Project_Version_01
             this.groupBox9.Controls.Add(this.aeroLinkLabel5);
             this.groupBox9.Controls.Add(this.tbMinimumFso);
             this.groupBox9.Controls.Add(this.tbMaximumFso);
-            this.groupBox9.Location = new System.Drawing.Point(18, 366);
+            this.groupBox9.Location = new System.Drawing.Point(18, 357);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(332, 146);
+            this.groupBox9.Size = new System.Drawing.Size(332, 155);
             this.groupBox9.TabIndex = 37;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Load Cell FSO Details";
@@ -134,7 +132,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel22
             // 
             this.aeroLinkLabel22.AutoSize = true;
-            this.aeroLinkLabel22.Location = new System.Drawing.Point(15, 107);
+            this.aeroLinkLabel22.Location = new System.Drawing.Point(15, 110);
             this.aeroLinkLabel22.Name = "aeroLinkLabel22";
             this.aeroLinkLabel22.Size = new System.Drawing.Size(131, 15);
             this.aeroLinkLabel22.TabIndex = 26;
@@ -143,7 +141,7 @@ namespace OCLSA_Project_Version_01
             // 
             // tbMaximumCenter
             // 
-            this.tbMaximumCenter.Location = new System.Drawing.Point(179, 104);
+            this.tbMaximumCenter.Location = new System.Drawing.Point(179, 107);
             this.tbMaximumCenter.Name = "tbMaximumCenter";
             this.tbMaximumCenter.Size = new System.Drawing.Size(124, 22);
             this.tbMaximumCenter.TabIndex = 27;
@@ -151,7 +149,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel4
             // 
             this.aeroLinkLabel4.AutoSize = true;
-            this.aeroLinkLabel4.Location = new System.Drawing.Point(15, 71);
+            this.aeroLinkLabel4.Location = new System.Drawing.Point(15, 74);
             this.aeroLinkLabel4.Name = "aeroLinkLabel4";
             this.aeroLinkLabel4.Size = new System.Drawing.Size(85, 15);
             this.aeroLinkLabel4.TabIndex = 22;
@@ -161,7 +159,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel5
             // 
             this.aeroLinkLabel5.AutoSize = true;
-            this.aeroLinkLabel5.Location = new System.Drawing.Point(15, 36);
+            this.aeroLinkLabel5.Location = new System.Drawing.Point(15, 39);
             this.aeroLinkLabel5.Name = "aeroLinkLabel5";
             this.aeroLinkLabel5.Size = new System.Drawing.Size(83, 15);
             this.aeroLinkLabel5.TabIndex = 23;
@@ -170,99 +168,58 @@ namespace OCLSA_Project_Version_01
             // 
             // tbMinimumFso
             // 
-            this.tbMinimumFso.Location = new System.Drawing.Point(179, 33);
+            this.tbMinimumFso.Location = new System.Drawing.Point(179, 36);
             this.tbMinimumFso.Name = "tbMinimumFso";
             this.tbMinimumFso.Size = new System.Drawing.Size(123, 22);
             this.tbMinimumFso.TabIndex = 24;
             // 
             // tbMaximumFso
             // 
-            this.tbMaximumFso.Location = new System.Drawing.Point(179, 68);
+            this.tbMaximumFso.Location = new System.Drawing.Point(179, 71);
             this.tbMaximumFso.Name = "tbMaximumFso";
             this.tbMaximumFso.Size = new System.Drawing.Size(123, 22);
             this.tbMaximumFso.TabIndex = 25;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.cbLoadCellType);
+            this.groupBox5.Controls.Add(this.tbTestMode);
             this.groupBox5.Controls.Add(this.aeroLinkLabel1);
-            this.groupBox5.Controls.Add(this.tbSerialNumber);
+            this.groupBox5.Controls.Add(this.tbLoadCellType);
             this.groupBox5.Controls.Add(this.aeroLinkLabel2);
-            this.groupBox5.Controls.Add(this.aeroLinkLabel13);
-            this.groupBox5.Controls.Add(this.cbTestMode);
             this.groupBox5.Location = new System.Drawing.Point(18, 39);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(332, 161);
+            this.groupBox5.Size = new System.Drawing.Size(332, 146);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load Cell Information";
             // 
-            // cbLoadCellType
-            // 
-            this.cbLoadCellType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLoadCellType.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbLoadCellType.FormattingEnabled = true;
-            this.cbLoadCellType.Items.AddRange(new object[] {
-            "Type 01",
-            "Type 02",
-            "Type 03"});
-            this.cbLoadCellType.Location = new System.Drawing.Point(182, 78);
-            this.cbLoadCellType.Name = "cbLoadCellType";
-            this.cbLoadCellType.Size = new System.Drawing.Size(121, 23);
-            this.cbLoadCellType.TabIndex = 26;
-            this.cbLoadCellType.SelectedValueChanged += new System.EventHandler(this.cbLoadCellType_SelectedValueChanged);
-            // 
             // aeroLinkLabel1
             // 
             this.aeroLinkLabel1.AutoSize = true;
-            this.aeroLinkLabel1.Location = new System.Drawing.Point(17, 41);
+            this.aeroLinkLabel1.Location = new System.Drawing.Point(17, 54);
             this.aeroLinkLabel1.Name = "aeroLinkLabel1";
-            this.aeroLinkLabel1.Size = new System.Drawing.Size(84, 15);
+            this.aeroLinkLabel1.Size = new System.Drawing.Size(83, 15);
             this.aeroLinkLabel1.TabIndex = 0;
             this.aeroLinkLabel1.TabStop = true;
-            this.aeroLinkLabel1.Text = "Serial Number";
+            this.aeroLinkLabel1.Text = "Load Cell Type";
             // 
-            // tbSerialNumber
+            // tbLoadCellType
             // 
-            this.tbSerialNumber.Location = new System.Drawing.Point(181, 38);
-            this.tbSerialNumber.Name = "tbSerialNumber";
-            this.tbSerialNumber.Size = new System.Drawing.Size(121, 22);
-            this.tbSerialNumber.TabIndex = 1;
-            this.tbSerialNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSerialNumber_KeyPress);
+            this.tbLoadCellType.Location = new System.Drawing.Point(181, 51);
+            this.tbLoadCellType.Name = "tbLoadCellType";
+            this.tbLoadCellType.Size = new System.Drawing.Size(121, 22);
+            this.tbLoadCellType.TabIndex = 1;
+            this.tbLoadCellType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbLoadCellType_KeyPress);
             // 
             // aeroLinkLabel2
             // 
             this.aeroLinkLabel2.AutoSize = true;
-            this.aeroLinkLabel2.Location = new System.Drawing.Point(17, 81);
+            this.aeroLinkLabel2.Location = new System.Drawing.Point(17, 94);
             this.aeroLinkLabel2.Name = "aeroLinkLabel2";
-            this.aeroLinkLabel2.Size = new System.Drawing.Size(83, 15);
+            this.aeroLinkLabel2.Size = new System.Drawing.Size(61, 15);
             this.aeroLinkLabel2.TabIndex = 2;
             this.aeroLinkLabel2.TabStop = true;
-            this.aeroLinkLabel2.Text = "Load Cell Type";
-            // 
-            // aeroLinkLabel13
-            // 
-            this.aeroLinkLabel13.AutoSize = true;
-            this.aeroLinkLabel13.Location = new System.Drawing.Point(17, 119);
-            this.aeroLinkLabel13.Name = "aeroLinkLabel13";
-            this.aeroLinkLabel13.Size = new System.Drawing.Size(101, 15);
-            this.aeroLinkLabel13.TabIndex = 24;
-            this.aeroLinkLabel13.TabStop = true;
-            this.aeroLinkLabel13.Text = "Corner Test Mode";
-            // 
-            // cbTestMode
-            // 
-            this.cbTestMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTestMode.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbTestMode.FormattingEnabled = true;
-            this.cbTestMode.Items.AddRange(new object[] {
-            "Corner Test",
-            "Diagonal Test",
-            "Full Test"});
-            this.cbTestMode.Location = new System.Drawing.Point(181, 116);
-            this.cbTestMode.Name = "cbTestMode";
-            this.cbTestMode.Size = new System.Drawing.Size(121, 23);
-            this.cbTestMode.TabIndex = 25;
+            this.aeroLinkLabel2.Text = "Test Mode";
             // 
             // groupBox6
             // 
@@ -270,9 +227,9 @@ namespace OCLSA_Project_Version_01
             this.groupBox6.Controls.Add(this.aeroLinkLabel6);
             this.groupBox6.Controls.Add(this.tbMaximumUnbalance);
             this.groupBox6.Controls.Add(this.tbMinimumUnbalance);
-            this.groupBox6.Location = new System.Drawing.Point(18, 223);
+            this.groupBox6.Location = new System.Drawing.Point(18, 207);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(332, 123);
+            this.groupBox6.Size = new System.Drawing.Size(332, 126);
             this.groupBox6.TabIndex = 35;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Load Cell Unbalance Details";
@@ -705,6 +662,13 @@ namespace OCLSA_Project_Version_01
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
+            // tbTestMode
+            // 
+            this.tbTestMode.Location = new System.Drawing.Point(181, 91);
+            this.tbTestMode.Name = "tbTestMode";
+            this.tbTestMode.Size = new System.Drawing.Size(121, 22);
+            this.tbTestMode.TabIndex = 25;
+            // 
             // MasterDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -749,10 +713,8 @@ namespace OCLSA_Project_Version_01
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
-        private WindowsFormsAero.TextBox tbSerialNumber;
+        private WindowsFormsAero.TextBox tbLoadCellType;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
-        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel13;
-        private WindowsFormsAero.ComboBox cbTestMode;
         private System.Windows.Forms.GroupBox groupBox6;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel6;
@@ -801,10 +763,10 @@ namespace OCLSA_Project_Version_01
         private WindowsFormsAero.TextBox tbMaximumFso;
         private WindowsFormsAero.Button btnCancel;
         private WindowsFormsAero.Button btnSave;
-        private WindowsFormsAero.ComboBox cbLoadCellType;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton rbSameValue;
         private System.Windows.Forms.RadioButton rbDifferentValues;
         private WindowsFormsAero.Button btnEdit;
+        private WindowsFormsAero.TextBox tbTestMode;
     }
 }
