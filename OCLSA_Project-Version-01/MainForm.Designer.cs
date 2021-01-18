@@ -1,6 +1,6 @@
 ﻿namespace OCLSA_Project_Version_01
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.initialTimer = new System.Windows.Forms.Timer(this.components);
             this.serialPortVT400 = new System.IO.Ports.SerialPort(this.components);
             this.horizontalPanel1 = new WindowsFormsAero.HorizontalPanel();
@@ -1242,7 +1242,7 @@
             this.Controls.Add(this.horizontalPanel1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "OCLSA Automation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);

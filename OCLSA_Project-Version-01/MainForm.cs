@@ -10,7 +10,7 @@ using OCLSA_Project_Version_01.Models;
 
 namespace OCLSA_Project_Version_01
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private readonly ApplicationDbContext _context;
 
@@ -33,7 +33,7 @@ namespace OCLSA_Project_Version_01
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 

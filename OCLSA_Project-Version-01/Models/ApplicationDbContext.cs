@@ -11,6 +11,7 @@ namespace OCLSA_Project_Version_01.Models
     {
         public DbSet<LoadCell> LoadCells { get; set; }
         public DbSet<Type> Types { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public ApplicationDbContext() : base("name=DefaultConnection")
         {
