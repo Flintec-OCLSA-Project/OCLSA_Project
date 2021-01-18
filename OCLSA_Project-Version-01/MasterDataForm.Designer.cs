@@ -38,6 +38,7 @@ namespace OCLSA_Project_Version_01
             this.tbMinimumFso = new WindowsFormsAero.TextBox();
             this.tbMaximumFso = new WindowsFormsAero.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tbTestMode = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbLoadCellType = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
@@ -86,7 +87,6 @@ namespace OCLSA_Project_Version_01
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbTestMode = new WindowsFormsAero.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -192,6 +192,13 @@ namespace OCLSA_Project_Version_01
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load Cell Information";
+            // 
+            // tbTestMode
+            // 
+            this.tbTestMode.Location = new System.Drawing.Point(181, 91);
+            this.tbTestMode.Name = "tbTestMode";
+            this.tbTestMode.Size = new System.Drawing.Size(121, 22);
+            this.tbTestMode.TabIndex = 25;
             // 
             // aeroLinkLabel1
             // 
@@ -659,15 +666,9 @@ namespace OCLSA_Project_Version_01
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // tbTestMode
-            // 
-            this.tbTestMode.Location = new System.Drawing.Point(181, 91);
-            this.tbTestMode.Name = "tbTestMode";
-            this.tbTestMode.Size = new System.Drawing.Size(121, 22);
-            this.tbTestMode.TabIndex = 25;
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MasterDataForm
             // 

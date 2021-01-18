@@ -16,7 +16,7 @@ namespace OCLSA_Project_Version_01
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MasterDataForm());
+            Application.Run(new LoginForm());
         }
     }
 }

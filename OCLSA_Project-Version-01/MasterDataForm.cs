@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Entity;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OCLSA_Project_Version_01.Models;
 using Type = OCLSA_Project_Version_01.Models.Type;
@@ -57,14 +50,10 @@ namespace OCLSA_Project_Version_01
                     if (loadCellTypeInDb.CornerTrimValue != 0d)
                     {
                         rbSameValue.Checked = true;
-                        rbDifferentValues.Enabled = false;
-                        EnableOrDisableCornerInputs(false);
                     }
                     else
                     {
                         rbDifferentValues.Checked = true;
-                        rbSameValue.Enabled = false;
-                        tbCornersTrimValue.Enabled = false;
                     }
 
                     tbTestMode.Text = loadCellTypeInDb.TestMode;
@@ -357,5 +346,9 @@ namespace OCLSA_Project_Version_01
             }
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

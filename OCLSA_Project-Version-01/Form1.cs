@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.Entity;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -190,15 +186,7 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
-            //Bridge Unbalance Check
-            var bridgeUnbalance = lblReading.Text;
-            tbBridgeUnbalance.Text = bridgeUnbalance;
-
-            if (Convert.ToDouble(bridgeUnbalance) <= MinimumUnbalanceReading && MaximumUnbalanceReading <= Convert.ToDouble(bridgeUnbalance))
-            {
-                ShowMessage(@"Initial Bridge Reading is not within the range...!!!");
-                return;
-            }
+            if (CheckBridgeUnbalance()) return;
 
             WriteCommand("01");
 
@@ -209,26 +197,14 @@ namespace OCLSA_Project_Version_01
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
-            //Weight Check
-            var readingAfterWeight = currentReading + 0.00050;
+            if (CheckWeight(currentReading)) return;
 
-            if (Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)
-            {
-                ShowMessage(@"Check weight on center...!!!");
-            }
-
-            //FSO Check
-            var initialFso = lblReading.Text;
-
-            if (Convert.ToDouble(initialFso) <= MinimumFsoReading || MaximumFsoReading <= Convert.ToDouble(initialFso))
-            {
-                ShowMessage(@"Initial FSO is too high or low...!!!");
-                return;
-            }
+            var result = CheckFso();
+            var initialFso = result.InitialFso;
+            if (result.IsFsoNotOk) return;
 
             tbInitialFSO.Text = initialFso;
 
-            //Taring the instrument readings
             WriteCommand("01");
 
             ShowMessage(@"Move weight to one corner...");
@@ -236,7 +212,6 @@ namespace OCLSA_Project_Version_01
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
-            //Exercise
             ShowMessage(@"Give exercise to load cell...");
 
             TenSecondsCounter.Start();
@@ -254,14 +229,11 @@ namespace OCLSA_Project_Version_01
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
-            //Corner Check
-            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+            var checkCornerTestMode = CheckCornerTestMode();
+            var loadCell = checkCornerTestMode.LoadCell;
+            if (checkCornerTestMode.IsLoadCellNotAvailable) return;
 
-            if (loadCell == null) return;
-
-            var testModeInDb = loadCell.Type.TestMode;
-
-            switch (testModeInDb)
+            switch (checkCornerTestMode.TestModeInDb)
             {
                 case TestMode.CornerTest:
                 {
@@ -290,7 +262,7 @@ namespace OCLSA_Project_Version_01
                                                             .Aggregate((l, r) => l.Value < r.Value ? l : r);
 
                     var minCornerName = minCorner.Key;
-                    var minCornerValue = minCorner.Value;
+                    //var minCornerValue = minCorner.Value;
 
                     //Message = Direct to trim with the corner name and corner image
                     ShowMessage($@"Trim the {minCornerName} corner. Look Image...");
@@ -316,7 +288,61 @@ namespace OCLSA_Project_Version_01
                     ShowMessage(@"Error in selecting test mode...");
                     break;
             }
+        }
 
+        private CheckCornerTestModeResult CheckCornerTestMode()
+        {
+            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+
+            if (loadCell == null)
+            {
+                return new CheckCornerTestModeResult(){LoadCell = null, TestModeInDb = null, IsLoadCellNotAvailable = true};
+            }
+
+            var testModeInDb = loadCell.Type.TestMode;
+
+            return new CheckCornerTestModeResult(){LoadCell = loadCell, TestModeInDb = testModeInDb, IsLoadCellNotAvailable = false};
+        }
+
+        private CheckFsoResult CheckFso()
+        {
+            var initialFso = lblReading.Text;
+
+            if (Convert.ToDouble(initialFso) <= MinimumFsoReading || MaximumFsoReading <= Convert.ToDouble(initialFso))
+            {
+                ShowMessage(@"Initial FSO is too high or low...!!!");
+                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true};
+            }
+
+            return new CheckFsoResult(){InitialFso = initialFso, IsFsoNotOk = false};
+        }
+
+        private bool CheckWeight(double currentReading)
+        {
+            var readingAfterWeight = currentReading + 0.00050;
+
+            if (Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)
+            {
+                ShowMessage(@"Check weight on center...!!!");
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckBridgeUnbalance()
+        {
+            var bridgeUnbalance = lblReading.Text;
+            tbBridgeUnbalance.Text = bridgeUnbalance;
+
+            if (Convert.ToDouble(bridgeUnbalance) <= MinimumUnbalanceReading &&
+                MaximumUnbalanceReading <= Convert.ToDouble(bridgeUnbalance))
+            {
+                ShowMessage(@"Initial Bridge Reading is not within the range...!!!");
+                return true;
+            }
+
+            return false;
         }
 
         private static void ShowMessage(string message)
@@ -400,10 +426,20 @@ namespace OCLSA_Project_Version_01
                 case "Front":
                     pbFront.Show();
                     break;
-
-                default:
-                    break;
             }
         }
+    }
+
+    public class CheckFsoResult
+    {
+        public string InitialFso { get; set; }
+        public bool IsFsoNotOk { get; set; }
+    }
+
+    public class CheckCornerTestModeResult
+    {
+        public LoadCell LoadCell { get; set; }
+        public string TestModeInDb { get; set; }
+        public bool IsLoadCellNotAvailable { get; set; }
     }
 }
