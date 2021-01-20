@@ -17,7 +17,8 @@ namespace OCLSA_Project_Version_01.Models
         [Required]
         public string Password { get; set; }
 
-        public bool Administration { get; set; }
+        [Required]
+        public string Administration { get; set; }
 
         [Required]
         public string FullName { get; set; }

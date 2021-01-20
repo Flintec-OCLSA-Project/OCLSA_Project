@@ -85,6 +85,10 @@
     <Compile Include="Migrations\202101181159372_AddedEmployeeModel.Designer.cs">
       <DependentUpon>202101181159372_AddedEmployeeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.cs" />
+    <Compile Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.Designer.cs">
+      <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101181159372_AddedEmployeeModel.resx">
       <DependentUpon>202101181159372_AddedEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.resx">
+      <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

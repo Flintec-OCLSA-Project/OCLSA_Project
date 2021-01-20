@@ -126,10 +126,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbOperatorName = new System.Windows.Forms.Label();
+            this.lbOperatorId = new System.Windows.Forms.Label();
+            this.lbLocation = new System.Windows.Forms.Label();
+            this.lbStation = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblReading = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -1094,53 +1094,53 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // label3
+            // lbOperatorName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(26, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 21);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Opeartor Name";
+            this.lbOperatorName.AutoSize = true;
+            this.lbOperatorName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOperatorName.Location = new System.Drawing.Point(26, 6);
+            this.lbOperatorName.Name = "lbOperatorName";
+            this.lbOperatorName.Size = new System.Drawing.Size(124, 21);
+            this.lbOperatorName.TabIndex = 1;
+            this.lbOperatorName.Text = "Opeartor Name";
             // 
-            // label4
+            // lbOperatorId
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(26, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 21);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Opeartor ID";
+            this.lbOperatorId.AutoSize = true;
+            this.lbOperatorId.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOperatorId.Location = new System.Drawing.Point(26, 28);
+            this.lbOperatorId.Name = "lbOperatorId";
+            this.lbOperatorId.Size = new System.Drawing.Size(97, 21);
+            this.lbOperatorId.TabIndex = 2;
+            this.lbOperatorId.Text = "Opeartor ID";
             // 
-            // label5
+            // lbLocation
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(26, 51);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 21);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Location";
+            this.lbLocation.AutoSize = true;
+            this.lbLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLocation.Location = new System.Drawing.Point(26, 51);
+            this.lbLocation.Name = "lbLocation";
+            this.lbLocation.Size = new System.Drawing.Size(73, 21);
+            this.lbLocation.TabIndex = 4;
+            this.lbLocation.Text = "Location";
             // 
-            // label6
+            // lbStation
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 74);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 21);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Station";
+            this.lbStation.AutoSize = true;
+            this.lbStation.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStation.Location = new System.Drawing.Point(26, 74);
+            this.lbStation.Name = "lbStation";
+            this.lbStation.Size = new System.Drawing.Size(62, 21);
+            this.lbStation.TabIndex = 4;
+            this.lbStation.Text = "Station";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lbStation);
+            this.panel2.Controls.Add(this.lbLocation);
+            this.panel2.Controls.Add(this.lbOperatorId);
+            this.panel2.Controls.Add(this.lbOperatorName);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Location = new System.Drawing.Point(1088, 76);
             this.panel2.Name = "panel2";
@@ -1231,7 +1231,7 @@
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1348,10 +1348,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbOperatorName;
+        private System.Windows.Forms.Label lbOperatorId;
+        private System.Windows.Forms.Label lbLocation;
+        private System.Windows.Forms.Label lbStation;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblReading;
         private System.Windows.Forms.Label label7;

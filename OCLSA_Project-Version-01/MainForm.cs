@@ -14,6 +14,9 @@ namespace OCLSA_Project_Version_01
     {
         private readonly ApplicationDbContext _context;
 
+        public string InitialCenterReading { get; set; }
+        public Dictionary<string, double> InitialCornerReadings { get; set; } = new Dictionary<string, double>();
+
         public double MaximumCenterReading { get; set; }
         public double MaximumUnbalanceReading { get; set; }
         public double MinimumUnbalanceReading { get; set; }
@@ -35,9 +38,19 @@ namespace OCLSA_Project_Version_01
 
         public MainForm()
         {
+            
+        }
+
+        public MainForm(string fullName, int employeeId, string location, string station)
+        {
             InitializeComponent();
 
             _context = new ApplicationDbContext();
+
+            lbOperatorName.Text = fullName;
+            lbOperatorId.Text = employeeId.ToString();
+            lbLocation.Text = location;
+            lbStation.Text = station;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -56,6 +69,7 @@ namespace OCLSA_Project_Version_01
                     serialPortVT400.Open();
                     serialPortVT400.DiscardInBuffer();
                     serialPortVT400.DiscardOutBuffer();
+                    initialTimer.Start();
                 }
             }
             catch (Exception exception)
@@ -63,7 +77,6 @@ namespace OCLSA_Project_Version_01
                 ShowMessage(exception.Message);
             }
 
-            initialTimer.Start();
         }
 
         private void tbSerialNumber_KeyPress(object sender, KeyPressEventArgs e)
@@ -381,9 +394,6 @@ namespace OCLSA_Project_Version_01
                 lblWaiting.Text = $@"Wait {_fiveSecondsCount}";
             }
         }
-
-        public string InitialCenterReading { get; set; }
-        public Dictionary<string, double> InitialCornerReadings { get; set; } = new Dictionary<string, double>();
 
         private async Task GetInitialCornerReadings(string corner, Control textBox, bool isCenter = false)
         {
