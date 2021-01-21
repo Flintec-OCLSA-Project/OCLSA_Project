@@ -16,7 +16,7 @@ namespace OCLSA_Project_Version_01
         private readonly ApplicationDbContext _context;
 
         public string InitialCenterReading { get; set; }
-        public Dictionary<string, double> InitialCornerReadings { get; set; } = new Dictionary<string, double>();
+        public Dictionary<string, double> CornerReadings { get; set; } = new Dictionary<string, double>();
 
         public double MaximumCenterReading { get; set; }
         public double MaximumUnbalanceReading { get; set; }
@@ -41,6 +41,8 @@ namespace OCLSA_Project_Version_01
         {
             InitializeComponent();
             _context = new ApplicationDbContext();
+
+            pbLoadCell.Show();
         }
 
         public MainForm(string fullName, int employeeId, string location, string station, Image image)
@@ -48,6 +50,8 @@ namespace OCLSA_Project_Version_01
             InitializeComponent();
 
             _context = new ApplicationDbContext();
+
+            pbLoadCell.Show();
 
             lbOperatorName.Text = fullName;
             lbOperatorId.Text = employeeId.ToString();
@@ -73,6 +77,7 @@ namespace OCLSA_Project_Version_01
                     serialPortVT400.DiscardInBuffer();
                     serialPortVT400.DiscardOutBuffer();
                     initialTimer.Start();
+                    stableCheckTimer.Start();
                 }
             }
             catch (Exception exception)
@@ -205,7 +210,7 @@ namespace OCLSA_Project_Version_01
             if (CheckBridgeUnbalance()) return;
 
             WriteCommand("01");
-
+            
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
             ShowMessage(@"Keep weight on center");
@@ -253,42 +258,49 @@ namespace OCLSA_Project_Version_01
             {
                 case TestMode.CornerTest:
                 {
-                    //Initial corner testing
-                    await GetInitialCornerReadings("Left", tbInitialLeftCornerReading);
-                    await GetInitialCornerReadings("Back", tbInitialBackCornerReading);
-                    await GetInitialCornerReadings("Right", tbInitialRightCornerReading);
-                    await GetInitialCornerReadings("Front", tbInitialFrontCornerReading);
+                    await CheckInitialCornerTest(loadCell);
 
-                    //Getting initial center reading
-                    await GetInitialCornerReadings("Center", tbInitialCenterReading, true);
+                    /*------------------Next Iteration - Trimming --------------------*/
 
-                    //Check whether corner readings have excessive values - reject or proceed
-                    if (InitialCornerReadings.Any(initialCornerReading => loadCell.Type.ExcessiveCornerValue < initialCornerReading.Value))
-                    {
-                        ShowMessage(@"Load Cell has excessive corners. Load Cell is rejected...");
-                        return;
-                    }
-
-                    //Display message - To remove the weight
-                    ShowMessage(@"Please remove the weight...");
-                    await Task.Delay(TimeSpan.FromSeconds(3));
-
-                    //Compare the values that got from initial readings and select the lowest negative value with its corner name
-                    var minCorner = InitialCornerReadings
-                                                            .Aggregate((l, r) => l.Value < r.Value ? l : r);
-
-                    var minCornerName = minCorner.Key;
-                    //var minCornerValue = minCorner.Value;
-
-                    //Message = Direct to trim with the corner name and corner image
-                    ShowMessage($@"Trim the {minCornerName} corner. Look Image...");
-
-                    //Show cornerImage
-                    ShowTrimPosition(minCornerName);
-
-                    //Trim corners until success
+                    ShowMessage(@"Keep weight on the center...");
                     
+                    FiveSecondsCounter.Start();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
 
+                    WriteCommand("01");
+
+                    await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
+
+                    ShowMessage(@"Rotate the armature to left position...");
+
+                    FiveSecondsCounter.Start();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
+
+                    ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
+
+                    FiveSecondsCounter.Start();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
+
+                    ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+
+                    ShowTrimPosition(GetMinimumCornerName());
+
+                    //After the waiting - Display all the values of corners in a table row during
+                    /*
+                     *Create a class with the properties which should be available in columns
+                     *Create a list of above class
+                     *Add corner readings as its elements with the auto increment id and time consumed
+                     *LINQ query for the list 
+                     *Bind data grid view
+                     */
+
+                    //Clear the dictionary
+                    CornerReadings.Clear();
+
+                    //Message - Confirm to continue with trimming if corners are not within the trimming values.
+                    ShowMessage(@"Press OK to check corners are OK...");
+
+                    ClearCornerReadings();
 
                     break;
                 }
@@ -304,6 +316,81 @@ namespace OCLSA_Project_Version_01
                     ShowMessage(@"Error in selecting test mode...");
                     break;
             }
+        }
+
+        private void ClearCornerReadings()
+        {
+            var cornerList = new List<Control>
+            {
+                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner
+            };
+
+            foreach (var corner in cornerList)
+            {
+                corner.Text = "";
+            }
+        }
+
+        private async Task CheckInitialCornerTest(LoadCell loadCell)
+        {
+            await DisplaySaveCorners(tbInitialLeftCornerReading, tbInitialBackCornerReading,
+                tbInitialRightCornerReading, tbInitialFrontCornerReading);
+
+            ShowMessage(@"Rotate the armature to left position...");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            await GetCornerReadings("Center", tbInitialCenterReading, true);
+
+            if (CheckExcessiveCorners(loadCell)) return;
+
+            WriteCommand("01");
+
+            ShowMessage(@"Please remove the weight...");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+
+            ShowTrimPosition(GetMinimumCornerName());
+
+            CornerReadings.Clear();
+
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            ShowMessage(@"Press OK to check corners are OK...");
+        }
+
+        private async Task DisplaySaveCorners(Control leftCorner, Control backCorner, Control rightCorner, Control frontCorner)
+        {
+            await GetCornerReadings("Left", leftCorner);
+            await GetCornerReadings("Back", backCorner);
+            await GetCornerReadings("Right", rightCorner);
+            await GetCornerReadings("Front", frontCorner);
+        }
+
+        private string GetMinimumCornerName()
+        {
+            var minCorner = CornerReadings
+                .Aggregate((l, r) => l.Value < r.Value ? l : r);
+
+            var minCornerName = minCorner.Key;
+            return minCornerName;
+        }
+
+        private bool CheckExcessiveCorners(LoadCell loadCell)
+        {
+            if (CornerReadings.Any(initialCornerReading =>
+                loadCell.Type.ExcessiveCornerValue < initialCornerReading.Value))
+            {
+                ShowMessage(@"Load Cell has excessive corners. Load Cell is rejected...");
+                return true;
+            }
+
+            return false;
         }
 
         private CheckCornerTestModeResult CheckCornerTestMode()
@@ -337,13 +424,9 @@ namespace OCLSA_Project_Version_01
         {
             var readingAfterWeight = currentReading + 0.00050;
 
-            if (Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)
-            {
-                ShowMessage(@"Check weight on center...!!!");
-                return true;
-            }
-
-            return false;
+            if (!(Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)) return false;
+            ShowMessage(@"Check weight on center...!!!");
+            return true;
         }
 
         private bool CheckBridgeUnbalance()
@@ -398,7 +481,7 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private async Task GetInitialCornerReadings(string corner, Control textBox, bool isCenter = false)
+        private async Task GetCornerReadings(string corner, Control textBox, bool isCenter = false)
         {
             ShowMessage(
                 isCenter == false ? $@"Rotate armature to {corner} position..." : $@"Move weight to {corner}...");
@@ -414,7 +497,7 @@ namespace OCLSA_Project_Version_01
             }
             else
             {
-                InitialCornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
+                CornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
             }
 
             textBox.Text = currentCornerReading;
@@ -422,6 +505,8 @@ namespace OCLSA_Project_Version_01
 
         private void ShowTrimPosition(string positionName)
         {
+            pbLoadCell.Hide();
+
             switch (positionName)
             {
                 case "Left":
@@ -440,6 +525,16 @@ namespace OCLSA_Project_Version_01
                     pbFront.Show();
                     break;
             }
+        }
+
+        private void lblReading_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void stableCheckTimer_Tick(object sender, EventArgs e)
+        {
+            lblReading_TextChanged(sender, e);
         }
     }
 

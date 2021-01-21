@@ -46,13 +46,13 @@
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel7 = new AeroSuite.Controls.AeroLinkLabel();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.tbRightCorner = new System.Windows.Forms.TextBox();
             this.tbInitialRightCornerReading = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.tbLeftCorner = new System.Windows.Forms.TextBox();
             this.tbInitialLeftCornerReading = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tbBackCorner = new System.Windows.Forms.TextBox();
             this.tbInitialBackCornerReading = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tbFrontCorner = new System.Windows.Forms.TextBox();
             this.tbInitialFrontCornerReading = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tbInitialCenterReading = new System.Windows.Forms.TextBox();
@@ -62,7 +62,7 @@
             this.aeroLinkLabel3 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.trimDataGridView = new System.Windows.Forms.DataGridView();
             this.clmTrimmingCycle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmFront = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmLeft = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -139,10 +139,11 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
+            this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFront)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).BeginInit();
@@ -199,13 +200,13 @@
             this.groupBox6.Controls.Add(this.textBox12);
             this.groupBox6.Controls.Add(this.textBox13);
             this.groupBox6.Controls.Add(this.aeroLinkLabel7);
-            this.groupBox6.Controls.Add(this.textBox10);
+            this.groupBox6.Controls.Add(this.tbRightCorner);
             this.groupBox6.Controls.Add(this.tbInitialRightCornerReading);
-            this.groupBox6.Controls.Add(this.textBox8);
+            this.groupBox6.Controls.Add(this.tbLeftCorner);
             this.groupBox6.Controls.Add(this.tbInitialLeftCornerReading);
-            this.groupBox6.Controls.Add(this.textBox6);
+            this.groupBox6.Controls.Add(this.tbBackCorner);
             this.groupBox6.Controls.Add(this.tbInitialBackCornerReading);
-            this.groupBox6.Controls.Add(this.textBox4);
+            this.groupBox6.Controls.Add(this.tbFrontCorner);
             this.groupBox6.Controls.Add(this.tbInitialFrontCornerReading);
             this.groupBox6.Controls.Add(this.textBox3);
             this.groupBox6.Controls.Add(this.tbInitialCenterReading);
@@ -318,12 +319,12 @@
             this.aeroLinkLabel7.TabStop = true;
             this.aeroLinkLabel7.Text = "D4";
             // 
-            // textBox10
+            // tbRightCorner
             // 
-            this.textBox10.Location = new System.Drawing.Point(423, 150);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(120, 25);
-            this.textBox10.TabIndex = 24;
+            this.tbRightCorner.Location = new System.Drawing.Point(423, 150);
+            this.tbRightCorner.Name = "tbRightCorner";
+            this.tbRightCorner.Size = new System.Drawing.Size(120, 25);
+            this.tbRightCorner.TabIndex = 24;
             // 
             // tbInitialRightCornerReading
             // 
@@ -332,12 +333,12 @@
             this.tbInitialRightCornerReading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialRightCornerReading.TabIndex = 23;
             // 
-            // textBox8
+            // tbLeftCorner
             // 
-            this.textBox8.Location = new System.Drawing.Point(40, 150);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(120, 25);
-            this.textBox8.TabIndex = 22;
+            this.tbLeftCorner.Location = new System.Drawing.Point(40, 150);
+            this.tbLeftCorner.Name = "tbLeftCorner";
+            this.tbLeftCorner.Size = new System.Drawing.Size(120, 25);
+            this.tbLeftCorner.TabIndex = 22;
             // 
             // tbInitialLeftCornerReading
             // 
@@ -346,12 +347,12 @@
             this.tbInitialLeftCornerReading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialLeftCornerReading.TabIndex = 21;
             // 
-            // textBox6
+            // tbBackCorner
             // 
-            this.textBox6.Location = new System.Drawing.Point(232, 66);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(120, 25);
-            this.textBox6.TabIndex = 20;
+            this.tbBackCorner.Location = new System.Drawing.Point(232, 66);
+            this.tbBackCorner.Name = "tbBackCorner";
+            this.tbBackCorner.Size = new System.Drawing.Size(120, 25);
+            this.tbBackCorner.TabIndex = 20;
             // 
             // tbInitialBackCornerReading
             // 
@@ -360,12 +361,12 @@
             this.tbInitialBackCornerReading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialBackCornerReading.TabIndex = 19;
             // 
-            // textBox4
+            // tbFrontCorner
             // 
-            this.textBox4.Location = new System.Drawing.Point(232, 234);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(120, 25);
-            this.textBox4.TabIndex = 18;
+            this.tbFrontCorner.Location = new System.Drawing.Point(232, 234);
+            this.tbFrontCorner.Name = "tbFrontCorner";
+            this.tbFrontCorner.Size = new System.Drawing.Size(120, 25);
+            this.tbFrontCorner.TabIndex = 18;
             // 
             // tbInitialFrontCornerReading
             // 
@@ -440,7 +441,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridView1);
+            this.groupBox3.Controls.Add(this.trimDataGridView);
             this.groupBox3.Controls.Add(this.textBox25);
             this.groupBox3.Controls.Add(this.aeroLinkLabel16);
             this.groupBox3.Controls.Add(this.textBox24);
@@ -461,10 +462,10 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Summary";
             // 
-            // dataGridView1
+            // trimDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.trimDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.trimDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmTrimmingCycle,
             this.clmFront,
             this.clmLeft,
@@ -472,10 +473,10 @@
             this.clmRight,
             this.clmCenter,
             this.clmTimePerOneCycle});
-            this.dataGridView1.Location = new System.Drawing.Point(335, 24);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(659, 212);
-            this.dataGridView1.TabIndex = 42;
+            this.trimDataGridView.Location = new System.Drawing.Point(335, 24);
+            this.trimDataGridView.Name = "trimDataGridView";
+            this.trimDataGridView.Size = new System.Drawing.Size(659, 212);
+            this.trimDataGridView.TabIndex = 42;
             // 
             // clmTrimmingCycle
             // 
@@ -1155,9 +1156,10 @@
             this.lblReading.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblReading.Location = new System.Drawing.Point(21, 4);
             this.lblReading.Name = "lblReading";
-            this.lblReading.Size = new System.Drawing.Size(166, 65);
+            this.lblReading.Size = new System.Drawing.Size(209, 65);
             this.lblReading.TabIndex = 0;
-            this.lblReading.Text = "label2";
+            this.lblReading.Text = "0.00000";
+            this.lblReading.TextChanged += new System.EventHandler(this.lblReading_TextChanged);
             // 
             // label7
             // 
@@ -1218,6 +1220,11 @@
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
             // 
+            // stableCheckTimer
+            // 
+            this.stableCheckTimer.Interval = 2000;
+            this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1239,7 +1246,7 @@
             this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbFront)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).EndInit();
@@ -1283,13 +1290,13 @@
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox tbRightCorner;
         private System.Windows.Forms.TextBox tbInitialRightCornerReading;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox tbLeftCorner;
         private System.Windows.Forms.TextBox tbInitialLeftCornerReading;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox tbBackCorner;
         private System.Windows.Forms.TextBox tbInitialBackCornerReading;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tbFrontCorner;
         private System.Windows.Forms.TextBox tbInitialFrontCornerReading;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox tbInitialCenterReading;
@@ -1299,7 +1306,7 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel3;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView trimDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmTrimmingCycle;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmFront;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmLeft;
@@ -1376,6 +1383,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Timer stableCheckTimer;
     }
 }
 
