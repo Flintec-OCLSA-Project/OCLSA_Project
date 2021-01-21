@@ -125,7 +125,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbImage = new System.Windows.Forms.PictureBox();
             this.lbOperatorName = new System.Windows.Forms.Label();
             this.lbOperatorId = new System.Windows.Forms.Label();
             this.lbLocation = new System.Windows.Forms.Label();
@@ -133,7 +133,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblReading = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.lblStable = new System.Windows.Forms.Label();
             this.lblWaiting = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -155,7 +154,7 @@
             this.groupBox4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -1084,15 +1083,17 @@
             this.panel3.Size = new System.Drawing.Size(1340, 50);
             this.panel3.TabIndex = 4;
             // 
-            // pictureBox1
+            // pbImage
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(166, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(98, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
+            this.pbImage.Location = new System.Drawing.Point(166, 0);
+            this.pbImage.MaximumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.MinimumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(98, 100);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 0;
+            this.pbImage.TabStop = false;
             // 
             // lbOperatorName
             // 
@@ -1141,7 +1142,7 @@
             this.panel2.Controls.Add(this.lbLocation);
             this.panel2.Controls.Add(this.lbOperatorId);
             this.panel2.Controls.Add(this.lbOperatorName);
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.pbImage);
             this.panel2.Location = new System.Drawing.Point(1088, 76);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(264, 100);
@@ -1169,17 +1170,6 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "mV/ V";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(30, 67);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(78, 25);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Waiting";
-            // 
             // lblStable
             // 
             this.lblStable.AutoSize = true;
@@ -1187,9 +1177,8 @@
             this.lblStable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblStable.Location = new System.Drawing.Point(912, 24);
             this.lblStable.Name = "lblStable";
-            this.lblStable.Size = new System.Drawing.Size(78, 25);
+            this.lblStable.Size = new System.Drawing.Size(0, 25);
             this.lblStable.TabIndex = 3;
-            this.lblStable.Text = "Waiting";
             // 
             // lblWaiting
             // 
@@ -1198,16 +1187,14 @@
             this.lblWaiting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblWaiting.Location = new System.Drawing.Point(912, 67);
             this.lblWaiting.Name = "lblWaiting";
-            this.lblWaiting.Size = new System.Drawing.Size(78, 25);
+            this.lblWaiting.Size = new System.Drawing.Size(0, 25);
             this.lblWaiting.TabIndex = 4;
-            this.lblWaiting.Text = "Waiting";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Controls.Add(this.lblWaiting);
             this.panel1.Controls.Add(this.lblStable);
-            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.lblReading);
             this.panel1.Location = new System.Drawing.Point(12, 76);
@@ -1269,7 +1256,7 @@
             this.menuStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1347,7 +1334,7 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbImage;
         private System.Windows.Forms.Label lbOperatorName;
         private System.Windows.Forms.Label lbOperatorId;
         private System.Windows.Forms.Label lbLocation;
@@ -1355,7 +1342,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblReading;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblStable;
         private System.Windows.Forms.Label lblWaiting;
         private System.Windows.Forms.Panel panel1;

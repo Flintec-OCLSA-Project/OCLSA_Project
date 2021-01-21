@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -38,10 +39,11 @@ namespace OCLSA_Project_Version_01
 
         public MainForm()
         {
-            
+            InitializeComponent();
+            _context = new ApplicationDbContext();
         }
 
-        public MainForm(string fullName, int employeeId, string location, string station)
+        public MainForm(string fullName, int employeeId, string location, string station, Image image)
         {
             InitializeComponent();
 
@@ -51,6 +53,7 @@ namespace OCLSA_Project_Version_01
             lbOperatorId.Text = employeeId.ToString();
             lbLocation.Text = location;
             lbStation.Text = station;
+            pbImage.Image = image;
         }
 
         private void Form1_Load(object sender, EventArgs e)

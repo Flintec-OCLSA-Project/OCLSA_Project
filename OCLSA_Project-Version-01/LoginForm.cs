@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OCLSA_Project_Version_01.Models;
 
@@ -39,7 +35,6 @@ namespace OCLSA_Project_Version_01
                 var userInDb = result.UserInDb;
                 if (result.IsInvalidUser) return;
 
-                var adminStatus = userInDb.Administration;
                 var fullName = userInDb.FullName;
                 var employeeId = userInDb.EmployeeId;
                 var location = userInDb.Location;
@@ -52,14 +47,16 @@ namespace OCLSA_Project_Version_01
                             if (_result != DialogResult.Yes && _result != DialogResult.No)
                                 _result = Result(
                                     "Select YES to open Master-data Window & NO to open Corner Trimming Window.",
-                                    "Choose option");
+                                    "Choose Option");
 
                             GetResponseAndDisplay();
                             break;
 
                         case "NO":
                             if (cbStation.Enabled != true) cbStation.Enabled = true;
-                            CheckStationAndDisplay(fullName, employeeId, location);
+
+                            var image = ByteArrayToImage(userInDb.Image);
+                            CheckStationAndDisplay(fullName, employeeId, location, image);
                             break;
 
                         default:
@@ -89,22 +86,23 @@ namespace OCLSA_Project_Version_01
         {
             if (_result == DialogResult.Yes)
             {
-                MessageBox.Show(@"Login is successful...!!!");
+                MessageBox.Show(@"Login is successful...!!! Press OK to open Master-data Window.");
                 DisplayForm(new MasterDataForm());
             }
             else
             {
+                MessageBox.Show(@"Login is successful...!!! Press OK to open Trimming Window.");
                 DisplayForm(new MainForm());
             }
         }
 
-        private void CheckStationAndDisplay(string fullName, int employeeId, string location)
+        private void CheckStationAndDisplay(string fullName, int employeeId, string location, Image image)
         {
             if (cbStation.SelectedIndex > -1)
             {
                 var station = cbStation.Text;
                 MessageBox.Show(@"Login is successful...");
-                DisplayForm(new MainForm(fullName, employeeId, location, station));
+                DisplayForm(new MainForm(fullName, employeeId, location, station, image));
             }
             else
             {
@@ -132,7 +130,7 @@ namespace OCLSA_Project_Version_01
             switch (userInDb.Administration)
             {
                 case "OK":
-                    _result = Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose option");
+                    _result = Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose Option");
                     break;
 
                 case "NO":
@@ -162,13 +160,20 @@ namespace OCLSA_Project_Version_01
 
         private bool CheckInputFields()
         {
-            if (tbUsername.Text == "" && tbPassword.Text == "")
-            {
-                MessageBox.Show(@"Fill the fields...!!!");
-                return true;
-            }
+            if (tbUsername.Text != "" && tbPassword.Text != "") return false;
+            MessageBox.Show(@"Fill the fields...!!!");
+            return true;
 
-            return false;
+        }
+
+        private Image ByteArrayToImage(byte[] byteArrayIn)
+        {
+            using (var stream = new MemoryStream(byteArrayIn))
+            {
+                var returnImage = Image.FromStream(stream,false,true);
+
+                return returnImage;
+            }
         }
     }
 
