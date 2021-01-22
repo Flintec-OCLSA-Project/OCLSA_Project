@@ -63,13 +63,6 @@
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.trimDataGridView = new System.Windows.Forms.DataGridView();
-            this.clmTrimmingCycle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmFront = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmLeft = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmBack = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCenter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTimePerOneCycle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox25 = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel16 = new AeroSuite.Controls.AeroLinkLabel();
             this.textBox24 = new System.Windows.Forms.TextBox();
@@ -465,53 +458,10 @@
             // trimDataGridView
             // 
             this.trimDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trimDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmTrimmingCycle,
-            this.clmFront,
-            this.clmLeft,
-            this.clmBack,
-            this.clmRight,
-            this.clmCenter,
-            this.clmTimePerOneCycle});
             this.trimDataGridView.Location = new System.Drawing.Point(335, 24);
             this.trimDataGridView.Name = "trimDataGridView";
             this.trimDataGridView.Size = new System.Drawing.Size(659, 212);
             this.trimDataGridView.TabIndex = 42;
-            // 
-            // clmTrimmingCycle
-            // 
-            this.clmTrimmingCycle.HeaderText = "Trimming Cycle";
-            this.clmTrimmingCycle.Name = "clmTrimmingCycle";
-            // 
-            // clmFront
-            // 
-            this.clmFront.HeaderText = "Front";
-            this.clmFront.Name = "clmFront";
-            // 
-            // clmLeft
-            // 
-            this.clmLeft.HeaderText = "Left";
-            this.clmLeft.Name = "clmLeft";
-            // 
-            // clmBack
-            // 
-            this.clmBack.HeaderText = "Back";
-            this.clmBack.Name = "clmBack";
-            // 
-            // clmRight
-            // 
-            this.clmRight.HeaderText = "Right";
-            this.clmRight.Name = "clmRight";
-            // 
-            // clmCenter
-            // 
-            this.clmCenter.HeaderText = "Center";
-            this.clmCenter.Name = "clmCenter";
-            // 
-            // clmTimePerOneCycle
-            // 
-            this.clmTimePerOneCycle.HeaderText = "Time Per One Cycle";
-            this.clmTimePerOneCycle.Name = "clmTimePerOneCycle";
             // 
             // textBox25
             // 
@@ -1307,13 +1257,6 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView trimDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmTrimmingCycle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmFront;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmLeft;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmBack;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmRight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmCenter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmTimePerOneCycle;
         private System.Windows.Forms.TextBox textBox25;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel16;
         private System.Windows.Forms.TextBox textBox24;

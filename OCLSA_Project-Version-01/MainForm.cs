@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace OCLSA_Project_Version_01
 
         public string InitialCenterReading { get; set; }
         public Dictionary<string, double> CornerReadings { get; set; } = new Dictionary<string, double>();
+        private List<Corner> _cornerList = new List<Corner>();
 
         public double MaximumCenterReading { get; set; }
         public double MaximumUnbalanceReading { get; set; }
@@ -97,8 +99,7 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
-            var enteredId = tbSerialNumber.Text;
-            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == enteredId);
+            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
 
             if (loadCell == null)
             {
@@ -107,17 +108,33 @@ namespace OCLSA_Project_Version_01
                 return;
             }
             
+            CheckDisplayCornerTrimValues(loadCell);
+
+            GetMasterData(loadCell);
+
+            DisplayMasterData();
+
+            tbSerialNumber.ReadOnly = true;
+
+            ShowMessage(@"Press Start to continue...");
+
+            btnStart.Enabled = true;
+            btnStop.Enabled = true;
+            
+        }
+
+        private void CheckDisplayCornerTrimValues(LoadCell loadCell)
+        {
             if (loadCell.Type.CornerTrimValue != null)
             {
                 CornerTrimValue = (double) loadCell.Type.CornerTrimValue;
 
-                var trimCornerLabels = new List<Control> { lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner };
+                var trimCornerLabels = new List<Control> {lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner};
 
                 foreach (var cornerLabel in trimCornerLabels)
                 {
                     cornerLabel.Text = CornerTrimValue.ToString(CultureInfo.InvariantCulture);
                 }
-
             }
             else
             {
@@ -133,32 +150,34 @@ namespace OCLSA_Project_Version_01
                 if (loadCell.Type.FrontCornerTrimValue != null)
                     FrontCornerTrimValue = (double) loadCell.Type.FrontCornerTrimValue;
 
-                lblLeftCorner.Text = LeftCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-                lblBackCorner.Text = BackCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-                lblRightCorner.Text = RightCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-                lblFrontCorner.Text = FrontCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-
+                DisplayMasterCornerData();
             }
+        }
 
+        private void DisplayMasterCornerData()
+        {
+            lblLeftCorner.Text = LeftCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblBackCorner.Text = BackCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblRightCorner.Text = RightCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblFrontCorner.Text = FrontCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void GetMasterData(LoadCell loadCell)
+        {
             MaximumCenterReading = loadCell.Type.MaximumCenterValue;
             MaximumUnbalanceReading = loadCell.Type.MaximumUnbalanceValue;
             MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
             MaximumFsoReading = loadCell.Type.MaximumFsoValue;
             MinimumFsoReading = loadCell.Type.MinimumFsoValue;
+        }
 
+        private void DisplayMasterData()
+        {
             lblMaximumCenter.Text = MaximumCenterReading.ToString(CultureInfo.InvariantCulture);
             lblMaximumUnbalance.Text = MaximumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
             lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
             lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
             lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
-
-            tbSerialNumber.ReadOnly = true;
-
-            ShowMessage(@"Press Start to continue...");
-
-            btnStart.Enabled = true;
-            btnStop.Enabled = true;
-            
         }
 
         private void initialTimer_Tick(object sender, EventArgs e)
@@ -261,51 +280,11 @@ namespace OCLSA_Project_Version_01
                     await CheckInitialCornerTest(loadCell);
 
                     /*------------------Next Iteration - Trimming --------------------*/
-
-                    ShowMessage(@"Keep weight on the center...");
-                    
-                    FiveSecondsCounter.Start();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-
-                    WriteCommand("01");
-
-                    await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
-
-                    ShowMessage(@"Rotate the armature to left position...");
-
-                    FiveSecondsCounter.Start();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-
-                    ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
-
-                    FiveSecondsCounter.Start();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-
-                    ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
-
-                    ShowTrimPosition(GetMinimumCornerName());
-
-                    //After the waiting - Display all the values of corners in a table row during
-                    /*
-                     *Create a class with the properties which should be available in columns
-                     *Create a list of above class
-                     *Add corner readings as its elements with the auto increment id and time consumed
-                     *LINQ query for the list 
-                     *Bind data grid view
-                     */
-
-                    //Clear the dictionary
-                    CornerReadings.Clear();
-
-                    //Message - Confirm to continue with trimming if corners are not within the trimming values.
-                    ShowMessage(@"Press OK to check corners are OK...");
-
-                    ClearCornerReadings();
+                    await TrimCorners();
 
                     break;
                 }
-                    
-
+                
                 case TestMode.DiagonalTest:
                     break;
 
@@ -315,19 +294,6 @@ namespace OCLSA_Project_Version_01
                 default:
                     ShowMessage(@"Error in selecting test mode...");
                     break;
-            }
-        }
-
-        private void ClearCornerReadings()
-        {
-            var cornerList = new List<Control>
-            {
-                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner
-            };
-
-            foreach (var corner in cornerList)
-            {
-                corner.Text = "";
             }
         }
 
@@ -356,6 +322,11 @@ namespace OCLSA_Project_Version_01
 
             ShowTrimPosition(GetMinimumCornerName());
 
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            ShowMessage(@"Press OK when Trimming is completed...");
+
             CornerReadings.Clear();
 
             TenSecondsCounter.Start();
@@ -363,6 +334,157 @@ namespace OCLSA_Project_Version_01
 
             ShowMessage(@"Press OK to check corners are OK...");
         }
+
+        private async Task TrimCorners()
+        {
+            var oneTrimCycleDuration = Stopwatch.StartNew();
+
+            ShowMessage(@"Keep weight on the center...");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            WriteCommand("01");
+
+            await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
+
+            //Check corners are within the spec
+
+            ShowMessage(@"Rotate the armature to left position...");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+
+            ShowTrimPosition(GetMinimumCornerName());
+
+            TenSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            ShowMessage(@"Press OK when Trimming is completed...");
+
+            oneTrimCycleDuration.Stop();
+
+            var timeElapsed = oneTrimCycleDuration.Elapsed.Minutes;
+
+            DisplayDataTable(timeElapsed);
+
+            CornerReadings.Clear();
+
+            ShowMessage(@"Press OK to check corners are OK...");
+
+            ClearCornerReadings();
+        }
+
+        public void CheckToTrim()
+        {
+            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+
+            if (loadCell == null) return;
+
+            var leftCornerTrimValueInDb = loadCell.Type.LeftCornerTrimValue;
+            var backCornerTrimValueInDb = loadCell.Type.BackCornerTrimValue;
+            var rightCornerTrimValueInDb = loadCell.Type.RightCornerTrimValue;
+            var frontCornerTrimValueInDb = loadCell.Type.FrontCornerTrimValue;
+
+            var leftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
+            var frontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
+
+            var leftRightCornerDifference = Math.Abs(CornerReadings["Left"]) - Math.Abs(CornerReadings["Right"]);
+            var frontBackCornerDifference = Math.Abs(CornerReadings["Front"]) - Math.Abs(CornerReadings["Back"]);
+
+            var areCornersDifferenceInRange = leftRightCornerDifference < leftRightCornerDifferenceInDb
+                                              && frontBackCornerDifference < frontBackCornerDifferenceInDb;
+
+            var cornerTrimValue = loadCell.Type.CornerTrimValue;
+
+            if (cornerTrimValue.GetValueOrDefault() == 0)
+            {
+                var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < leftCornerTrimValueInDb)
+                                        && (Math.Abs(CornerReadings["Back"]) < backCornerTrimValueInDb) 
+                                        && (Math.Abs(CornerReadings["Right"]) < rightCornerTrimValueInDb)
+                                        && (Math.Abs(CornerReadings["Front"]) < frontCornerTrimValueInDb);
+
+                if (areCornersInRange && areCornersDifferenceInRange)
+                {
+                    ShowMessage(@"No need to trim. Trimming is completed...!!!");
+                }
+                else
+                {
+                    ShowMessage(@"Trim corners....!!!");
+                }
+
+            }
+            else
+            {
+                var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < cornerTrimValue)
+                                        && (Math.Abs(CornerReadings["Back"]) < cornerTrimValue)
+                                        && (Math.Abs(CornerReadings["Right"]) < cornerTrimValue)
+                                        && (Math.Abs(CornerReadings["Front"]) < cornerTrimValue);
+
+
+                if (areCornersInRange && areCornersDifferenceInRange)
+                {
+                    ShowMessage(@"No need to trim. Trimming is completed...!!!");
+                }
+                else
+                {
+                    ShowMessage(@"Trim corners....!!!");
+                }
+            }
+
+        }
+
+        private void DisplayDataTable(int timeElapsed)
+        {
+            var cornerList = GetDisplayData();
+
+            var trimCount = 0;
+
+            var columns = from d in cornerList
+                select new
+                {
+                    Trim_Cycle = ++trimCount,
+                    Left_Corner = d.LeftCorner,
+                    Back_Corner = d.BackCorner,
+                    Right_Corner = d.RightCorner,
+                    Front_Corner = d.FrontCorner,
+                    Time_Duration = timeElapsed
+                };
+
+            trimDataGridView.DataSource = columns.ToList();
+        }
+
+        private IEnumerable<Corner> GetDisplayData()
+        {
+            var corner = new Corner(
+                CornerReadings["Left"], CornerReadings["Back"], CornerReadings["Right"], CornerReadings["Front"]
+            );
+
+            _cornerList.Add(corner);
+
+            return _cornerList;
+        }
+
+        private void ClearCornerReadings()
+        {
+            var cornerList = new List<Control>
+            {
+                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner
+            };
+
+            foreach (var corner in cornerList)
+            {
+                corner.Text = "";
+            }
+        }
+
 
         private async Task DisplaySaveCorners(Control leftCorner, Control backCorner, Control rightCorner, Control frontCorner)
         {
@@ -549,5 +671,21 @@ namespace OCLSA_Project_Version_01
         public LoadCell LoadCell { get; set; }
         public string TestModeInDb { get; set; }
         public bool IsLoadCellNotAvailable { get; set; }
+    }
+
+    public class Corner
+    {
+        public double LeftCorner { get; set; }
+        public double BackCorner { get; set; }
+        public double RightCorner { get; set; }
+        public double FrontCorner { get; set; }
+
+        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner)
+        {
+            LeftCorner = leftCorner;
+            BackCorner = backCorner;
+            RightCorner = rightCorner;
+            FrontCorner = frontCorner;
+        }
     }
 }
