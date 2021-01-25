@@ -36,6 +36,9 @@ namespace OCLSA_Project_Version_01
         public double RightFrontCornerTrimValue { get; set; }
         public double RightBackCornerTrimValue { get; set; }
 
+        public double FrontBackCornerDifferenceInDb { get; set; }
+        public double LeftRightCornerDifferenceInDb { get; set; }
+
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
 
@@ -99,7 +102,7 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
-            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+            var loadCell = CheckLoadCell();
 
             if (loadCell == null)
             {
@@ -125,9 +128,9 @@ namespace OCLSA_Project_Version_01
 
         private void CheckDisplayCornerTrimValues(LoadCell loadCell)
         {
-            if (loadCell.Type.CornerTrimValue != null)
+            if (loadCell.Type.CornerTrimValue != null && loadCell.Type.CornerTrimValue != 0.0)
             {
-                CornerTrimValue = (double) loadCell.Type.CornerTrimValue;
+                CornerTrimValue = (double)loadCell.Type.CornerTrimValue;
 
                 var trimCornerLabels = new List<Control> {lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner};
 
@@ -169,6 +172,9 @@ namespace OCLSA_Project_Version_01
             MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
             MaximumFsoReading = loadCell.Type.MaximumFsoValue;
             MinimumFsoReading = loadCell.Type.MinimumFsoValue;
+
+            LeftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
+            FrontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
         }
 
         private void DisplayMasterData()
@@ -279,8 +285,72 @@ namespace OCLSA_Project_Version_01
                 {
                     await CheckInitialCornerTest(loadCell);
 
+                    if (CheckToTrim())
+                    {
+                        ShowMessage(@"Corners are OK. No need to trim...!!!");
+                        return;
+                    }
+
+                    ShowMessage(@"Need to trim more. Continue Trimming...!!!");
+
+                    CornerReadings.Clear();
+
                     /*------------------Next Iteration - Trimming --------------------*/
-                    await TrimCorners();
+                    for (var i = 0; i < 10; i++)
+                    {
+                        var oneTrimCycleDuration = Stopwatch.StartNew();
+
+                        ShowMessage(@"Keep weight on the center...");
+
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+
+                        WriteCommand("01");
+
+                        await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
+
+                        if (CheckToTrim())
+                        {
+                            ShowMessage(@"Corners are OK. No need to trim...!!!");
+                            break;
+                        }
+
+                        ShowMessage(@"Rotate the armature to left position...");
+
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+
+                        ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
+
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+
+                        ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+
+                        ShowTrimPosition(GetMinimumCornerName());
+
+                        TenSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(10));
+
+                        ShowMessage(@"Press OK when Trimming is completed...");
+
+                        oneTrimCycleDuration.Stop();
+
+                        var timeElapsed = oneTrimCycleDuration.Elapsed.Minutes;
+
+                        DisplayDataTable(timeElapsed);
+
+                        CornerReadings.Clear();
+
+                        ShowMessage(@"Press OK to check corners are OK...");
+
+                        ClearCornerReadings();
+                    }
+
+                    ShowMessage(@"Trimming is completed...!!! Press OK to continue.");
+                    
+                    //Check with calibrated weight
+                    //Check final FSO
 
                     break;
                 }
@@ -326,119 +396,44 @@ namespace OCLSA_Project_Version_01
             await Task.Delay(TimeSpan.FromSeconds(10));
 
             ShowMessage(@"Press OK when Trimming is completed...");
-
-            CornerReadings.Clear();
-
-            TenSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(10));
-
-            ShowMessage(@"Press OK to check corners are OK...");
         }
 
-        private async Task TrimCorners()
+        private bool CheckToTrim()
         {
-            var oneTrimCycleDuration = Stopwatch.StartNew();
-
-            ShowMessage(@"Keep weight on the center...");
-
-            FiveSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-            WriteCommand("01");
-
-            await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
-
-            //Check corners are within the spec
-
-            ShowMessage(@"Rotate the armature to left position...");
-
-            FiveSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-            ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
-
-            FiveSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-            ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
-
-            ShowTrimPosition(GetMinimumCornerName());
-
-            TenSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(10));
-
-            ShowMessage(@"Press OK when Trimming is completed...");
-
-            oneTrimCycleDuration.Stop();
-
-            var timeElapsed = oneTrimCycleDuration.Elapsed.Minutes;
-
-            DisplayDataTable(timeElapsed);
-
-            CornerReadings.Clear();
-
-            ShowMessage(@"Press OK to check corners are OK...");
-
-            ClearCornerReadings();
-        }
-
-        public void CheckToTrim()
-        {
-            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
-
-            if (loadCell == null) return;
-
-            var leftCornerTrimValueInDb = loadCell.Type.LeftCornerTrimValue;
-            var backCornerTrimValueInDb = loadCell.Type.BackCornerTrimValue;
-            var rightCornerTrimValueInDb = loadCell.Type.RightCornerTrimValue;
-            var frontCornerTrimValueInDb = loadCell.Type.FrontCornerTrimValue;
-
-            var leftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
-            var frontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
-
             var leftRightCornerDifference = Math.Abs(CornerReadings["Left"]) - Math.Abs(CornerReadings["Right"]);
             var frontBackCornerDifference = Math.Abs(CornerReadings["Front"]) - Math.Abs(CornerReadings["Back"]);
 
-            var areCornersDifferenceInRange = leftRightCornerDifference < leftRightCornerDifferenceInDb
-                                              && frontBackCornerDifference < frontBackCornerDifferenceInDb;
+            var areCornersDifferenceInRange = leftRightCornerDifference < LeftRightCornerDifferenceInDb
+                                              && frontBackCornerDifference < FrontBackCornerDifferenceInDb;
 
-            var cornerTrimValue = loadCell.Type.CornerTrimValue;
+            return CornerTrimValue != 0 ? CheckCornersAndDifference(areCornersDifferenceInRange) 
+                : CheckCornersWithSameValueAndDifference(areCornersDifferenceInRange);
+        }
 
-            if (cornerTrimValue.GetValueOrDefault() == 0)
-            {
-                var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < leftCornerTrimValueInDb)
-                                        && (Math.Abs(CornerReadings["Back"]) < backCornerTrimValueInDb) 
-                                        && (Math.Abs(CornerReadings["Right"]) < rightCornerTrimValueInDb)
-                                        && (Math.Abs(CornerReadings["Front"]) < frontCornerTrimValueInDb);
+        private bool CheckCornersWithSameValueAndDifference(bool areCornersDifferenceInRange)
+        {
+            var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < CornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Back"]) < CornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Right"]) < CornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Front"]) < CornerTrimValue);
 
-                if (areCornersInRange && areCornersDifferenceInRange)
-                {
-                    ShowMessage(@"No need to trim. Trimming is completed...!!!");
-                }
-                else
-                {
-                    ShowMessage(@"Trim corners....!!!");
-                }
+            return areCornersInRange && areCornersDifferenceInRange;
+        }
 
-            }
-            else
-            {
-                var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < cornerTrimValue)
-                                        && (Math.Abs(CornerReadings["Back"]) < cornerTrimValue)
-                                        && (Math.Abs(CornerReadings["Right"]) < cornerTrimValue)
-                                        && (Math.Abs(CornerReadings["Front"]) < cornerTrimValue);
+        private bool CheckCornersAndDifference(bool areCornersDifferenceInRange)
+        {
+            var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < LeftCornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Back"]) < BackCornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Right"]) < RightCornerTrimValue)
+                                    && (Math.Abs(CornerReadings["Front"]) < FrontCornerTrimValue);
 
+            return areCornersInRange && areCornersDifferenceInRange;
+        }
 
-                if (areCornersInRange && areCornersDifferenceInRange)
-                {
-                    ShowMessage(@"No need to trim. Trimming is completed...!!!");
-                }
-                else
-                {
-                    ShowMessage(@"Trim corners....!!!");
-                }
-            }
-
+        private LoadCell CheckLoadCell()
+        {
+            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+            return loadCell;
         }
 
         private void DisplayDataTable(int timeElapsed)
@@ -517,7 +512,7 @@ namespace OCLSA_Project_Version_01
 
         private CheckCornerTestModeResult CheckCornerTestMode()
         {
-            var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+            var loadCell = CheckLoadCell();
 
             if (loadCell == null)
             {
