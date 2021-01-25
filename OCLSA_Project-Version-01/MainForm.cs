@@ -43,6 +43,8 @@ namespace OCLSA_Project_Version_01
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
 
+        public double TrimmedFso { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -293,27 +295,36 @@ namespace OCLSA_Project_Version_01
 
                         ShowMessage(@"Keep weight on the center...");
 
-                        GetDisplaySaveCenterReadings();
-
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
+
+                        ShowMessage(@"Press OK when ready...!!!");
 
                         WriteCommand("01");
 
                         await DisplaySaveMainCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
-
-                        if (CheckToTrim())
-                        {
-                            ShowMessage(@"Corners are OK. No need to trim...!!!");
-                            break;
-                        }
 
                         ShowMessage(@"Rotate the armature to left position...");
 
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
 
-                        ShowMessage(@"Remove the weight from the armature. Move the weight to center position.");
+                        ShowMessage(@"Remove the weight from the armature. Keep the weight on center.");
+
+                        GetDisplaySaveCenterReadings();
+
+                        WriteCommand("01");
+
+                        if (CheckToTrim())
+                        {
+                            ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the left corner.");
+                            CornerReadings.Clear();
+                            CenterReadings.Clear();
+                            ClearCornerReadings();
+                            break;
+                        }
+                        
+                        ShowMessage(@"Please remove the weight...");
 
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
@@ -343,14 +354,24 @@ namespace OCLSA_Project_Version_01
                         //If i==10 give user the permission to stop the trimming and save it to the db - with reason
                     }
 
-                    //Get the values of diagonal corners and the center and display them in boxes
+                    await CheckDisplayAllFinalCorners();
 
-                    ShowMessage(@"Trimming is completed...!!! Press OK to continue.");
+                    if(IsCalculatedFsoInRange())
+                    {
+                        ShowMessage(@"Load Cell is Passed....");
 
+                        //Save all details to db
+                        //Calculate whole time - Display in main form and save to db
+
+                        //Clear all inputs
+
+                        return;
+                    }
+
+                    ShowMessage(@"FSO is high... Add resistors for correction.");
+                        
+                    //Resistors Adding - ?
                     
-                    //Check with calibrated weight
-                    //Check final FSO
-
                     break;
                 }
                 
@@ -364,6 +385,67 @@ namespace OCLSA_Project_Version_01
                     ShowMessage(@"Error in selecting test mode...");
                     break;
             }
+        }
+
+        private bool IsCalculatedFsoInRange()
+        {
+            ShowMessage(@"Keep the Calibrated weight on the center.");
+
+            var calibratedFso = lblReading.Text;
+            var calculatedFso = CalculateFso(calibratedFso);
+
+            return MinimumFsoReading < calculatedFso && calculatedFso < MaximumFsoReading;
+        }
+
+        private double CalculateFso(string output)
+        {
+            var calibratedFsoInputs = new CalibratedFsoInputForm();
+
+            if (calibratedFsoInputs.AppliedLoad == "lb")
+            {
+                return Convert.ToDouble(output) * Convert.ToDouble(calibratedFsoInputs.Capacity) * 2.20462;
+            }
+
+            return Convert.ToDouble(output) * Convert.ToDouble(calibratedFsoInputs.Capacity);
+           
+        }
+
+        private async Task CheckDisplayAllFinalCorners()
+        {
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            ShowMessage(@"Press OK when ready...!!!");
+
+            var currentCornerReading = lblReading.Text;
+            CornerReadings.Add("Left", Convert.ToDouble(currentCornerReading));
+            tbLeftCorner.Text = currentCornerReading;
+
+            await GetCornerReadings("D1", tbBackLeft);
+            await GetCornerReadings("Back", tbBackCorner);
+
+            await GetCornerReadings("D2", tbBackRight);
+            await GetCornerReadings("Right", tbRightCorner);
+
+            await GetCornerReadings("D3", tbFrontRight);
+            await GetCornerReadings("Front", tbFrontCorner);
+
+            await GetCornerReadings("D4", tbFrontLeft);
+
+            ShowMessage(@"Move armature to Left position.");
+
+            FiveSecondsCounter.Start();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            ShowMessage(@"Press OK when ready...!!!");
+
+            await GetCornerReadings("Center", tbCenter, true);
+
+            WriteCommand("01");
+
+            ShowMessage(@"Remove the weight from center. Trimming is completed...!!! Press OK to continue.");
+
+            var trimmedCenterReading = lblReading.Text;
+
+            TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));
         }
 
         private void GetDisplaySaveCenterReadings()
@@ -614,7 +696,15 @@ namespace OCLSA_Project_Version_01
             FiveSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(5));
 
+            ShowMessage(@"Press OK when ready...!!!");
+
             var currentCornerReading = lblReading.Text;
+
+            if (corner == "D1" || corner == "D2" || corner == "D3" || corner == "D4")
+            {
+                textBox.Text = currentCornerReading;
+                return;
+            }
 
             if (corner == "Center")
             {

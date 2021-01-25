@@ -34,16 +34,16 @@
             this.serialPortVT400 = new System.IO.Ports.SerialPort(this.components);
             this.horizontalPanel1 = new WindowsFormsAero.HorizontalPanel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.tbBackRight = new System.Windows.Forms.TextBox();
+            this.tbBackLeft = new System.Windows.Forms.TextBox();
             this.textBox19 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.tbFrontRight = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel10 = new AeroSuite.Controls.AeroLinkLabel();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel9 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel8 = new AeroSuite.Controls.AeroLinkLabel();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.tbFrontLeft = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel7 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbRightCorner = new System.Windows.Forms.TextBox();
@@ -181,16 +181,16 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.textBox18);
-            this.groupBox6.Controls.Add(this.textBox16);
+            this.groupBox6.Controls.Add(this.tbBackRight);
+            this.groupBox6.Controls.Add(this.tbBackLeft);
             this.groupBox6.Controls.Add(this.textBox19);
-            this.groupBox6.Controls.Add(this.textBox14);
+            this.groupBox6.Controls.Add(this.tbFrontRight);
             this.groupBox6.Controls.Add(this.aeroLinkLabel10);
             this.groupBox6.Controls.Add(this.textBox17);
             this.groupBox6.Controls.Add(this.textBox15);
             this.groupBox6.Controls.Add(this.aeroLinkLabel9);
             this.groupBox6.Controls.Add(this.aeroLinkLabel8);
-            this.groupBox6.Controls.Add(this.textBox12);
+            this.groupBox6.Controls.Add(this.tbFrontLeft);
             this.groupBox6.Controls.Add(this.textBox13);
             this.groupBox6.Controls.Add(this.aeroLinkLabel7);
             this.groupBox6.Controls.Add(this.tbRightCorner);
@@ -216,19 +216,19 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Corners and Center Readings ";
             // 
-            // textBox18
+            // tbBackRight
             // 
-            this.textBox18.Location = new System.Drawing.Point(423, 68);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(120, 25);
-            this.textBox18.TabIndex = 21;
+            this.tbBackRight.Location = new System.Drawing.Point(423, 68);
+            this.tbBackRight.Name = "tbBackRight";
+            this.tbBackRight.Size = new System.Drawing.Size(120, 25);
+            this.tbBackRight.TabIndex = 21;
             // 
-            // textBox16
+            // tbBackLeft
             // 
-            this.textBox16.Location = new System.Drawing.Point(38, 68);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(120, 25);
-            this.textBox16.TabIndex = 21;
+            this.tbBackLeft.Location = new System.Drawing.Point(38, 68);
+            this.tbBackLeft.Name = "tbBackLeft";
+            this.tbBackLeft.Size = new System.Drawing.Size(120, 25);
+            this.tbBackLeft.TabIndex = 21;
             // 
             // textBox19
             // 
@@ -237,12 +237,12 @@
             this.textBox19.Size = new System.Drawing.Size(120, 25);
             this.textBox19.TabIndex = 20;
             // 
-            // textBox14
+            // tbFrontRight
             // 
-            this.textBox14.Location = new System.Drawing.Point(423, 234);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(120, 25);
-            this.textBox14.TabIndex = 30;
+            this.tbFrontRight.Location = new System.Drawing.Point(423, 234);
+            this.tbFrontRight.Name = "tbFrontRight";
+            this.tbFrontRight.Size = new System.Drawing.Size(120, 25);
+            this.tbFrontRight.TabIndex = 30;
             // 
             // aeroLinkLabel10
             // 
@@ -288,12 +288,12 @@
             this.aeroLinkLabel8.TabStop = true;
             this.aeroLinkLabel8.Text = "D3";
             // 
-            // textBox12
+            // tbFrontLeft
             // 
-            this.textBox12.Location = new System.Drawing.Point(40, 234);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(120, 25);
-            this.textBox12.TabIndex = 27;
+            this.tbFrontLeft.Location = new System.Drawing.Point(40, 234);
+            this.tbFrontLeft.Name = "tbFrontLeft";
+            this.tbFrontLeft.Size = new System.Drawing.Size(120, 25);
+            this.tbFrontLeft.TabIndex = 27;
             // 
             // textBox13
             // 
@@ -368,7 +368,7 @@
             this.tbInitialFrontCornerReading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialFrontCornerReading.TabIndex = 17;
             // 
-            // tbCenterReading
+            // tbCenter
             // 
             this.tbCenter.Location = new System.Drawing.Point(232, 150);
             this.tbCenter.Name = "tbCenter";
@@ -1228,16 +1228,16 @@
         private System.IO.Ports.SerialPort serialPortVT400;
         private WindowsFormsAero.HorizontalPanel horizontalPanel1;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.TextBox textBox18;
-        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.TextBox tbBackRight;
+        private System.Windows.Forms.TextBox tbBackLeft;
         private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox tbFrontRight;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel10;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.TextBox textBox15;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel9;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel8;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox tbFrontLeft;
         private System.Windows.Forms.TextBox textBox13;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
         private System.Windows.Forms.TextBox tbRightCorner;
