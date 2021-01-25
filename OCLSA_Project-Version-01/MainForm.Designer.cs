@@ -54,7 +54,7 @@
             this.tbInitialBackCornerReading = new System.Windows.Forms.TextBox();
             this.tbFrontCorner = new System.Windows.Forms.TextBox();
             this.tbInitialFrontCornerReading = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbCenter = new System.Windows.Forms.TextBox();
             this.tbInitialCenterReading = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel6 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel5 = new AeroSuite.Controls.AeroLinkLabel();
@@ -201,7 +201,7 @@
             this.groupBox6.Controls.Add(this.tbInitialBackCornerReading);
             this.groupBox6.Controls.Add(this.tbFrontCorner);
             this.groupBox6.Controls.Add(this.tbInitialFrontCornerReading);
-            this.groupBox6.Controls.Add(this.textBox3);
+            this.groupBox6.Controls.Add(this.tbCenter);
             this.groupBox6.Controls.Add(this.tbInitialCenterReading);
             this.groupBox6.Controls.Add(this.aeroLinkLabel6);
             this.groupBox6.Controls.Add(this.aeroLinkLabel5);
@@ -368,12 +368,12 @@
             this.tbInitialFrontCornerReading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialFrontCornerReading.TabIndex = 17;
             // 
-            // textBox3
+            // tbCenterReading
             // 
-            this.textBox3.Location = new System.Drawing.Point(232, 150);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(120, 25);
-            this.textBox3.TabIndex = 16;
+            this.tbCenter.Location = new System.Drawing.Point(232, 150);
+            this.tbCenter.Name = "tbCenter";
+            this.tbCenter.Size = new System.Drawing.Size(120, 25);
+            this.tbCenter.TabIndex = 16;
             // 
             // tbInitialCenterReading
             // 
@@ -1248,7 +1248,7 @@
         private System.Windows.Forms.TextBox tbInitialBackCornerReading;
         private System.Windows.Forms.TextBox tbFrontCorner;
         private System.Windows.Forms.TextBox tbInitialFrontCornerReading;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbCenter;
         private System.Windows.Forms.TextBox tbInitialCenterReading;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel6;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel5;

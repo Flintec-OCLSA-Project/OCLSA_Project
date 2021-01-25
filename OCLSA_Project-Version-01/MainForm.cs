@@ -16,7 +16,8 @@ namespace OCLSA_Project_Version_01
     {
         private readonly ApplicationDbContext _context;
 
-        public string InitialCenterReading { get; set; }
+        public List<double> InitialAndFinalCenterReadings { get; set; } = new List<double>();
+        public List<double> CenterReadings { get; set; } = new List<double>();
         public Dictionary<string, double> CornerReadings { get; set; } = new Dictionary<string, double>();
         private List<Corner> _cornerList = new List<Corner>();
 
@@ -285,16 +286,6 @@ namespace OCLSA_Project_Version_01
                 {
                     await CheckInitialCornerTest(loadCell);
 
-                    if (CheckToTrim())
-                    {
-                        ShowMessage(@"Corners are OK. No need to trim...!!!");
-                        return;
-                    }
-
-                    ShowMessage(@"Need to trim more. Continue Trimming...!!!");
-
-                    CornerReadings.Clear();
-
                     /*------------------Next Iteration - Trimming --------------------*/
                     for (var i = 0; i < 10; i++)
                     {
@@ -302,12 +293,14 @@ namespace OCLSA_Project_Version_01
 
                         ShowMessage(@"Keep weight on the center...");
 
+                        GetDisplaySaveCenterReadings();
+
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
 
                         WriteCommand("01");
 
-                        await DisplaySaveCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
+                        await DisplaySaveMainCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
 
                         if (CheckToTrim())
                         {
@@ -341,13 +334,19 @@ namespace OCLSA_Project_Version_01
                         DisplayDataTable(timeElapsed);
 
                         CornerReadings.Clear();
+                        CenterReadings.Clear();
 
                         ShowMessage(@"Press OK to check corners are OK...");
 
                         ClearCornerReadings();
+
+                        //If i==10 give user the permission to stop the trimming and save it to the db - with reason
                     }
 
+                    //Get the values of diagonal corners and the center and display them in boxes
+
                     ShowMessage(@"Trimming is completed...!!! Press OK to continue.");
+
                     
                     //Check with calibrated weight
                     //Check final FSO
@@ -367,9 +366,15 @@ namespace OCLSA_Project_Version_01
             }
         }
 
+        private void GetDisplaySaveCenterReadings()
+        {
+            tbCenter.Text = lblReading.Text;
+            CenterReadings.Add(Convert.ToDouble(tbCenter));
+        }
+
         private async Task CheckInitialCornerTest(LoadCell loadCell)
         {
-            await DisplaySaveCorners(tbInitialLeftCornerReading, tbInitialBackCornerReading,
+            await DisplaySaveMainCorners(tbInitialLeftCornerReading, tbInitialBackCornerReading,
                 tbInitialRightCornerReading, tbInitialFrontCornerReading);
 
             ShowMessage(@"Rotate the armature to left position...");
@@ -394,6 +399,8 @@ namespace OCLSA_Project_Version_01
 
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
+
+            CornerReadings.Clear();
 
             ShowMessage(@"Press OK when Trimming is completed...");
         }
@@ -450,6 +457,7 @@ namespace OCLSA_Project_Version_01
                     Back_Corner = d.BackCorner,
                     Right_Corner = d.RightCorner,
                     Front_Corner = d.FrontCorner,
+                    Center = d.Center,
                     Time_Duration = timeElapsed
                 };
 
@@ -459,7 +467,7 @@ namespace OCLSA_Project_Version_01
         private IEnumerable<Corner> GetDisplayData()
         {
             var corner = new Corner(
-                CornerReadings["Left"], CornerReadings["Back"], CornerReadings["Right"], CornerReadings["Front"]
+                CornerReadings["Left"], CornerReadings["Back"], CornerReadings["Right"], CornerReadings["Front"], CenterReadings[0]
             );
 
             _cornerList.Add(corner);
@@ -471,7 +479,7 @@ namespace OCLSA_Project_Version_01
         {
             var cornerList = new List<Control>
             {
-                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner
+                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner, tbCenter
             };
 
             foreach (var corner in cornerList)
@@ -481,7 +489,7 @@ namespace OCLSA_Project_Version_01
         }
 
 
-        private async Task DisplaySaveCorners(Control leftCorner, Control backCorner, Control rightCorner, Control frontCorner)
+        private async Task DisplaySaveMainCorners(Control leftCorner, Control backCorner, Control rightCorner, Control frontCorner)
         {
             await GetCornerReadings("Left", leftCorner);
             await GetCornerReadings("Back", backCorner);
@@ -610,7 +618,7 @@ namespace OCLSA_Project_Version_01
 
             if (corner == "Center")
             {
-                InitialCenterReading = currentCornerReading;
+                InitialAndFinalCenterReadings.Add(Convert.ToDouble(currentCornerReading));
             }
             else
             {
@@ -674,13 +682,15 @@ namespace OCLSA_Project_Version_01
         public double BackCorner { get; set; }
         public double RightCorner { get; set; }
         public double FrontCorner { get; set; }
+        public double Center { get; set; }
 
-        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner)
+        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner, double center)
         {
             LeftCorner = leftCorner;
             BackCorner = backCorner;
             RightCorner = rightCorner;
             FrontCorner = frontCorner;
+            Center = center;
         }
     }
 }
