@@ -59,12 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalibratedFsoInputForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CalibratedFsoInputForm.Designer.cs">
-      <DependentUpon>CalibratedFsoInputForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,17 +89,27 @@
     <Compile Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.Designer.cs">
       <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.cs" />
+    <Compile Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.Designer.cs">
+      <DependentUpon>202101260251439_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101260605103_AddedNewModel.cs" />
+    <Compile Include="Migrations\202101260605103_AddedNewModel.Designer.cs">
+      <DependentUpon>202101260605103_AddedNewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101260738459_AddedNewProperty.cs" />
+    <Compile Include="Migrations\202101260738459_AddedNewProperty.Designer.cs">
+      <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
     <Compile Include="Models\TestMode.cs" />
+    <Compile Include="Models\TrimmedLoadCell.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CalibratedFsoInputForm.resx">
-      <DependentUpon>CalibratedFsoInputForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +127,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.resx">
       <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.resx">
+      <DependentUpon>202101260251439_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260605103_AddedNewModel.resx">
+      <DependentUpon>202101260605103_AddedNewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260738459_AddedNewProperty.resx">
+      <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

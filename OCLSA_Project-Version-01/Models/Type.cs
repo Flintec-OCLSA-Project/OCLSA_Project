@@ -52,5 +52,15 @@ namespace OCLSA_Project_Version_01.Models
         [Required]
         public double MinimumFsoValue { get; set; }
 
+        [Required]
+        public double AppliedLoad { get; set; }
+
+        [Required]
+        public double Capacity { get; set; }
+
+        [Required]
+        public double Factor { get; set; }
+
+
     }
 }

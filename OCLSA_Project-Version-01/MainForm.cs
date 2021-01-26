@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Drawing;
@@ -28,6 +29,8 @@ namespace OCLSA_Project_Version_01
         public double MinimumFsoReading { get; set; }
         public double CornerTrimValue { get; set; }
 
+        public string LoadCellType { get; set; }
+
         public double LeftCornerTrimValue { get; set; }
         public double BackCornerTrimValue { get; set; }
         public double RightCornerTrimValue { get; set; }
@@ -44,6 +47,20 @@ namespace OCLSA_Project_Version_01
         private int _fiveSecondsCount = 5;
 
         public double TrimmedFso { get; set; }
+        public double CalculatedFso { get; set; }
+        public double FinalFso { get; set; }
+
+        public Stopwatch ProcessDuration { get; set; }
+
+        public DateTime StartingTime { get; set; }
+        public DateTime EndingTime { get; set; }
+
+        public int TrimCount { get; set; }
+
+        public string LoadCellStatus { get; set; }
+        public string LoadCellRejectCriteria { get; set; }
+
+        public bool StopTrimming { get; set; }
 
         public MainForm()
         {
@@ -68,7 +85,7 @@ namespace OCLSA_Project_Version_01
             pbImage.Image = image;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             btnStart.Enabled = false;
             btnStop.Enabled = false;
@@ -105,6 +122,8 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
+            StartingTime = DateTime.Now;
+
             var loadCell = CheckLoadCell();
 
             if (loadCell == null)
@@ -113,6 +132,8 @@ namespace OCLSA_Project_Version_01
                 tbSerialNumber.Clear();
                 return;
             }
+
+            LoadCellType = loadCell.TypeName;
             
             CheckDisplayCornerTrimValues(loadCell);
 
@@ -126,6 +147,8 @@ namespace OCLSA_Project_Version_01
 
             btnStart.Enabled = true;
             btnStop.Enabled = true;
+
+            ProcessDuration = Stopwatch.StartNew();
             
         }
 
@@ -288,8 +311,7 @@ namespace OCLSA_Project_Version_01
                 {
                     await CheckInitialCornerTest(loadCell);
 
-                    /*------------------Next Iteration - Trimming --------------------*/
-                    for (var i = 0; i < 10; i++)
+                    for (var i = 0; i < 15; i++)
                     {
                         var oneTrimCycleDuration = Stopwatch.StartNew();
 
@@ -302,8 +324,11 @@ namespace OCLSA_Project_Version_01
 
                         WriteCommand("01");
 
-                        await DisplaySaveMainCorners(tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner);
-
+                        await GetCornerReadings("Left", tbInitialLeftCornerReading);
+                        await GetCornerReadings("Back", tbInitialBackCornerReading);
+                        await GetCornerReadings("Right", tbInitialRightCornerReading);
+                        await GetCornerReadings("Front", tbInitialFrontCornerReading);
+                        
                         ShowMessage(@"Rotate the armature to left position...");
 
                         FiveSecondsCounter.Start();
@@ -336,7 +361,7 @@ namespace OCLSA_Project_Version_01
                         TenSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(10));
 
-                        ShowMessage(@"Press OK when Trimming is completed...");
+                        ShowMessage(@"Press OK when trimming is completed...");
 
                         oneTrimCycleDuration.Stop();
 
@@ -351,8 +376,14 @@ namespace OCLSA_Project_Version_01
 
                         ClearCornerReadings();
 
-                        //If i==10 give user the permission to stop the trimming and save it to the db - with reason
+                        if (i <= 10) continue;
+                        StopTrimmingAndExit();
+                        break;
                     }
+
+                    if(StopTrimming) return;
+
+                    tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
                     await CheckDisplayAllFinalCorners();
 
@@ -360,18 +391,31 @@ namespace OCLSA_Project_Version_01
                     {
                         ShowMessage(@"Load Cell is Passed....");
 
-                        //Save all details to db
-                        //Calculate whole time - Display in main form and save to db
+                        LoadCellStatus = Status.Passed.ToString();
+                        LoadCellRejectCriteria = RejectionCriteria.No.ToString();
 
-                        //Clear all inputs
+                    }
+                    else
+                    {
+                        ShowMessage(@"FSO is high... Add resistors for correction.");
 
-                        return;
+                        //Show solution for adding resistors
                     }
 
-                    ShowMessage(@"FSO is high... Add resistors for correction.");
-                        
-                    //Resistors Adding - ?
-                    
+                    ProcessDuration.Stop();
+
+                    DisplayFinalFso();
+
+                    DisplayTotalTime();
+
+                    EndingTime = DateTime.Now;
+
+                    SaveFinalDataToDb();
+
+                    ShowMessage(@"Process is completed & Data are saved... Press OK to trim a new cell.");
+
+                    ResetMainForm();
+
                     break;
                 }
                 
@@ -387,27 +431,155 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private bool IsCalculatedFsoInRange()
+        private void StopTrimmingAndExit()
         {
-            ShowMessage(@"Keep the Calibrated weight on the center.");
+            ShowMessage(@"Further trimming is useless...!!! Press OK to stop the process.");
 
-            var calibratedFso = lblReading.Text;
-            var calculatedFso = CalculateFso(calibratedFso);
+            LoadCellStatus = Status.Rejected.ToString();
+            LoadCellRejectCriteria = RejectionCriteria.Unstable.ToString();
 
-            return MinimumFsoReading < calculatedFso && calculatedFso < MaximumFsoReading;
+            EndingTime = DateTime.Now;
+            StopTrimming = true;
+
+            SaveRejectedDataToDb();
+
+            ResetMainForm();
         }
 
-        private double CalculateFso(string output)
+        private void SaveRejectedDataToDb()
         {
-            var calibratedFsoInputs = new CalibratedFsoInputForm();
-
-            if (calibratedFsoInputs.AppliedLoad == "lb")
+            try
             {
-                return Convert.ToDouble(output) * Convert.ToDouble(calibratedFsoInputs.Capacity) * 2.20462;
+                var trimmedLoadCell = new TrimmedLoadCell
+                {
+                    SerialNumber = tbSerialNumber.Text,
+                    LoadCellType = LoadCellType,
+                    StartingTime = StartingTime,
+                    EndingTime = EndingTime,
+                    Status = LoadCellStatus,
+                    RejectCriteria = LoadCellRejectCriteria,
+                    TrimCount = TrimCount
+                };
+
+                _context.TrimmedLoadCells.Add(trimmedLoadCell);
+                _context.SaveChanges();
+
+            }
+            catch (Exception exception)
+            {
+                ShowMessage(exception.Message);
+            }
+        }
+
+        private void SaveFinalDataToDb()
+        {
+            try
+            {
+                var trimmedLoadCell = new TrimmedLoadCell
+                {
+                    SerialNumber = tbSerialNumber.Text,
+                    LoadCellType = LoadCellType,
+                    StartingTime = StartingTime,
+                    EndingTime = EndingTime,
+                    BridgeUnbalance = Convert.ToDouble(tbBridgeUnbalance.Text),
+                    InitialFso = Convert.ToDouble(tbInitialFSO.Text),
+                    InitialLeftCorner = Convert.ToDouble(tbInitialLeftCornerReading.Text),
+                    InitialD1Corner = Convert.ToDouble(tbInitialD1Reading.Text),
+                    InitialBackCorner = Convert.ToDouble(tbInitialBackCornerReading.Text),
+                    InitialD2Corner = Convert.ToDouble(tbInitialD2Reading.Text),
+                    InitialRightCorner = Convert.ToDouble(tbInitialRightCornerReading.Text),
+                    InitialD3Corner = Convert.ToDouble(tbInitialD3Reading.Text),
+                    InitialFrontCorner = Convert.ToDouble(tbInitialFrontCornerReading.Text),
+                    InitialD4Corner = Convert.ToDouble(tbInitialD4Reading.Text),
+                    FinalLeftCorner = Convert.ToDouble(tbLeftCorner.Text),
+                    FinalD1Corner = Convert.ToDouble(tbD1Reading.Text),
+                    FinalBackCorner = Convert.ToDouble(tbBackCorner.Text),
+                    FinalD2Corner = Convert.ToDouble(tbD2Reading.Text),
+                    FinalRightCorner = Convert.ToDouble(tbRightCorner.Text),
+                    FinalD3Corner = Convert.ToDouble(tbD3Reading.Text),
+                    FinalFrontCorner = Convert.ToDouble(tbFrontCorner.Text),
+                    FinalD4Corner = Convert.ToDouble(tbD4Reading.Text),
+                    TrimmedFso = TrimmedFso,
+                    FactoredFso = CalculatedFso,
+                    FinalFso = FinalFso,
+                    Status = LoadCellStatus,
+                    RejectCriteria = LoadCellRejectCriteria,
+                    TrimCount = TrimCount
+                };
+
+                _context.TrimmedLoadCells.Add(trimmedLoadCell);
+                _context.SaveChanges();
+
+            }
+            catch (Exception exception)
+            {
+                ShowMessage(exception.Message);
+            }
+        }
+
+        private void DisplayTotalTime()
+        {
+            var processDuration = ProcessDuration.Elapsed.Minutes;
+
+            tbTotalTime.Text = $@"{processDuration} Minutes";
+        }
+
+        private void DisplayFinalFso()
+        {
+            FinalFso = CalculatedFso;
+            tbFinalFSO.Text = FinalFso.ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void ResetMainForm()
+        {
+            tbSerialNumber.ReadOnly = false;
+            ClearAllInputsAndOutputs();
+            lblStable.Text = "";
+            btnStart.Enabled = false;
+            btnStart.Enabled = false;
+        }
+
+        private void ClearAllInputsAndOutputs()
+        {
+            foreach (var textBox in Controls.OfType<TextBox>())
+            {
+                textBox.Clear();
             }
 
-            return Convert.ToDouble(output) * Convert.ToDouble(calibratedFsoInputs.Capacity);
-           
+            var labelList = new List<Label>
+            {
+                lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner, lblMaximumCenter, lblMaximumFSO,
+                lblMinimumFSO, lblMaximumUnbalance, lblMinimumUnbalance
+            };
+
+            foreach (var label in labelList)
+            {
+                label.Text = "";
+            }
+
+        }
+
+        private bool IsCalculatedFsoInRange()
+        {
+            ShowMessage(@"Keep the calibrated weight on the center.");
+
+            var calibratedCenterReading = lblReading.Text;
+            CalculateFso(calibratedCenterReading);
+
+            return MinimumFsoReading < CalculatedFso && CalculatedFso < MaximumFsoReading;
+        }
+
+        private void CalculateFso(string output)
+        {
+            var checkLoadCell = CheckLoadCell();
+
+            if (checkLoadCell == null) return;
+
+            var appliedLoad = checkLoadCell.Type.AppliedLoad;
+            var capacity = checkLoadCell.Type.Capacity;
+            var factor = checkLoadCell.Type.Factor;
+
+            CalculatedFso = (Convert.ToDouble(output) * capacity * factor) / appliedLoad;
         }
 
         private async Task CheckDisplayAllFinalCorners()
@@ -420,16 +592,16 @@ namespace OCLSA_Project_Version_01
             CornerReadings.Add("Left", Convert.ToDouble(currentCornerReading));
             tbLeftCorner.Text = currentCornerReading;
 
-            await GetCornerReadings("D1", tbBackLeft);
+            await GetCornerReadings("D1", tbD1Reading);
             await GetCornerReadings("Back", tbBackCorner);
 
-            await GetCornerReadings("D2", tbBackRight);
+            await GetCornerReadings("D2", tbD2Reading);
             await GetCornerReadings("Right", tbRightCorner);
 
-            await GetCornerReadings("D3", tbFrontRight);
+            await GetCornerReadings("D3", tbD3Reading);
             await GetCornerReadings("Front", tbFrontCorner);
 
-            await GetCornerReadings("D4", tbFrontLeft);
+            await GetCornerReadings("D4", tbD4Reading);
 
             ShowMessage(@"Move armature to Left position.");
 
@@ -456,8 +628,17 @@ namespace OCLSA_Project_Version_01
 
         private async Task CheckInitialCornerTest(LoadCell loadCell)
         {
-            await DisplaySaveMainCorners(tbInitialLeftCornerReading, tbInitialBackCornerReading,
-                tbInitialRightCornerReading, tbInitialFrontCornerReading);
+            await GetCornerReadings("Left", tbInitialLeftCornerReading);
+            await GetCornerReadings("D1", tbInitialD1Reading);
+            await GetCornerReadings("Back", tbInitialBackCornerReading);
+
+            await GetCornerReadings("D2", tbInitialD2Reading);
+            await GetCornerReadings("Right", tbInitialRightCornerReading);
+
+            await GetCornerReadings("D3", tbInitialD3Reading);
+            await GetCornerReadings("Front", tbInitialFrontCornerReading);
+
+            await GetCornerReadings("D4", tbInitialD4Reading);
 
             ShowMessage(@"Rotate the armature to left position...");
 
@@ -529,12 +710,12 @@ namespace OCLSA_Project_Version_01
         {
             var cornerList = GetDisplayData();
 
-            var trimCount = 0;
+            TrimCount = 0;
 
             var columns = from d in cornerList
                 select new
                 {
-                    Trim_Cycle = ++trimCount,
+                    Trim_Cycle = ++TrimCount,
                     Left_Corner = d.LeftCorner,
                     Back_Corner = d.BackCorner,
                     Right_Corner = d.RightCorner,
@@ -570,15 +751,6 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-
-        private async Task DisplaySaveMainCorners(Control leftCorner, Control backCorner, Control rightCorner, Control frontCorner)
-        {
-            await GetCornerReadings("Left", leftCorner);
-            await GetCornerReadings("Back", backCorner);
-            await GetCornerReadings("Right", rightCorner);
-            await GetCornerReadings("Front", frontCorner);
-        }
-
         private string GetMinimumCornerName()
         {
             var minCorner = CornerReadings
@@ -596,6 +768,8 @@ namespace OCLSA_Project_Version_01
                 ShowMessage(@"Load Cell has excessive corners. Load Cell is rejected...");
                 return true;
             }
+
+            EndingTime = DateTime.Now;
 
             return false;
         }
@@ -624,6 +798,8 @@ namespace OCLSA_Project_Version_01
                 return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true};
             }
 
+            EndingTime = DateTime.Now;
+
             return new CheckFsoResult(){InitialFso = initialFso, IsFsoNotOk = false};
         }
 
@@ -647,6 +823,8 @@ namespace OCLSA_Project_Version_01
                 ShowMessage(@"Initial Bridge Reading is not within the range...!!!");
                 return true;
             }
+
+            EndingTime = DateTime.Now;
 
             return false;
         }
@@ -751,6 +929,15 @@ namespace OCLSA_Project_Version_01
         {
             lblReading_TextChanged(sender, e);
         }
+
+        public static string ToDescriptionString(RejectionCriteria value)
+        {
+            var attributes = (DescriptionAttribute[])value
+                .GetType()
+                .GetField(value.ToString())
+                .GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
     }
 
     public class CheckFsoResult
@@ -782,5 +969,36 @@ namespace OCLSA_Project_Version_01
             FrontCorner = frontCorner;
             Center = center;
         }
+    }
+
+    public enum Status
+    {
+        Rejected,
+        Passed
+    }
+
+    public enum RejectionCriteria
+    {
+        [Description("High Balance")]
+        HighBalance,
+
+        [Description("High FSO")]
+        HighFso,
+
+        [Description("Low FSO")]
+        LowFso,
+
+        [Description("Excessive Corners")]
+        ExcessiveCorners,
+
+        Unstable,
+
+        [Description("High Zero")]
+        HighZero,
+
+        [Description("No Complete")]
+        NoComplete,
+
+        No
     }
 }
