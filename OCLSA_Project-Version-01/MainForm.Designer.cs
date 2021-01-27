@@ -216,14 +216,14 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Corners and Center Readings ";
             // 
-            // tbBackRight
+            // tbD2Reading
             // 
             this.tbD2Reading.Location = new System.Drawing.Point(423, 68);
             this.tbD2Reading.Name = "tbD2Reading";
             this.tbD2Reading.Size = new System.Drawing.Size(120, 25);
             this.tbD2Reading.TabIndex = 21;
             // 
-            // tbBackLeft
+            // tbD1Reading
             // 
             this.tbD1Reading.Location = new System.Drawing.Point(38, 68);
             this.tbD1Reading.Name = "tbD1Reading";
@@ -237,7 +237,7 @@
             this.tbInitialD2Reading.Size = new System.Drawing.Size(120, 25);
             this.tbInitialD2Reading.TabIndex = 20;
             // 
-            // tbFrontRight
+            // tbD3Reading
             // 
             this.tbD3Reading.Location = new System.Drawing.Point(423, 234);
             this.tbD3Reading.Name = "tbD3Reading";
@@ -288,7 +288,7 @@
             this.aeroLinkLabel8.TabStop = true;
             this.aeroLinkLabel8.Text = "D3";
             // 
-            // tbFrontLeft
+            // tbD4Reading
             // 
             this.tbD4Reading.Location = new System.Drawing.Point(40, 234);
             this.tbD4Reading.Name = "tbD4Reading";
@@ -1046,7 +1046,7 @@
             this.pbImage.TabIndex = 0;
             this.pbImage.TabStop = false;
             // 
-            // lbOperatorName
+            // lblOperatorName
             // 
             this.lblOperatorName.AutoSize = true;
             this.lblOperatorName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1056,7 +1056,7 @@
             this.lblOperatorName.TabIndex = 1;
             this.lblOperatorName.Text = "Opeartor Name";
             // 
-            // lbOperatorId
+            // lblOperatorId
             // 
             this.lblOperatorId.AutoSize = true;
             this.lblOperatorId.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1066,7 +1066,7 @@
             this.lblOperatorId.TabIndex = 2;
             this.lblOperatorId.Text = "Opeartor ID";
             // 
-            // lbLocation
+            // lblLocation
             // 
             this.lblLocation.AutoSize = true;
             this.lblLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1076,7 +1076,7 @@
             this.lblLocation.TabIndex = 4;
             this.lblLocation.Text = "Location";
             // 
-            // lbStation
+            // lblStation
             // 
             this.lblStation.AutoSize = true;
             this.lblStation.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
