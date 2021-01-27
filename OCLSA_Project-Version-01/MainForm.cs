@@ -340,6 +340,7 @@ namespace OCLSA_Project_Version_01
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
                         ShowMessage(@"Press OK when ready...!!!");
+                        await Task.Delay(TimeSpan.FromSeconds(1));
 
                         await GetCornerReadings("Left", tbLeftCorner);
                         await GetCornerReadings("Back", tbBackCorner);
@@ -911,6 +912,7 @@ namespace OCLSA_Project_Version_01
             FiveSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(5));
             ShowMessage(@"Press OK when ready...!!!");
+            await Task.Delay(TimeSpan.FromSeconds(1));
 
             var currentCornerReading = lblReading.Text;
 
