@@ -17,7 +17,6 @@ namespace OCLSA_Project_Version_01
     {
         private readonly ApplicationDbContext _context;
 
-        public List<double> InitialAndFinalCenterReadings { get; set; } = new List<double>();
         public List<double> CenterReadings { get; set; } = new List<double>();
         public Dictionary<string, double> CornerReadings { get; set; } = new Dictionary<string, double>();
         private List<Corner> _cornerList = new List<Corner>();
@@ -78,10 +77,10 @@ namespace OCLSA_Project_Version_01
 
             pbLoadCell.Show();
 
-            lbOperatorName.Text = fullName;
-            lbOperatorId.Text = employeeId.ToString();
-            lbLocation.Text = location;
-            lbStation.Text = station;
+            lblOperatorName.Text = fullName;
+            lblOperatorId.Text = employeeId.ToString();
+            lblLocation.Text = location;
+            lblStation.Text = station;
             pbImage.Image = image;
         }
 
@@ -258,8 +257,13 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
-            if (CheckBridgeUnbalance()) return;
+            if (CheckBridgeUnbalance())
+            {
+                StopProcessAndExit(@"Load Cell is Rejected due to High Balance...!!!", RejectionCriteria.HighBalance);
+                return;
+            }
 
+            await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
             
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
@@ -273,30 +277,41 @@ namespace OCLSA_Project_Version_01
 
             var result = CheckFso();
             var initialFso = result.InitialFso;
-            if (result.IsFsoNotOk) return;
+            if (result.IsFsoNotOk && result.IsFsoLow)
+            {
+                StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", RejectionCriteria.LowFso);
+                return;
+            }
+
+            if (result.IsFsoNotOk && result.IsFsoHigh)
+            {
+                StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", RejectionCriteria.HighFso);
+                return;
+            }
 
             tbInitialFSO.Text = initialFso;
 
+            await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
 
-            ShowMessage(@"Move weight to one corner...");
+            ShowMessage(@"Move weight to Left Corner...");
 
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
-            ShowMessage(@"Give exercise to load cell...");
+            ShowMessage(@"Give exercise to load cell. Rotate the armature...!!!");
 
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
-            ShowMessage(@"Move weight to center...");
+            ShowMessage(@"Move weight from Left Corner to Center...");
 
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
 
             WriteCommand("01");
 
-            ShowMessage(@"Move weight to one corner...");
+            ShowMessage(@"Remove weight from center & keep on Left Corner...!!!");
 
             TenSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(10));
@@ -319,15 +334,21 @@ namespace OCLSA_Project_Version_01
 
                         FiveSecondsCounter.Start();
                         await Task.Delay(TimeSpan.FromSeconds(5));
-
                         ShowMessage(@"Press OK when ready...!!!");
 
+                        await Task.Delay(TimeSpan.FromSeconds(1));
                         WriteCommand("01");
 
-                        await GetCornerReadings("Left", tbInitialLeftCornerReading);
-                        await GetCornerReadings("Back", tbInitialBackCornerReading);
-                        await GetCornerReadings("Right", tbInitialRightCornerReading);
-                        await GetCornerReadings("Front", tbInitialFrontCornerReading);
+                        ShowMessage(@"Remove weight from center & keep on Left Corner.");
+
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+                        ShowMessage(@"Press OK when ready...!!!");
+
+                        await GetCornerReadings("Left", tbLeftCorner);
+                        await GetCornerReadings("Back", tbBackCorner);
+                        await GetCornerReadings("Right", tbRightCorner);
+                        await GetCornerReadings("Front", tbFrontCorner);
                         
                         ShowMessage(@"Rotate the armature to left position...");
 
@@ -336,8 +357,13 @@ namespace OCLSA_Project_Version_01
 
                         ShowMessage(@"Remove the weight from the armature. Keep the weight on center.");
 
+                        FiveSecondsCounter.Start();
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+                        ShowMessage(@"Press OK when ready...!!!");
+
                         GetDisplaySaveCenterReadings();
 
+                        await Task.Delay(TimeSpan.FromSeconds(1));
                         WriteCommand("01");
 
                         if (CheckToTrim())
@@ -377,7 +403,7 @@ namespace OCLSA_Project_Version_01
                         ClearCornerReadings();
 
                         if (i <= 10) continue;
-                        StopTrimmingAndExit();
+                        StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.", RejectionCriteria.Unstable);
                         break;
                     }
 
@@ -392,7 +418,7 @@ namespace OCLSA_Project_Version_01
                         ShowMessage(@"Load Cell is Passed....");
 
                         LoadCellStatus = Status.Passed.ToString();
-                        LoadCellRejectCriteria = RejectionCriteria.No.ToString();
+                        LoadCellRejectCriteria = ToDescriptionString(RejectionCriteria.No);
 
                     }
                     else
@@ -400,6 +426,8 @@ namespace OCLSA_Project_Version_01
                         ShowMessage(@"FSO is high... Add resistors for correction.");
 
                         //Show solution for adding resistors
+
+                        return;
                     }
 
                     ProcessDuration.Stop();
@@ -431,12 +459,12 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private void StopTrimmingAndExit()
+        private void StopProcessAndExit(string errorMessage, RejectionCriteria reason)
         {
-            ShowMessage(@"Further trimming is useless...!!! Press OK to stop the process.");
+            ShowMessage(errorMessage);
 
             LoadCellStatus = Status.Rejected.ToString();
-            LoadCellRejectCriteria = RejectionCriteria.Unstable.ToString();
+            LoadCellRejectCriteria = ToDescriptionString(reason);
 
             EndingTime = DateTime.Now;
             StopTrimming = true;
@@ -458,7 +486,9 @@ namespace OCLSA_Project_Version_01
                     EndingTime = EndingTime,
                     Status = LoadCellStatus,
                     RejectCriteria = LoadCellRejectCriteria,
-                    TrimCount = TrimCount
+                    TrimCount = TrimCount,
+                    Operator = lblOperatorName.Text,
+                    OperatorId = Convert.ToInt32(lblOperatorId.Text)
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);
@@ -504,7 +534,9 @@ namespace OCLSA_Project_Version_01
                     FinalFso = FinalFso,
                     Status = LoadCellStatus,
                     RejectCriteria = LoadCellRejectCriteria,
-                    TrimCount = TrimCount
+                    TrimCount = TrimCount,
+                    Operator = lblOperatorName.Text,
+                    OperatorId = Convert.ToInt32(lblOperatorId.Text)
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);
@@ -609,7 +641,7 @@ namespace OCLSA_Project_Version_01
             await Task.Delay(TimeSpan.FromSeconds(5));
             ShowMessage(@"Press OK when ready...!!!");
 
-            await GetCornerReadings("Center", tbCenter, true);
+            await GetCornerReadings("Center", tbCenter);
 
             WriteCommand("01");
 
@@ -623,7 +655,7 @@ namespace OCLSA_Project_Version_01
         private void GetDisplaySaveCenterReadings()
         {
             tbCenter.Text = lblReading.Text;
-            CenterReadings.Add(Convert.ToDouble(tbCenter));
+            CenterReadings.Add(Convert.ToDouble(tbCenter.Text));
         }
 
         private async Task CheckInitialCornerTest(LoadCell loadCell)
@@ -645,9 +677,13 @@ namespace OCLSA_Project_Version_01
             FiveSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(5));
 
-            await GetCornerReadings("Center", tbInitialCenterReading, true);
+            await GetCornerReadings("Center", tbInitialCenterReading);
 
-            if (CheckExcessiveCorners(loadCell)) return;
+            if (CheckExcessiveCorners(loadCell))
+            {
+                StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", RejectionCriteria.ExcessiveCorners);
+                return;
+            }
 
             WriteCommand("01");
 
@@ -716,12 +752,12 @@ namespace OCLSA_Project_Version_01
                 select new
                 {
                     Trim_Cycle = ++TrimCount,
-                    Left_Corner = d.LeftCorner,
-                    Back_Corner = d.BackCorner,
-                    Right_Corner = d.RightCorner,
-                    Front_Corner = d.FrontCorner,
-                    Center = d.Center,
-                    Time_Duration = timeElapsed
+                    Left= d.LeftCorner,
+                    Back = d.BackCorner,
+                    Right = d.RightCorner,
+                    Front = d.FrontCorner,
+                    d.Center,
+                    Time = timeElapsed
                 };
 
             trimDataGridView.DataSource = columns.ToList();
@@ -792,10 +828,16 @@ namespace OCLSA_Project_Version_01
         {
             var initialFso = lblReading.Text;
 
-            if (Convert.ToDouble(initialFso) <= MinimumFsoReading || MaximumFsoReading <= Convert.ToDouble(initialFso))
+            if (Convert.ToDouble(initialFso) <= MinimumFsoReading)
             {
-                ShowMessage(@"Initial FSO is too high or low...!!!");
-                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true};
+                ShowMessage(@"Initial FSO is too Low...!!!");
+                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoLow = true};
+            }
+
+            if (MaximumFsoReading <= Convert.ToDouble(initialFso))
+            {
+                ShowMessage(@"Initial FSO is too High...!!!");
+                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoHigh = true};
             }
 
             EndingTime = DateTime.Now;
@@ -866,10 +908,9 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private async Task GetCornerReadings(string corner, Control textBox, bool isCenter = false)
+        private async Task GetCornerReadings(string corner, Control textBox)
         {
-            ShowMessage(
-                isCenter == false ? $@"Rotate armature to {corner} position..." : $@"Move weight to {corner}...");
+            ShowSuitableInstruction(corner);
 
             FiveSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(5));
@@ -886,14 +927,28 @@ namespace OCLSA_Project_Version_01
 
             if (corner == "Center")
             {
-                InitialAndFinalCenterReadings.Add(Convert.ToDouble(currentCornerReading));
+                textBox.Text = currentCornerReading;
+                return;
             }
-            else
-            {
-                CornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
-            }
-
+            
+            CornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
+            
             textBox.Text = currentCornerReading;
+        }
+
+        private static void ShowSuitableInstruction(string corner)
+        {
+            switch (corner)
+            {
+                case "Center":
+                    ShowMessage($@"Move weight to {corner}.");
+                    return;
+                case "Left":
+                    return;
+                default:
+                    ShowMessage($@"Rotate armature to {corner} position...");
+                    break;
+            }
         }
 
         private void ShowTrimPosition(string positionName)
@@ -930,7 +985,7 @@ namespace OCLSA_Project_Version_01
             lblReading_TextChanged(sender, e);
         }
 
-        public static string ToDescriptionString(RejectionCriteria value)
+        private static string ToDescriptionString(RejectionCriteria value)
         {
             var attributes = (DescriptionAttribute[])value
                 .GetType()
@@ -944,6 +999,8 @@ namespace OCLSA_Project_Version_01
     {
         public string InitialFso { get; set; }
         public bool IsFsoNotOk { get; set; }
+        public bool IsFsoLow { get; set; }
+        public bool IsFsoHigh { get; set; }
     }
 
     public class CheckCornerTestModeResult
@@ -991,6 +1048,7 @@ namespace OCLSA_Project_Version_01
         [Description("Excessive Corners")]
         ExcessiveCorners,
 
+        [Description("Unstable")]
         Unstable,
 
         [Description("High Zero")]
@@ -999,6 +1057,7 @@ namespace OCLSA_Project_Version_01
         [Description("No Complete")]
         NoComplete,
 
+        [Description("No")]
         No
     }
 }

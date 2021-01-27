@@ -90,5 +90,11 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public int TrimCount { get; set; }
+
+        [Required]
+        public string Operator { get; set; }
+
+        [Required]
+        public int OperatorId { get; set; }
     }
 }
