@@ -101,6 +101,10 @@
     <Compile Include="Migrations\202101260738459_AddedNewProperty.Designer.cs">
       <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs" />
+    <Compile Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.Designer.cs">
+      <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -136,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101260738459_AddedNewProperty.resx">
       <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.resx">
+      <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

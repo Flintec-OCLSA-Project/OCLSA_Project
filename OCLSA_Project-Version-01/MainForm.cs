@@ -34,10 +34,6 @@ namespace OCLSA_Project_Version_01
         public double BackCornerTrimValue { get; set; }
         public double RightCornerTrimValue { get; set; }
         public double FrontCornerTrimValue { get; set; }
-        public double LeftFrontCornerTrimValue { get; set; }
-        public double LeftBackCornerTrimValue { get; set; }
-        public double RightFrontCornerTrimValue { get; set; }
-        public double RightBackCornerTrimValue { get; set; }
 
         public double FrontBackCornerDifferenceInDb { get; set; }
         public double LeftRightCornerDifferenceInDb { get; set; }
@@ -440,7 +436,7 @@ namespace OCLSA_Project_Version_01
 
                     SaveFinalDataToDb();
 
-                    ShowMessage(@"Process is completed & Data are saved... Press OK to trim a new cell.");
+                    ShowMessage(@"Process is completed & Data saved... Press OK to trim a new cell.");
 
                     ResetMainForm();
 
@@ -914,7 +910,6 @@ namespace OCLSA_Project_Version_01
 
             FiveSecondsCounter.Start();
             await Task.Delay(TimeSpan.FromSeconds(5));
-
             ShowMessage(@"Press OK when ready...!!!");
 
             var currentCornerReading = lblReading.Text;
