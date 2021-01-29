@@ -129,11 +129,11 @@
             this.lblStable = new System.Windows.Forms.Label();
             this.lblWaiting = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDisplayMessage = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblDisplayMessage = new System.Windows.Forms.Label();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1126,21 +1126,21 @@
             // lblStable
             // 
             this.lblStable.AutoSize = true;
-            this.lblStable.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStable.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblStable.Location = new System.Drawing.Point(912, 24);
+            this.lblStable.Location = new System.Drawing.Point(956, 17);
             this.lblStable.Name = "lblStable";
-            this.lblStable.Size = new System.Drawing.Size(0, 25);
+            this.lblStable.Size = new System.Drawing.Size(0, 28);
             this.lblStable.TabIndex = 3;
             // 
             // lblWaiting
             // 
             this.lblWaiting.AutoSize = true;
-            this.lblWaiting.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWaiting.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWaiting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblWaiting.Location = new System.Drawing.Point(912, 67);
+            this.lblWaiting.Location = new System.Drawing.Point(956, 60);
             this.lblWaiting.Name = "lblWaiting";
-            this.lblWaiting.Size = new System.Drawing.Size(0, 25);
+            this.lblWaiting.Size = new System.Drawing.Size(0, 28);
             this.lblWaiting.TabIndex = 4;
             // 
             // panel1
@@ -1155,6 +1155,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1078, 100);
             this.panel1.TabIndex = 2;
+            // 
+            // lblDisplayMessage
+            // 
+            this.lblDisplayMessage.AutoSize = true;
+            this.lblDisplayMessage.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayMessage.ForeColor = System.Drawing.Color.Aqua;
+            this.lblDisplayMessage.Location = new System.Drawing.Point(433, 60);
+            this.lblDisplayMessage.Name = "lblDisplayMessage";
+            this.lblDisplayMessage.Size = new System.Drawing.Size(0, 28);
+            this.lblDisplayMessage.TabIndex = 5;
             // 
             // imageList1
             // 
@@ -1176,16 +1186,6 @@
             // 
             this.stableCheckTimer.Interval = 2000;
             this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
-            // 
-            // lblDisplayMessage
-            // 
-            this.lblDisplayMessage.AutoSize = true;
-            this.lblDisplayMessage.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDisplayMessage.ForeColor = System.Drawing.Color.Aqua;
-            this.lblDisplayMessage.Location = new System.Drawing.Point(463, 54);
-            this.lblDisplayMessage.Name = "lblDisplayMessage";
-            this.lblDisplayMessage.Size = new System.Drawing.Size(0, 32);
-            this.lblDisplayMessage.TabIndex = 5;
             // 
             // MainForm
             // 

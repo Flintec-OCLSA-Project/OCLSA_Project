@@ -58,7 +58,8 @@ namespace OCLSA_Project_Version_01
         public bool StopTrimming { get; set; }
 
         public Stopwatch OneTrimCycleDuration { get; set; }
-        public int TimeElapsed { get; set; }
+        public TimeSpan TimeElapsed { get; set; }
+        public string TimeInMinutesAndSeconds { get; set; }
 
         public MainForm()
         {
@@ -141,7 +142,7 @@ namespace OCLSA_Project_Version_01
 
             tbSerialNumber.ReadOnly = true;
 
-            ShowMessage(@"Press Start to continue...");
+            ShowMessage(@"Press start to continue...");
 
             btnStart.Enabled = true;
             btnStop.Enabled = true;
@@ -258,7 +259,7 @@ namespace OCLSA_Project_Version_01
 
             if (CheckBridgeUnbalance())
             {
-                StopProcessAndExit(@"Load Cell is Rejected due to High Balance...!!!", RejectionCriteria.HighBalance);
+                StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", RejectionCriteria.HighBalance);
                 return;
             }
 
@@ -267,13 +268,13 @@ namespace OCLSA_Project_Version_01
             
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
-            ShowMessage(@"Keep weight on center");
+            ShowMessage(@"Keep weight on Center");
 
-            await DisplayWaitingStatus(@"Keep weight on center", 10, false);
+            await DisplayWaitingStatus(@"Keep weight on Center", 10, false);
 
             while (CheckWeight(currentReading))
             {
-                await DisplayWaitingStatus(@"Keep weight on center",10, false);
+                await DisplayWaitingStatus(@"Keep weight on Center",10, false);
             }
 
             var result = CheckFso();
@@ -310,9 +311,9 @@ namespace OCLSA_Project_Version_01
 
             WriteCommand("01");
 
-            ShowMessage(@"Remove weight from center & keep on Left Corner");
+            ShowMessage(@"Remove weight from Center & keep on Left Corner");
 
-            await DisplayWaitingStatus(@"Remove weight from center & keep on Left Corner", 10, false);
+            await DisplayWaitingStatus(@"Move weight from Center to Left Corner", 10, false);
 
             var checkCornerTestMode = CheckCornerTestMode();
             var loadCell = checkCornerTestMode.LoadCell;
@@ -329,30 +330,30 @@ namespace OCLSA_Project_Version_01
                         //TODO - Check timer
                         OneTrimCycleDuration = Stopwatch.StartNew();
 
-                        ShowMessage(@"Keep weight on the center");
+                        ShowMessage(@"Keep weight on the Center");
 
-                        await DisplayWaitingStatus(@"Keep weight on the center", 5, true);
+                        await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
                         await Task.Delay(TimeSpan.FromSeconds(1));
                         WriteCommand("01");
 
-                        ShowMessage(@"Remove weight from center & keep on Left Corner");
+                        ShowMessage(@"Remove the weight and keep on Center");
 
-                        await DisplayWaitingStatus(@"Remove weight from center & keep on Left Corner", 5, true);
+                        await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
-                        await GetCornerReadings("Left", tbLeftCorner);
+                        GetLeftCornerReading(tbLeftCorner);
                         await GetCornerReadings("Back", tbBackCorner);
                         await GetCornerReadings("Right", tbRightCorner);
                         await GetCornerReadings("Front", tbFrontCorner);
                         
-                        ShowMessage(@"Rotate the armature to left position");
+                        ShowMessage(@"Rotate the armature to Left position");
 
-                        await DisplayWaitingStatus(@"Rotate the armature to left position", 5, true);
+                        await DisplayWaitingStatus(@"Rotate the armature to Left position", 5, true);
 
                         await Task.Delay(TimeSpan.FromSeconds(2));
-                        ShowMessage(@"Remove the weight from the armature. Keep the weight on center");
+                        ShowMessage(@"Remove the weight and keep on Center");
 
-                        await DisplayWaitingStatus(@"Remove the weight from the armature. Keep the weight on center", 5, true);
+                        await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
                         GetDisplaySaveCenterReadings();
 
@@ -361,7 +362,7 @@ namespace OCLSA_Project_Version_01
 
                         if (CheckToTrim())
                         {
-                            ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the left corner.");
+                            ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
                             CornerReadings.Clear();
                             CenterReadings.Clear();
                             ClearCornerReadings();
@@ -372,15 +373,16 @@ namespace OCLSA_Project_Version_01
 
                         await DisplayWaitingStatus(@"Please remove the weight", 5, true);
 
-                        ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image.");
+                        ShowMessage($@"Look Image to trim the {GetMinimumCornerName()} corner");
 
                         ShowTrimPosition(GetMinimumCornerName());
 
-                        await DisplayWaitingStatus(@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
+                        await DisplayWaitingStatus($@"Look Image to trim the {GetMinimumCornerName()} corner", 5, true);
 
                         OneTrimCycleDuration.Stop();
 
-                        TimeElapsed = OneTrimCycleDuration.Elapsed.Minutes;
+                        TimeElapsed = OneTrimCycleDuration.Elapsed.Duration();
+                        TimeInMinutesAndSeconds = $"{TimeElapsed.Minutes:D2}:{TimeElapsed.Seconds:D2}";
 
                         DisplayDataTable();
 
@@ -429,7 +431,7 @@ namespace OCLSA_Project_Version_01
 
                     SaveFinalDataToDb();
 
-                    ShowMessage(@"Process is completed & Data saved... Press OK to trim a new cell.");
+                    ShowMessage(@"Process is completed & Data saved. Press OK to trim a new cell.");
 
                     ResetMainForm();
 
@@ -443,9 +445,16 @@ namespace OCLSA_Project_Version_01
                     break;
 
                 default:
-                    ShowMessage(@"Error in selecting test mode...");
+                    ShowMessage(@"Error in selecting test mode");
                     break;
             }
+        }
+
+        private void GetLeftCornerReading(TextBox textBox)
+        {
+            var currentCornerReading = lblReading.Text;
+            CornerReadings.Add("Left", Convert.ToDouble(currentCornerReading));
+            textBox.Text = currentCornerReading;
         }
 
         private async Task DisplayWaitingStatus(string command, int waitingTime, bool isLessCount)
@@ -595,7 +604,7 @@ namespace OCLSA_Project_Version_01
 
         private bool IsCalculatedFsoInRange()
         {
-            ShowMessage(@"Keep the calibrated weight on the center.");
+            ShowMessage(@"Keep the calibrated weight on the Center.");
 
             var calibratedCenterReading = lblReading.Text;
             CalculateFso(calibratedCenterReading);
@@ -618,21 +627,15 @@ namespace OCLSA_Project_Version_01
 
         private async Task CheckDisplayAllFinalCorners()
         {
-            await DisplayWaitingStatus(@"", 5, true);
+            await DisplayWaitingStatus(@"Move weight to the Left Corner", 5, true);
 
-            var currentCornerReading = lblReading.Text;
-            CornerReadings.Add("Left", Convert.ToDouble(currentCornerReading));
-            tbLeftCorner.Text = currentCornerReading;
-
+            GetLeftCornerReading(tbLeftCorner);
             await GetCornerReadings("D1", tbD1Reading);
             await GetCornerReadings("Back", tbBackCorner);
-
             await GetCornerReadings("D2", tbD2Reading);
             await GetCornerReadings("Right", tbRightCorner);
-
             await GetCornerReadings("D3", tbD3Reading);
             await GetCornerReadings("Front", tbFrontCorner);
-
             await GetCornerReadings("D4", tbD4Reading);
 
             ShowMessage(@"Move armature to Left position");
@@ -643,7 +646,7 @@ namespace OCLSA_Project_Version_01
 
             WriteCommand("01");
 
-            ShowMessage(@"Remove the weight from center. Trimming is completed...!!! Press OK to continue.");
+            ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
 
             var trimmedCenterReading = lblReading.Text;
 
@@ -658,19 +661,16 @@ namespace OCLSA_Project_Version_01
 
         private async Task CheckInitialCornerTest(LoadCell loadCell)
         {
-            await GetCornerReadings("Left", tbInitialLeftCornerReading);
+            GetLeftCornerReading(tbInitialLeftCornerReading);
             await GetCornerReadings("D1", tbInitialD1Reading);
             await GetCornerReadings("Back", tbInitialBackCornerReading);
-
             await GetCornerReadings("D2", tbInitialD2Reading);
             await GetCornerReadings("Right", tbInitialRightCornerReading);
-
             await GetCornerReadings("D3", tbInitialD3Reading);
             await GetCornerReadings("Front", tbInitialFrontCornerReading);
-
             await GetCornerReadings("D4", tbInitialD4Reading);
 
-            ShowMessage(@"Rotate the armature to left position");
+            ShowMessage(@"Rotate the armature to Left position");
 
             await DisplayWaitingStatus(@"Rotate the armature to Left position", 5, true);
 
@@ -752,7 +752,7 @@ namespace OCLSA_Project_Version_01
                     Right = d.RightCorner,
                     Front = d.FrontCorner,
                     d.Center,
-                    Time = TimeElapsed
+                    Time = TimeInMinutesAndSeconds
                 };
 
             trimDataGridView.DataSource = columns.ToList();
@@ -845,7 +845,7 @@ namespace OCLSA_Project_Version_01
             var readingAfterWeight = currentReading + 0.00050;
 
             if (!(Math.Abs(Convert.ToDouble(lblReading.Text)) < readingAfterWeight)) return false;
-            ShowMessage(@"Check weight on center...!!!");
+            ShowMessage(@"Check weight on Center...!!!");
             return true;
         }
 
@@ -905,45 +905,34 @@ namespace OCLSA_Project_Version_01
 
         private async Task GetCornerReadings(string corner, Control textBox)
         {
-            ShowSuitableInstruction(corner);
+            ShowMessage(GiveInstruction(corner));
 
-            FiveSecondsCounter.Start();
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            ShowMessage(@"Press OK when ready...!!!");
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            var textToDisplay = GiveInstruction(corner);
 
-            var currentCornerReading = lblReading.Text;
+            await DisplayWaitingStatus(textToDisplay, 5, true);
+
+            var currentReading = lblReading.Text;
 
             if (corner == "D1" || corner == "D2" || corner == "D3" || corner == "D4")
             {
-                textBox.Text = currentCornerReading;
+                textBox.Text = currentReading;
                 return;
             }
 
             if (corner == "Center")
             {
-                textBox.Text = currentCornerReading;
+                textBox.Text = currentReading;
                 return;
             }
             
-            CornerReadings.Add(corner, Convert.ToDouble(currentCornerReading));
+            CornerReadings.Add(corner, Convert.ToDouble(currentReading));
             
-            textBox.Text = currentCornerReading;
+            textBox.Text = currentReading;
         }
 
-        private static void ShowSuitableInstruction(string corner)
+        private static string GiveInstruction(string corner)
         {
-            switch (corner)
-            {
-                case "Center":
-                    ShowMessage($@"Move weight to {corner}.");
-                    return;
-                case "Left":
-                    return;
-                default:
-                    ShowMessage($@"Rotate armature to {corner} position...");
-                    break;
-            }
+            return corner == "Center" ? $@"Move weight to {corner}." : $@"Rotate armature to {corner} position...";
         }
 
         private void ShowTrimPosition(string positionName)
