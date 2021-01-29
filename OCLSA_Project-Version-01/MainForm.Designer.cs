@@ -133,6 +133,7 @@
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblDisplayMessage = new System.Windows.Forms.Label();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -273,10 +274,10 @@
             this.aeroLinkLabel9.AutoSize = true;
             this.aeroLinkLabel9.Location = new System.Drawing.Point(84, 17);
             this.aeroLinkLabel9.Name = "aeroLinkLabel9";
-            this.aeroLinkLabel9.Size = new System.Drawing.Size(29, 17);
+            this.aeroLinkLabel9.Size = new System.Drawing.Size(22, 17);
             this.aeroLinkLabel9.TabIndex = 19;
             this.aeroLinkLabel9.TabStop = true;
-            this.aeroLinkLabel9.Text = "D01";
+            this.aeroLinkLabel9.Text = "D1";
             // 
             // aeroLinkLabel8
             // 
@@ -1116,7 +1117,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label7.Location = new System.Drawing.Point(280, 4);
+            this.label7.Location = new System.Drawing.Point(267, 4);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(170, 65);
             this.label7.TabIndex = 1;
@@ -1145,6 +1146,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel1.Controls.Add(this.lblDisplayMessage);
             this.panel1.Controls.Add(this.lblWaiting);
             this.panel1.Controls.Add(this.lblStable);
             this.panel1.Controls.Add(this.label7);
@@ -1174,6 +1176,16 @@
             // 
             this.stableCheckTimer.Interval = 2000;
             this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
+            // 
+            // lblDisplayMessage
+            // 
+            this.lblDisplayMessage.AutoSize = true;
+            this.lblDisplayMessage.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayMessage.ForeColor = System.Drawing.Color.Aqua;
+            this.lblDisplayMessage.Location = new System.Drawing.Point(463, 54);
+            this.lblDisplayMessage.Name = "lblDisplayMessage";
+            this.lblDisplayMessage.Size = new System.Drawing.Size(0, 32);
+            this.lblDisplayMessage.TabIndex = 5;
             // 
             // MainForm
             // 
@@ -1327,6 +1339,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Timer stableCheckTimer;
+        private System.Windows.Forms.Label lblDisplayMessage;
     }
 }
 
