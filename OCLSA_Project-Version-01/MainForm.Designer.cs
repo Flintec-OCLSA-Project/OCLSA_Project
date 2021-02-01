@@ -63,7 +63,7 @@
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.trimDataGridView = new System.Windows.Forms.DataGridView();
-            this.textBox25 = new System.Windows.Forms.TextBox();
+            this.tbStatus = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel16 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbTotalTime = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel15 = new AeroSuite.Controls.AeroLinkLabel();
@@ -436,7 +436,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.trimDataGridView);
-            this.groupBox3.Controls.Add(this.textBox25);
+            this.groupBox3.Controls.Add(this.tbStatus);
             this.groupBox3.Controls.Add(this.aeroLinkLabel16);
             this.groupBox3.Controls.Add(this.tbTotalTime);
             this.groupBox3.Controls.Add(this.aeroLinkLabel15);
@@ -464,12 +464,12 @@
             this.trimDataGridView.Size = new System.Drawing.Size(659, 212);
             this.trimDataGridView.TabIndex = 42;
             // 
-            // textBox25
+            // tbStatus
             // 
-            this.textBox25.Location = new System.Drawing.Point(172, 208);
-            this.textBox25.Name = "textBox25";
-            this.textBox25.Size = new System.Drawing.Size(147, 25);
-            this.textBox25.TabIndex = 41;
+            this.tbStatus.Location = new System.Drawing.Point(172, 208);
+            this.tbStatus.Name = "tbStatus";
+            this.tbStatus.Size = new System.Drawing.Size(147, 25);
+            this.tbStatus.TabIndex = 41;
             // 
             // aeroLinkLabel16
             // 
@@ -1269,7 +1269,7 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView trimDataGridView;
-        private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.TextBox tbStatus;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel16;
         private System.Windows.Forms.TextBox tbTotalTime;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel15;

@@ -259,6 +259,7 @@ namespace OCLSA_Project_Version_01
 
             if (CheckBridgeUnbalance())
             {
+                tbStatus.Text = @"Failed";
                 StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", RejectionCriteria.HighBalance);
                 return;
             }
@@ -300,9 +301,9 @@ namespace OCLSA_Project_Version_01
 
             await DisplayWaitingStatus(@"Move weight to Left Corner", 10, false);
 
-            ShowMessage(@"Give exercise to load cell");
+            ShowMessage(@"Give exercise to Load Cell");
 
-            await DisplayWaitingStatus(@"Give exercise to load cell", 10, false);
+            await DisplayWaitingStatus(@"Give exercise to Load Cell", 10, false);
 
             await Task.Delay(TimeSpan.FromSeconds(2));
             ShowMessage(@"Move weight from Left Corner to Center");
@@ -414,7 +415,7 @@ namespace OCLSA_Project_Version_01
                     }
                     else
                     {
-                        ShowMessage(@"FSO is high... Add resistors for correction.");
+                        ShowMessage(@"FSO is high. Add resistors for correction.");
 
                         //Show solution for adding resistors
 
@@ -426,6 +427,8 @@ namespace OCLSA_Project_Version_01
                     DisplayFinalFso();
 
                     DisplayTotalTime();
+
+                    tbStatus.Text = @"Passed";
 
                     EndingTime = DateTime.Now;
 
@@ -450,7 +453,7 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private void GetLeftCornerReading(TextBox textBox)
+        private void GetLeftCornerReading(Control textBox)
         {
             var currentCornerReading = lblReading.Text;
             CornerReadings.Add("Left", Convert.ToDouble(currentCornerReading));
@@ -604,7 +607,7 @@ namespace OCLSA_Project_Version_01
 
         private bool IsCalculatedFsoInRange()
         {
-            ShowMessage(@"Keep the calibrated weight on the Center.");
+            ShowMessage(@"Keep the calibrated weight on the Center");
 
             var calibratedCenterReading = lblReading.Text;
             CalculateFso(calibratedCenterReading);
@@ -684,7 +687,7 @@ namespace OCLSA_Project_Version_01
 
             WriteCommand("01");
 
-            ShowMessage(@"Please remove the weight...");
+            ShowMessage(@"Please remove the weight");
 
             await DisplayWaitingStatus(@"Please remove the weight", 5, true);
 
@@ -696,7 +699,7 @@ namespace OCLSA_Project_Version_01
 
             CornerReadings.Clear();
 
-            ShowMessage(@"Press OK when Trimming is completed...");
+            ShowMessage(@"Press OK when Trimming is completed");
         }
 
         private bool CheckToTrim()
