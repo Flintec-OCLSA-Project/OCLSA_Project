@@ -105,6 +105,14 @@
     <Compile Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.Designer.cs">
       <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.cs" />
+    <Compile Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.Designer.cs">
+      <DependentUpon>202102021003533_RemovedIdFromLoadcellModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021121437_AddedFSOCorrectionValueField.cs" />
+    <Compile Include="Migrations\202102021121437_AddedFSOCorrectionValueField.Designer.cs">
+      <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -143,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.resx">
       <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.resx">
+      <DependentUpon>202102021003533_RemovedIdFromLoadcellModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021121437_AddedFSOCorrectionValueField.resx">
+      <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

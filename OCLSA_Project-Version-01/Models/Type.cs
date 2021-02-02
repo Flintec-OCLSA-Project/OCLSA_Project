@@ -60,7 +60,8 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public double Factor { get; set; }
-
-
+        
+        [Required]
+        public double FsoCorrectionValue { get; set; }
     }
 }

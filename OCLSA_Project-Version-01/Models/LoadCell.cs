@@ -10,15 +10,17 @@ namespace OCLSA_Project_Version_01.Models
 {
     public class LoadCell
     {
-        public int Id { get; set; }
-
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string SerialNumber { get; set; }
 
         [ForeignKey("Type")]
         public string TypeName { get; set; }
 
         public Type Type { get; set; }
+
+        [Required]
+        public string MetalCategory { get; set; }
 
     }
 }

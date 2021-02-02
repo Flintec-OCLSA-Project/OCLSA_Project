@@ -459,22 +459,22 @@
             // trimDataGridView
             // 
             this.trimDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.trimDataGridView.Location = new System.Drawing.Point(335, 24);
+            this.trimDataGridView.Location = new System.Drawing.Point(301, 24);
             this.trimDataGridView.Name = "trimDataGridView";
-            this.trimDataGridView.Size = new System.Drawing.Size(659, 212);
+            this.trimDataGridView.Size = new System.Drawing.Size(693, 212);
             this.trimDataGridView.TabIndex = 42;
             // 
             // tbStatus
             // 
-            this.tbStatus.Location = new System.Drawing.Point(172, 208);
+            this.tbStatus.Location = new System.Drawing.Point(161, 208);
             this.tbStatus.Name = "tbStatus";
-            this.tbStatus.Size = new System.Drawing.Size(147, 25);
+            this.tbStatus.Size = new System.Drawing.Size(122, 25);
             this.tbStatus.TabIndex = 41;
             // 
             // aeroLinkLabel16
             // 
             this.aeroLinkLabel16.AutoSize = true;
-            this.aeroLinkLabel16.Location = new System.Drawing.Point(19, 211);
+            this.aeroLinkLabel16.Location = new System.Drawing.Point(13, 211);
             this.aeroLinkLabel16.Name = "aeroLinkLabel16";
             this.aeroLinkLabel16.Size = new System.Drawing.Size(46, 17);
             this.aeroLinkLabel16.TabIndex = 40;
@@ -483,15 +483,15 @@
             // 
             // tbTotalTime
             // 
-            this.tbTotalTime.Location = new System.Drawing.Point(172, 174);
+            this.tbTotalTime.Location = new System.Drawing.Point(161, 174);
             this.tbTotalTime.Name = "tbTotalTime";
-            this.tbTotalTime.Size = new System.Drawing.Size(147, 25);
+            this.tbTotalTime.Size = new System.Drawing.Size(122, 25);
             this.tbTotalTime.TabIndex = 39;
             // 
             // aeroLinkLabel15
             // 
             this.aeroLinkLabel15.AutoSize = true;
-            this.aeroLinkLabel15.Location = new System.Drawing.Point(19, 177);
+            this.aeroLinkLabel15.Location = new System.Drawing.Point(13, 177);
             this.aeroLinkLabel15.Name = "aeroLinkLabel15";
             this.aeroLinkLabel15.Size = new System.Drawing.Size(70, 17);
             this.aeroLinkLabel15.TabIndex = 38;
@@ -500,15 +500,15 @@
             // 
             // tbTrimmedCyclesCount
             // 
-            this.tbTrimmedCyclesCount.Location = new System.Drawing.Point(172, 137);
+            this.tbTrimmedCyclesCount.Location = new System.Drawing.Point(161, 137);
             this.tbTrimmedCyclesCount.Name = "tbTrimmedCyclesCount";
-            this.tbTrimmedCyclesCount.Size = new System.Drawing.Size(147, 25);
+            this.tbTrimmedCyclesCount.Size = new System.Drawing.Size(122, 25);
             this.tbTrimmedCyclesCount.TabIndex = 37;
             // 
             // aeroLinkLabel14
             // 
             this.aeroLinkLabel14.AutoSize = true;
-            this.aeroLinkLabel14.Location = new System.Drawing.Point(19, 140);
+            this.aeroLinkLabel14.Location = new System.Drawing.Point(13, 140);
             this.aeroLinkLabel14.Name = "aeroLinkLabel14";
             this.aeroLinkLabel14.Size = new System.Drawing.Size(140, 17);
             this.aeroLinkLabel14.TabIndex = 36;
@@ -517,15 +517,15 @@
             // 
             // tbFinalFSO
             // 
-            this.tbFinalFSO.Location = new System.Drawing.Point(172, 100);
+            this.tbFinalFSO.Location = new System.Drawing.Point(161, 100);
             this.tbFinalFSO.Name = "tbFinalFSO";
-            this.tbFinalFSO.Size = new System.Drawing.Size(147, 25);
+            this.tbFinalFSO.Size = new System.Drawing.Size(122, 25);
             this.tbFinalFSO.TabIndex = 35;
             // 
             // aeroLinkLabel13
             // 
             this.aeroLinkLabel13.AutoSize = true;
-            this.aeroLinkLabel13.Location = new System.Drawing.Point(19, 103);
+            this.aeroLinkLabel13.Location = new System.Drawing.Point(13, 103);
             this.aeroLinkLabel13.Name = "aeroLinkLabel13";
             this.aeroLinkLabel13.Size = new System.Drawing.Size(64, 17);
             this.aeroLinkLabel13.TabIndex = 34;
@@ -534,15 +534,15 @@
             // 
             // tbInitialFSO
             // 
-            this.tbInitialFSO.Location = new System.Drawing.Point(172, 64);
+            this.tbInitialFSO.Location = new System.Drawing.Point(161, 64);
             this.tbInitialFSO.Name = "tbInitialFSO";
-            this.tbInitialFSO.Size = new System.Drawing.Size(147, 25);
+            this.tbInitialFSO.Size = new System.Drawing.Size(122, 25);
             this.tbInitialFSO.TabIndex = 33;
             // 
             // aeroLinkLabel12
             // 
             this.aeroLinkLabel12.AutoSize = true;
-            this.aeroLinkLabel12.Location = new System.Drawing.Point(19, 67);
+            this.aeroLinkLabel12.Location = new System.Drawing.Point(13, 67);
             this.aeroLinkLabel12.Name = "aeroLinkLabel12";
             this.aeroLinkLabel12.Size = new System.Drawing.Size(69, 17);
             this.aeroLinkLabel12.TabIndex = 32;
@@ -551,15 +551,15 @@
             // 
             // tbBridgeUnbalance
             // 
-            this.tbBridgeUnbalance.Location = new System.Drawing.Point(172, 27);
+            this.tbBridgeUnbalance.Location = new System.Drawing.Point(161, 27);
             this.tbBridgeUnbalance.Name = "tbBridgeUnbalance";
-            this.tbBridgeUnbalance.Size = new System.Drawing.Size(147, 25);
+            this.tbBridgeUnbalance.Size = new System.Drawing.Size(122, 25);
             this.tbBridgeUnbalance.TabIndex = 31;
             // 
             // aeroLinkLabel11
             // 
             this.aeroLinkLabel11.AutoSize = true;
-            this.aeroLinkLabel11.Location = new System.Drawing.Point(19, 30);
+            this.aeroLinkLabel11.Location = new System.Drawing.Point(13, 30);
             this.aeroLinkLabel11.Name = "aeroLinkLabel11";
             this.aeroLinkLabel11.Size = new System.Drawing.Size(114, 17);
             this.aeroLinkLabel11.TabIndex = 4;
@@ -793,7 +793,7 @@
             this.groupBox4.Size = new System.Drawing.Size(317, 207);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Corner and Center Range";
+            this.groupBox4.Text = "Corner and Center Trim Range";
             // 
             // lblRightCorner
             // 
@@ -1011,7 +1011,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // label1

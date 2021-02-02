@@ -8,8 +8,8 @@ namespace OCLSA_Project_Version_01.Models
 {
     public static class TestMode
     {
-        public const string CornerTest = "CornerTest";
-        public const string DiagonalTest = "DiagonalTest";
-        public const string FullTest = "FullTest";
+        public const string CornerTest = "Corner";
+        public const string DiagonalTest = "Diagonal";
+        public const string FullTest = "Full";
     }
 }
