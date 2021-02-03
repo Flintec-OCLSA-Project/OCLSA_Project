@@ -76,7 +76,6 @@
             this.tbBridgeUnbalance = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pbFront = new System.Windows.Forms.PictureBox();
             this.pbLoadCell = new System.Windows.Forms.PictureBox();
             this.pbBack = new System.Windows.Forms.PictureBox();
             this.pbLeft = new System.Windows.Forms.PictureBox();
@@ -134,12 +133,12 @@
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.pbFront = new System.Windows.Forms.PictureBox();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).BeginInit();
@@ -152,6 +151,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).BeginInit();
             this.SuspendLayout();
             // 
             // initialTimer
@@ -581,17 +581,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graphical Display";
             // 
-            // pbFront
-            // 
-            this.pbFront.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbFront.BackgroundImage")));
-            this.pbFront.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbFront.Location = new System.Drawing.Point(6, 17);
-            this.pbFront.Name = "pbFront";
-            this.pbFront.Size = new System.Drawing.Size(401, 245);
-            this.pbFront.TabIndex = 49;
-            this.pbFront.TabStop = false;
-            this.pbFront.Visible = false;
-            // 
             // pbLoadCell
             // 
             this.pbLoadCell.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLoadCell.BackgroundImage")));
@@ -1011,7 +1000,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             // 
             // label1
@@ -1187,6 +1176,17 @@
             this.stableCheckTimer.Interval = 2000;
             this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
             // 
+            // pbFront
+            // 
+            this.pbFront.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbFront.BackgroundImage")));
+            this.pbFront.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbFront.Location = new System.Drawing.Point(6, 17);
+            this.pbFront.Name = "pbFront";
+            this.pbFront.Size = new System.Drawing.Size(401, 245);
+            this.pbFront.TabIndex = 49;
+            this.pbFront.TabStop = false;
+            this.pbFront.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1210,7 +1210,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).EndInit();
@@ -1230,6 +1229,7 @@
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFront)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1284,7 +1284,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         internal System.Windows.Forms.PictureBox pbLoadCell;
         internal System.Windows.Forms.PictureBox pbBack;
-        internal System.Windows.Forms.PictureBox pbFront;
         internal System.Windows.Forms.PictureBox pbLeft;
         internal System.Windows.Forms.PictureBox pbRight;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1340,6 +1339,7 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Timer stableCheckTimer;
         private System.Windows.Forms.Label lblDisplayMessage;
+        internal System.Windows.Forms.PictureBox pbFront;
     }
 }
 

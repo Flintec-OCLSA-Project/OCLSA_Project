@@ -113,6 +113,14 @@
     <Compile Include="Migrations\202102021121437_AddedFSOCorrectionValueField.Designer.cs">
       <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102030357074_AddedResistorCount.cs" />
+    <Compile Include="Migrations\202102030357074_AddedResistorCount.Designer.cs">
+      <DependentUpon>202102030357074_AddedResistorCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102030551100_AddedFsoCorrectionField.cs" />
+    <Compile Include="Migrations\202102030551100_AddedFsoCorrectionField.Designer.cs">
+      <DependentUpon>202102030551100_AddedFsoCorrectionField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -158,6 +166,12 @@
     <EmbeddedResource Include="Migrations\202102021121437_AddedFSOCorrectionValueField.resx">
       <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030357074_AddedResistorCount.resx">
+      <DependentUpon>202102030357074_AddedResistorCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030551100_AddedFsoCorrectionField.resx">
+      <DependentUpon>202102030551100_AddedFsoCorrectionField.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,6 +180,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -181,6 +196,38 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Pictures\Back.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\blank-profile-picture-973460_640.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\CalibratedWeight.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\Center.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\D1.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\D2.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\D3.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\D4.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\Front.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\Left.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\Right.JPG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

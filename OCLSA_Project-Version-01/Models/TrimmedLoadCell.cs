@@ -94,7 +94,13 @@ namespace OCLSA_Project_Version_01.Models
         [Required]
         public string Operator { get; set; }
 
-        [Required]
+        [Required] 
         public int OperatorId { get; set; }
+
+        [Required]
+        public int NoOfResistors { get; set; }
+
+        [Required]
+        public bool IsFsoCorrectionAvailable { get; set; }
     }
 }

@@ -87,6 +87,15 @@ namespace OCLSA_Project_Version_01
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.tbFsoCorrectionValue = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
+            this.tbAppliedLoad = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel23 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel24 = new AeroSuite.Controls.AeroLinkLabel();
+            this.tbFullLoad = new WindowsFormsAero.TextBox();
+            this.tbFactor = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel25 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -98,6 +107,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox4
@@ -109,7 +119,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox4.Font = new System.Drawing.Font("Open Sans SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(12, 34);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(371, 528);
+            this.groupBox4.Size = new System.Drawing.Size(371, 486);
             this.groupBox4.TabIndex = 32;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Load Cell";
@@ -122,7 +132,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox9.Controls.Add(this.aeroLinkLabel5);
             this.groupBox9.Controls.Add(this.tbMinimumFso);
             this.groupBox9.Controls.Add(this.tbMaximumFso);
-            this.groupBox9.Location = new System.Drawing.Point(18, 357);
+            this.groupBox9.Location = new System.Drawing.Point(20, 315);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(332, 155);
             this.groupBox9.TabIndex = 37;
@@ -186,16 +196,16 @@ namespace OCLSA_Project_Version_01
             this.groupBox5.Controls.Add(this.aeroLinkLabel1);
             this.groupBox5.Controls.Add(this.tbLoadCellType);
             this.groupBox5.Controls.Add(this.aeroLinkLabel2);
-            this.groupBox5.Location = new System.Drawing.Point(18, 39);
+            this.groupBox5.Location = new System.Drawing.Point(20, 29);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(332, 146);
+            this.groupBox5.Size = new System.Drawing.Size(332, 120);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load Cell Information";
             // 
             // tbTestMode
             // 
-            this.tbTestMode.Location = new System.Drawing.Point(181, 91);
+            this.tbTestMode.Location = new System.Drawing.Point(179, 73);
             this.tbTestMode.Name = "tbTestMode";
             this.tbTestMode.Size = new System.Drawing.Size(121, 22);
             this.tbTestMode.TabIndex = 25;
@@ -203,7 +213,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel1
             // 
             this.aeroLinkLabel1.AutoSize = true;
-            this.aeroLinkLabel1.Location = new System.Drawing.Point(17, 54);
+            this.aeroLinkLabel1.Location = new System.Drawing.Point(15, 36);
             this.aeroLinkLabel1.Name = "aeroLinkLabel1";
             this.aeroLinkLabel1.Size = new System.Drawing.Size(83, 15);
             this.aeroLinkLabel1.TabIndex = 0;
@@ -212,7 +222,7 @@ namespace OCLSA_Project_Version_01
             // 
             // tbLoadCellType
             // 
-            this.tbLoadCellType.Location = new System.Drawing.Point(181, 51);
+            this.tbLoadCellType.Location = new System.Drawing.Point(179, 33);
             this.tbLoadCellType.Name = "tbLoadCellType";
             this.tbLoadCellType.Size = new System.Drawing.Size(121, 22);
             this.tbLoadCellType.TabIndex = 1;
@@ -221,7 +231,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel2
             // 
             this.aeroLinkLabel2.AutoSize = true;
-            this.aeroLinkLabel2.Location = new System.Drawing.Point(17, 94);
+            this.aeroLinkLabel2.Location = new System.Drawing.Point(15, 76);
             this.aeroLinkLabel2.Name = "aeroLinkLabel2";
             this.aeroLinkLabel2.Size = new System.Drawing.Size(61, 15);
             this.aeroLinkLabel2.TabIndex = 2;
@@ -234,7 +244,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox6.Controls.Add(this.aeroLinkLabel6);
             this.groupBox6.Controls.Add(this.tbMaximumUnbalance);
             this.groupBox6.Controls.Add(this.tbMinimumUnbalance);
-            this.groupBox6.Location = new System.Drawing.Point(18, 207);
+            this.groupBox6.Location = new System.Drawing.Point(20, 169);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(332, 126);
             this.groupBox6.TabIndex = 35;
@@ -285,9 +295,6 @@ namespace OCLSA_Project_Version_01
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnEdit);
-            this.groupBox1.Controls.Add(this.btnCancel);
-            this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.Controls.Add(this.groupBox8);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -295,7 +302,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox1.Font = new System.Drawing.Font("Open Sans SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(403, 34);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(524, 528);
+            this.groupBox1.Size = new System.Drawing.Size(524, 486);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cornering Details";
@@ -304,7 +311,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnEdit.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(146, 473);
+            this.btnEdit.Location = new System.Drawing.Point(503, 84);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(178, 40);
             this.btnEdit.TabIndex = 41;
@@ -316,7 +323,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnCancel.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(330, 473);
+            this.btnCancel.Location = new System.Drawing.Point(710, 84);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(178, 40);
             this.btnCancel.TabIndex = 40;
@@ -328,7 +335,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnSave.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(146, 473);
+            this.btnSave.Location = new System.Drawing.Point(503, 84);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(178, 40);
             this.btnSave.TabIndex = 39;
@@ -342,7 +349,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox8.Controls.Add(this.aeroLinkLabel14);
             this.groupBox8.Location = new System.Drawing.Point(17, 29);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(491, 56);
+            this.groupBox8.Size = new System.Drawing.Size(491, 70);
             this.groupBox8.TabIndex = 38;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Select Trimming Corner Value Type";
@@ -351,7 +358,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.panel1.Controls.Add(this.rbSameValue);
             this.panel1.Controls.Add(this.rbDifferentValues);
-            this.panel1.Location = new System.Drawing.Point(225, 18);
+            this.panel1.Location = new System.Drawing.Point(225, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(191, 32);
             this.panel1.TabIndex = 41;
@@ -383,7 +390,7 @@ namespace OCLSA_Project_Version_01
             // aeroLinkLabel14
             // 
             this.aeroLinkLabel14.AutoSize = true;
-            this.aeroLinkLabel14.Location = new System.Drawing.Point(11, 26);
+            this.aeroLinkLabel14.Location = new System.Drawing.Point(11, 34);
             this.aeroLinkLabel14.Name = "aeroLinkLabel14";
             this.aeroLinkLabel14.Size = new System.Drawing.Size(208, 15);
             this.aeroLinkLabel14.TabIndex = 32;
@@ -394,7 +401,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.groupBox3.Controls.Add(this.tbExcessiveCornerValue);
             this.groupBox3.Controls.Add(this.aeroLinkLabel21);
-            this.groupBox3.Location = new System.Drawing.Point(330, 344);
+            this.groupBox3.Location = new System.Drawing.Point(330, 358);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(178, 112);
             this.groupBox3.TabIndex = 37;
@@ -424,7 +431,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox2.Controls.Add(this.tbFrontBackCornerDifference);
             this.groupBox2.Controls.Add(this.tbLeftRightCornerDifference);
             this.groupBox2.Controls.Add(this.aeroLinkLabel12);
-            this.groupBox2.Location = new System.Drawing.Point(17, 344);
+            this.groupBox2.Location = new System.Drawing.Point(17, 358);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(307, 112);
             this.groupBox2.TabIndex = 36;
@@ -485,7 +492,7 @@ namespace OCLSA_Project_Version_01
             this.groupBox7.Controls.Add(this.aeroLinkLabel20);
             this.groupBox7.Controls.Add(this.aeroLinkLabel19);
             this.groupBox7.Controls.Add(this.tbFrontLeftCornerTrimValue);
-            this.groupBox7.Location = new System.Drawing.Point(17, 100);
+            this.groupBox7.Location = new System.Drawing.Point(17, 117);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(491, 222);
             this.groupBox7.TabIndex = 35;
@@ -651,7 +658,7 @@ namespace OCLSA_Project_Version_01
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(943, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
             this.menuStrip1.TabIndex = 34;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -666,21 +673,109 @@ namespace OCLSA_Project_Version_01
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.btnEdit);
+            this.groupBox10.Controls.Add(this.btnSave);
+            this.groupBox10.Controls.Add(this.tbFactor);
+            this.groupBox10.Controls.Add(this.aeroLinkLabel25);
+            this.groupBox10.Controls.Add(this.aeroLinkLabel24);
+            this.groupBox10.Controls.Add(this.btnCancel);
+            this.groupBox10.Controls.Add(this.tbFullLoad);
+            this.groupBox10.Controls.Add(this.tbFsoCorrectionValue);
+            this.groupBox10.Controls.Add(this.aeroLinkLabel13);
+            this.groupBox10.Controls.Add(this.aeroLinkLabel23);
+            this.groupBox10.Controls.Add(this.tbAppliedLoad);
+            this.groupBox10.Font = new System.Drawing.Font("Open Sans SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox10.Location = new System.Drawing.Point(12, 539);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(915, 137);
+            this.groupBox10.TabIndex = 35;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "FSO Calculation And Related Data";
+            // 
+            // tbFsoCorrectionValue
+            // 
+            this.tbFsoCorrectionValue.Location = new System.Drawing.Point(199, 79);
+            this.tbFsoCorrectionValue.Name = "tbFsoCorrectionValue";
+            this.tbFsoCorrectionValue.Size = new System.Drawing.Size(124, 22);
+            this.tbFsoCorrectionValue.TabIndex = 45;
+            // 
+            // aeroLinkLabel13
+            // 
+            this.aeroLinkLabel13.AutoSize = true;
+            this.aeroLinkLabel13.Location = new System.Drawing.Point(35, 42);
+            this.aeroLinkLabel13.Name = "aeroLinkLabel13";
+            this.aeroLinkLabel13.Size = new System.Drawing.Size(76, 15);
+            this.aeroLinkLabel13.TabIndex = 42;
+            this.aeroLinkLabel13.TabStop = true;
+            this.aeroLinkLabel13.Text = "Applied Load";
+            // 
+            // tbAppliedLoad
+            // 
+            this.tbAppliedLoad.Location = new System.Drawing.Point(199, 39);
+            this.tbAppliedLoad.Name = "tbAppliedLoad";
+            this.tbAppliedLoad.Size = new System.Drawing.Size(124, 22);
+            this.tbAppliedLoad.TabIndex = 43;
+            // 
+            // aeroLinkLabel23
+            // 
+            this.aeroLinkLabel23.AutoSize = true;
+            this.aeroLinkLabel23.Location = new System.Drawing.Point(35, 82);
+            this.aeroLinkLabel23.Name = "aeroLinkLabel23";
+            this.aeroLinkLabel23.Size = new System.Drawing.Size(119, 15);
+            this.aeroLinkLabel23.TabIndex = 44;
+            this.aeroLinkLabel23.TabStop = true;
+            this.aeroLinkLabel23.Text = "FSO Correction Value";
+            // 
+            // aeroLinkLabel24
+            // 
+            this.aeroLinkLabel24.AutoSize = true;
+            this.aeroLinkLabel24.Location = new System.Drawing.Point(366, 42);
+            this.aeroLinkLabel24.Name = "aeroLinkLabel24";
+            this.aeroLinkLabel24.Size = new System.Drawing.Size(108, 15);
+            this.aeroLinkLabel24.TabIndex = 46;
+            this.aeroLinkLabel24.TabStop = true;
+            this.aeroLinkLabel24.Text = "Full Load Capacity  ";
+            // 
+            // tbFullLoad
+            // 
+            this.tbFullLoad.Location = new System.Drawing.Point(503, 39);
+            this.tbFullLoad.Name = "tbFullLoad";
+            this.tbFullLoad.Size = new System.Drawing.Size(124, 22);
+            this.tbFullLoad.TabIndex = 47;
+            // 
+            // tbFactor
+            // 
+            this.tbFactor.Location = new System.Drawing.Point(764, 39);
+            this.tbFactor.Name = "tbFactor";
+            this.tbFactor.Size = new System.Drawing.Size(124, 22);
+            this.tbFactor.TabIndex = 49;
+            // 
+            // aeroLinkLabel25
+            // 
+            this.aeroLinkLabel25.AutoSize = true;
+            this.aeroLinkLabel25.Location = new System.Drawing.Point(668, 42);
+            this.aeroLinkLabel25.Name = "aeroLinkLabel25";
+            this.aeroLinkLabel25.Size = new System.Drawing.Size(40, 15);
+            this.aeroLinkLabel25.TabIndex = 48;
+            this.aeroLinkLabel25.TabStop = true;
+            this.aeroLinkLabel25.Text = "Factor";
             // 
             // MasterDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(943, 579);
+            this.ClientSize = new System.Drawing.Size(941, 689);
+            this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximumSize = new System.Drawing.Size(959, 618);
-            this.MinimumSize = new System.Drawing.Size(959, 618);
             this.Name = "MasterDataForm";
             this.Text = "Master Data Form";
             this.groupBox4.ResumeLayout(false);
@@ -704,6 +799,8 @@ namespace OCLSA_Project_Version_01
             this.groupBox7.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -769,5 +866,14 @@ namespace OCLSA_Project_Version_01
         private System.Windows.Forms.RadioButton rbDifferentValues;
         private WindowsFormsAero.Button btnEdit;
         private WindowsFormsAero.TextBox tbTestMode;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private WindowsFormsAero.TextBox tbFactor;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel25;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel24;
+        private WindowsFormsAero.TextBox tbFullLoad;
+        private WindowsFormsAero.TextBox tbFsoCorrectionValue;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel13;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel23;
+        private WindowsFormsAero.TextBox tbAppliedLoad;
     }
 }

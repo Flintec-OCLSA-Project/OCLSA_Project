@@ -61,6 +61,10 @@ namespace OCLSA_Project_Version_01
         public TimeSpan TimeElapsed { get; set; }
         public string TimeInMinutesAndSeconds { get; set; }
 
+        public int ResistorsToAdd { get; set; }
+
+        public bool IsFsoCorrectionAvailable { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -257,7 +261,7 @@ namespace OCLSA_Project_Version_01
             if (CheckBridgeUnbalance())
             {
                 tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", RejectionCriteria.HighBalance);
+                StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", Status.Rejected, RejectionCriteria.HighBalance);
                 return;
             }
 
@@ -280,14 +284,14 @@ namespace OCLSA_Project_Version_01
             if (result.IsFsoNotOk && result.IsFsoLow)
             {
                 tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", RejectionCriteria.LowFso);
+                StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
                 return;
             }
 
             if (result.IsFsoNotOk && result.IsFsoHigh)
             {
                 tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", RejectionCriteria.HighFso);
+                StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
                 return;
             }
 
@@ -351,7 +355,8 @@ namespace OCLSA_Project_Version_01
                         ClearDisplayedCornerReadings();
 
                         if (i <= 10) continue;
-                        StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.", RejectionCriteria.Unstable);
+                        StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.", 
+                            Status.Failed, RejectionCriteria.Unstable);
                         break;
                     }
 
@@ -369,14 +374,11 @@ namespace OCLSA_Project_Version_01
                     
                     ShowMessage(@"Load Cell is Passed");
 
-                    LoadCellStatus = Status.Passed.ToString();
-                    LoadCellRejectCriteria = ToDescriptionString(RejectionCriteria.No);
-                    tbStatus.Text = Status.Passed.ToString();
+                    SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                     ProcessDuration.Stop();
 
                     DisplayFinalFso();
-
                     DisplayTotalTime();
 
                     EndingTime = DateTime.Now;
@@ -404,21 +406,60 @@ namespace OCLSA_Project_Version_01
 
         private void AddResistorsToCorrectFso()
         {
-            //ShowMessage(@"FSO is high. Add resistors for correction.");
-            //Todo - Show how to add resistors to correct FSO
-            //Todo - Save data to database
-
             var loadCellInDb = CheckLoadCell();
 
             if(loadCellInDb == null) return;
 
-            if (loadCellInDb.MetalCategory == MetalCategory.Aluminium.ToString())
+            switch (loadCellInDb.MetalCategory)
             {
-                StopProcessAndExit(@"FSO is high & can not corrected by adding resistors...!!!", RejectionCriteria.HighFso);
-                return;
-            }
+                case nameof(MetalCategory.Aluminium):
+                {
+                    StopProcessAndExit(@"FSO is high & can not be corrected by adding resistors...!!!", Status.Rejected,
+                        RejectionCriteria.HighFso);
+                    break;
+                }
+                case nameof(MetalCategory.Steel):
+                {
+                    if (MinimumFsoReading < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
+                        ResistorsToAdd = 1;
 
-            
+                    if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFso)
+                        ResistorsToAdd = 3;
+
+                    SetStatusAndRejectCriteria(Status.Failed, RejectionCriteria.HighFso);
+
+                    IsFsoCorrectionAvailable = true;
+
+                    ProcessDuration.Stop();
+                    DisplayTotalTime();
+                    EndingTime = DateTime.Now;
+
+                    SaveFinalDataToDb();
+
+                    ShowMessage(
+                        ResistorsToAdd > 1 
+                        ? $@"Add CP {ResistorsToAdd} resistor to fix High FSO. Press OK to trim a new cell."
+                        : $@"Add {ResistorsToAdd} resistors to fix High FSO. Press OK to trim a new cell."
+                        );
+
+                    ResetMainForm();
+                    
+                    break;
+                }
+                default:
+                {
+                    StopProcessAndExit(@"FSO can not be corrected by adding resistors...!!!", Status.Failed,
+                        RejectionCriteria.HighFso);
+                    break;
+                }
+            }
+        }
+
+        private void SetStatusAndRejectCriteria(Status status, RejectionCriteria reason)
+        {
+            LoadCellStatus = status.ToString();
+            LoadCellRejectCriteria = ToDescriptionString(reason);
+            tbStatus.Text = status.ToString();
         }
 
         private void ClearCornerAndCenterLists()
@@ -495,46 +536,18 @@ namespace OCLSA_Project_Version_01
             lblDisplayMessage.Text = "";
         }
 
-        private void StopProcessAndExit(string errorMessage, RejectionCriteria reason)
+        private void StopProcessAndExit(string errorMessage, Status status, RejectionCriteria reason)
         {
             ShowMessage(errorMessage);
 
-            LoadCellStatus = Status.Rejected.ToString();
-            LoadCellRejectCriteria = ToDescriptionString(reason);
+            SetStatusAndRejectCriteria(status, reason);
 
             EndingTime = DateTime.Now;
             StopTrimming = true;
 
-            SaveRejectedDataToDb();
+            SaveFinalDataToDb();
 
             ResetMainForm();
-        }
-
-        private void SaveRejectedDataToDb()
-        {
-            try
-            {
-                var trimmedLoadCell = new TrimmedLoadCell
-                {
-                    SerialNumber = tbSerialNumber.Text,
-                    LoadCellType = LoadCellType,
-                    StartingTime = StartingTime,
-                    EndingTime = EndingTime,
-                    Status = LoadCellStatus,
-                    RejectCriteria = LoadCellRejectCriteria,
-                    TrimCount = TrimCount,
-                    Operator = lblOperatorName.Text,
-                    OperatorId = Convert.ToInt32(lblOperatorId.Text)
-                };
-
-                _context.TrimmedLoadCells.Add(trimmedLoadCell);
-                _context.SaveChanges();
-
-            }
-            catch (Exception exception)
-            {
-                ShowMessage(exception.Message);
-            }
         }
 
         private void SaveFinalDataToDb()
@@ -547,24 +560,60 @@ namespace OCLSA_Project_Version_01
                     LoadCellType = LoadCellType,
                     StartingTime = StartingTime,
                     EndingTime = EndingTime,
-                    BridgeUnbalance = Convert.ToDouble(tbBridgeUnbalance.Text),
-                    InitialFso = Convert.ToDouble(tbInitialFSO.Text),
-                    InitialLeftCorner = Convert.ToDouble(tbInitialLeftCornerReading.Text),
-                    InitialD1Corner = Convert.ToDouble(tbInitialD1Reading.Text),
-                    InitialBackCorner = Convert.ToDouble(tbInitialBackCornerReading.Text),
-                    InitialD2Corner = Convert.ToDouble(tbInitialD2Reading.Text),
-                    InitialRightCorner = Convert.ToDouble(tbInitialRightCornerReading.Text),
-                    InitialD3Corner = Convert.ToDouble(tbInitialD3Reading.Text),
-                    InitialFrontCorner = Convert.ToDouble(tbInitialFrontCornerReading.Text),
-                    InitialD4Corner = Convert.ToDouble(tbInitialD4Reading.Text),
-                    FinalLeftCorner = Convert.ToDouble(tbLeftCorner.Text),
-                    FinalD1Corner = Convert.ToDouble(tbD1Reading.Text),
-                    FinalBackCorner = Convert.ToDouble(tbBackCorner.Text),
-                    FinalD2Corner = Convert.ToDouble(tbD2Reading.Text),
-                    FinalRightCorner = Convert.ToDouble(tbRightCorner.Text),
-                    FinalD3Corner = Convert.ToDouble(tbD3Reading.Text),
-                    FinalFrontCorner = Convert.ToDouble(tbFrontCorner.Text),
-                    FinalD4Corner = Convert.ToDouble(tbD4Reading.Text),
+                    BridgeUnbalance = string.IsNullOrWhiteSpace(tbBridgeUnbalance.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbBridgeUnbalance.Text),
+                    InitialFso = string.IsNullOrWhiteSpace(tbInitialFSO.Text)
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialFSO.Text),
+                    InitialLeftCorner = string.IsNullOrWhiteSpace(tbInitialLeftCornerReading.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbInitialLeftCornerReading.Text),
+                    InitialD1Corner = string.IsNullOrWhiteSpace(tbInitialD1Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialD1Reading.Text),
+                    InitialBackCorner = string.IsNullOrWhiteSpace(tbInitialBackCornerReading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialBackCornerReading.Text),
+                    InitialD2Corner = string.IsNullOrWhiteSpace(tbInitialD2Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialD2Reading.Text),
+                    InitialRightCorner = string.IsNullOrWhiteSpace(tbInitialRightCornerReading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialRightCornerReading.Text),
+                    InitialD3Corner = string.IsNullOrWhiteSpace(tbInitialD3Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialD3Reading.Text),
+                    InitialFrontCorner = string.IsNullOrWhiteSpace(tbInitialFrontCornerReading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialFrontCornerReading.Text),
+                    InitialD4Corner = string.IsNullOrWhiteSpace(tbInitialD4Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbInitialD4Reading.Text),
+                    FinalLeftCorner = string.IsNullOrWhiteSpace(tbLeftCorner.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbLeftCorner.Text),
+                    FinalD1Corner = string.IsNullOrWhiteSpace(tbD1Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbD1Reading.Text),
+                    FinalBackCorner = string.IsNullOrWhiteSpace(tbBackCorner.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbBackCorner.Text),
+                    FinalD2Corner = string.IsNullOrWhiteSpace(tbD2Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbD2Reading.Text),
+                    FinalRightCorner = string.IsNullOrWhiteSpace(tbRightCorner.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbRightCorner.Text),
+                    FinalD3Corner = string.IsNullOrWhiteSpace(tbD3Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbD3Reading.Text),
+                    FinalFrontCorner = string.IsNullOrWhiteSpace(tbFrontCorner.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbFrontCorner.Text),
+                    FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text) 
+                        ? 0d 
+                        : Convert.ToDouble(tbD4Reading.Text),
                     TrimmedFso = TrimmedFso,
                     FactoredFso = CalculatedFso,
                     FinalFso = FinalFso,
@@ -572,7 +621,9 @@ namespace OCLSA_Project_Version_01
                     RejectCriteria = LoadCellRejectCriteria,
                     TrimCount = TrimCount,
                     Operator = lblOperatorName.Text,
-                    OperatorId = Convert.ToInt32(lblOperatorId.Text)
+                    OperatorId = Convert.ToInt32(lblOperatorId.Text),
+                    NoOfResistors = ResistorsToAdd,
+                    IsFsoCorrectionAvailable = IsFsoCorrectionAvailable
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);
@@ -605,6 +656,15 @@ namespace OCLSA_Project_Version_01
             lblStable.Text = "";
             btnStart.Enabled = false;
             btnStart.Enabled = false;
+            ResistorsToAdd = 0;
+            TrimCount = 0;
+            FinalFso = 0.0;
+            TrimmedFso = 0.0;
+            CalculatedFso = 0.0;
+            IsFsoCorrectionAvailable = false;
+            StopTrimming = false;
+            ProcessDuration.Reset();
+            OneTrimCycleDuration.Reset();
         }
 
         private void ClearAllInputsAndOutputs()
@@ -701,7 +761,7 @@ namespace OCLSA_Project_Version_01
 
             if (CheckExcessiveCorners(loadCell))
             {
-                StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", RejectionCriteria.ExcessiveCorners);
+                StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", Status.Failed, RejectionCriteria.ExcessiveCorners);
                 return;
             }
 
