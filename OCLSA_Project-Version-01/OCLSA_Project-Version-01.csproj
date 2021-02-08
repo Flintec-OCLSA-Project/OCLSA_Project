@@ -229,5 +229,8 @@
   <ItemGroup>
     <None Include="Pictures\Right.JPG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Pictures\CalibratedWeightNew.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

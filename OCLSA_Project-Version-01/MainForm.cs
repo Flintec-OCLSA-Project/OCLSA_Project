@@ -271,6 +271,7 @@ namespace OCLSA_Project_Version_01
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
             ShowMessage(@"Keep weight on Center");
+            ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on Center", 10, false);
 
             while (CheckWeight(currentReading))
@@ -301,6 +302,7 @@ namespace OCLSA_Project_Version_01
             WriteCommand("01");
 
             ShowMessage(@"Move weight to Left Corner");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move weight to Left Corner", 10, false);
 
             ShowMessage(@"Give exercise to Load Cell");
@@ -308,11 +310,13 @@ namespace OCLSA_Project_Version_01
 
             await Task.Delay(TimeSpan.FromSeconds(2));
             ShowMessage(@"Move weight from Left Corner to Center");
+            ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Move weight from Left Corner to Center", 10, false);
 
             WriteCommand("01");
 
             ShowMessage(@"Remove weight from Center & keep on Left Corner");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move weight from Center to Left Corner", 10, false);
 
             var checkCornerTestMode = CheckCornerTestMode();
@@ -334,6 +338,7 @@ namespace OCLSA_Project_Version_01
                         if (CheckToTrim())
                         {
                             ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
+                            ShowArmaturePosition(@"Left");
                             CornerReadings.Clear();
                             CenterReadings.Clear();
                             ClearDisplayedCornerReadings();
@@ -488,12 +493,14 @@ namespace OCLSA_Project_Version_01
         private async Task CheckDisplayMainCorners()
         {
             ShowMessage(@"Keep weight on the Center");
+            ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
             await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
 
             ShowMessage(@"Remove the weight and keep on Left Corner");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Remove the weight and keep on Left Corner", 5, true);
 
             GetLeftCornerReading(tbLeftCorner);
@@ -502,10 +509,12 @@ namespace OCLSA_Project_Version_01
             await GetCornerReadings("Front", tbFrontCorner);
 
             ShowMessage(@"Rotate the armature to Left position");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Rotate the armature to Left position", 5, true);
 
             await Task.Delay(TimeSpan.FromSeconds(2));
             ShowMessage(@"Remove the weight and keep on Center");
+            ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
             GetDisplaySaveCenterReadings();
@@ -665,6 +674,7 @@ namespace OCLSA_Project_Version_01
             StopTrimming = false;
             ProcessDuration.Reset();
             OneTrimCycleDuration.Reset();
+            pbLoadCell.Show();
         }
 
         private void ClearAllInputsAndOutputs()
@@ -690,6 +700,7 @@ namespace OCLSA_Project_Version_01
         private bool IsCalculatedFsoInRange()
         {
             ShowMessage(@"Keep the calibrated weight on the Center");
+            ShowArmaturePosition("FinalCenter");
 
             var calibratedCenterReading = lblReading.Text;
             CalculateFso(calibratedCenterReading);
@@ -712,6 +723,7 @@ namespace OCLSA_Project_Version_01
 
         private async Task CheckDisplayAllFinalCorners()
         {
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move weight to the Left Corner", 5, true);
 
             GetLeftCornerReading(tbLeftCorner);
@@ -724,6 +736,7 @@ namespace OCLSA_Project_Version_01
             await GetCornerReadings("D4", tbD4Reading);
 
             ShowMessage(@"Move armature to Left position");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move armature to Left position", 5, true);
 
             await GetCornerReadings("Center", tbCenter);
@@ -755,6 +768,7 @@ namespace OCLSA_Project_Version_01
             await GetCornerReadings("D4", tbInitialD4Reading);
 
             ShowMessage(@"Rotate the armature to Left position");
+            ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Rotate the armature to Left position", 5, true);
 
             await GetCornerReadings("Center", tbInitialCenterReading);
@@ -987,6 +1001,7 @@ namespace OCLSA_Project_Version_01
         private async Task GetCornerReadings(string corner, Control textBox)
         {
             ShowMessage(GiveInstruction(corner));
+            ShowArmaturePosition(corner);
 
             var textToDisplay = GiveInstruction(corner);
 
@@ -1036,6 +1051,54 @@ namespace OCLSA_Project_Version_01
 
                 case "Front":
                     pbFront.Show();
+                    break;
+            }
+        }
+
+        private void ShowArmaturePosition(string positionName)
+        {
+            pbLoadCell.Hide();
+
+            switch (positionName)
+            {
+                case "Left":
+                    pbLeftArmature.Show();
+                    break;
+
+                case "Back":
+                    pbBackArmature.Show();
+                    break;
+
+                case "Right":
+                    pbRightArmature.Show();
+                    break;
+
+                case "Front":
+                    pbFrontArmature.Show();
+                    break;
+
+                case "D1":
+                    pbD1Armature.Show();
+                    break;
+
+                case "D2":
+                    pbD2Armature.Show();
+                    break;
+
+                case "D3":
+                    pbD3Armature.Show();
+                    break;
+
+                case "D4":
+                    pbD4Armature.Show();
+                    break;
+
+                case "Center":
+                    pbCenterWeight.Show();
+                    break;
+
+                case "FinalCenter":
+                    pbCalibratedWeight.Show();
                     break;
             }
         }

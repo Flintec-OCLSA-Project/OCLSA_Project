@@ -76,10 +76,6 @@
             this.tbBridgeUnbalance = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pbLoadCell = new System.Windows.Forms.PictureBox();
-            this.pbBack = new System.Windows.Forms.PictureBox();
-            this.pbLeft = new System.Windows.Forms.PictureBox();
-            this.pbRight = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.aeroLinkLabel36 = new AeroSuite.Controls.AeroLinkLabel();
@@ -117,7 +113,6 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pbImage = new System.Windows.Forms.PictureBox();
             this.lblOperatorName = new System.Windows.Forms.Label();
             this.lblOperatorId = new System.Windows.Forms.Label();
             this.lblLocation = new System.Windows.Forms.Label();
@@ -133,25 +128,50 @@
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.pbBackArmature = new System.Windows.Forms.PictureBox();
             this.pbFront = new System.Windows.Forms.PictureBox();
+            this.pbLoadCell = new System.Windows.Forms.PictureBox();
+            this.pbBack = new System.Windows.Forms.PictureBox();
+            this.pbLeft = new System.Windows.Forms.PictureBox();
+            this.pbRight = new System.Windows.Forms.PictureBox();
+            this.pbCalibratedWeight = new System.Windows.Forms.PictureBox();
+            this.pbCenterWeight = new System.Windows.Forms.PictureBox();
+            this.pbD1Armature = new System.Windows.Forms.PictureBox();
+            this.pbD2Armature = new System.Windows.Forms.PictureBox();
+            this.pbD3Armature = new System.Windows.Forms.PictureBox();
+            this.pbD4Armature = new System.Windows.Forms.PictureBox();
+            this.pbFrontArmature = new System.Windows.Forms.PictureBox();
+            this.pbLeftArmature = new System.Windows.Forms.PictureBox();
+            this.pbRightArmature = new System.Windows.Forms.PictureBox();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackArmature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFront)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalibratedWeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCenterWeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD1Armature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD2Armature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD3Armature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD4Armature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFrontArmature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeftArmature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRightArmature)).BeginInit();
             this.SuspendLayout();
             // 
             // initialTimer
@@ -568,6 +588,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pbRightArmature);
+            this.groupBox2.Controls.Add(this.pbLeftArmature);
+            this.groupBox2.Controls.Add(this.pbFrontArmature);
+            this.groupBox2.Controls.Add(this.pbD4Armature);
+            this.groupBox2.Controls.Add(this.pbD3Armature);
+            this.groupBox2.Controls.Add(this.pbD2Armature);
+            this.groupBox2.Controls.Add(this.pbD1Armature);
+            this.groupBox2.Controls.Add(this.pbCenterWeight);
+            this.groupBox2.Controls.Add(this.pbCalibratedWeight);
+            this.groupBox2.Controls.Add(this.pbBackArmature);
             this.groupBox2.Controls.Add(this.pbFront);
             this.groupBox2.Controls.Add(this.pbLoadCell);
             this.groupBox2.Controls.Add(this.pbBack);
@@ -580,50 +610,6 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graphical Display";
-            // 
-            // pbLoadCell
-            // 
-            this.pbLoadCell.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLoadCell.BackgroundImage")));
-            this.pbLoadCell.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbLoadCell.Location = new System.Drawing.Point(6, 17);
-            this.pbLoadCell.Name = "pbLoadCell";
-            this.pbLoadCell.Size = new System.Drawing.Size(401, 245);
-            this.pbLoadCell.TabIndex = 48;
-            this.pbLoadCell.TabStop = false;
-            this.pbLoadCell.Visible = false;
-            // 
-            // pbBack
-            // 
-            this.pbBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbBack.BackgroundImage")));
-            this.pbBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbBack.Location = new System.Drawing.Point(6, 17);
-            this.pbBack.Name = "pbBack";
-            this.pbBack.Size = new System.Drawing.Size(401, 245);
-            this.pbBack.TabIndex = 50;
-            this.pbBack.TabStop = false;
-            this.pbBack.Visible = false;
-            // 
-            // pbLeft
-            // 
-            this.pbLeft.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLeft.BackgroundImage")));
-            this.pbLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbLeft.Location = new System.Drawing.Point(6, 17);
-            this.pbLeft.Name = "pbLeft";
-            this.pbLeft.Size = new System.Drawing.Size(401, 245);
-            this.pbLeft.TabIndex = 47;
-            this.pbLeft.TabStop = false;
-            this.pbLeft.Visible = false;
-            // 
-            // pbRight
-            // 
-            this.pbRight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRight.BackgroundImage")));
-            this.pbRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbRight.Location = new System.Drawing.Point(6, 17);
-            this.pbRight.Name = "pbRight";
-            this.pbRight.Size = new System.Drawing.Size(401, 245);
-            this.pbRight.TabIndex = 45;
-            this.pbRight.TabStop = false;
-            this.pbRight.Visible = false;
             // 
             // groupBox1
             // 
@@ -1024,18 +1010,6 @@
             this.panel3.Size = new System.Drawing.Size(1340, 50);
             this.panel3.TabIndex = 4;
             // 
-            // pbImage
-            // 
-            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
-            this.pbImage.Location = new System.Drawing.Point(166, 0);
-            this.pbImage.MaximumSize = new System.Drawing.Size(98, 100);
-            this.pbImage.MinimumSize = new System.Drawing.Size(98, 100);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(98, 100);
-            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbImage.TabIndex = 0;
-            this.pbImage.TabStop = false;
-            // 
             // lblOperatorName
             // 
             this.lblOperatorName.AutoSize = true;
@@ -1176,6 +1150,31 @@
             this.stableCheckTimer.Interval = 2000;
             this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
             // 
+            // pbImage
+            // 
+            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
+            this.pbImage.Location = new System.Drawing.Point(166, 0);
+            this.pbImage.MaximumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.MinimumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(98, 100);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 0;
+            this.pbImage.TabStop = false;
+            // 
+            // pbBackArmature
+            // 
+            this.pbBackArmature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbBackArmature.BackgroundImage")));
+            this.pbBackArmature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbBackArmature.Image = global::OCLSA_Project_Version_01.Properties.Resources.Back;
+            this.pbBackArmature.Location = new System.Drawing.Point(6, 17);
+            this.pbBackArmature.Name = "pbBackArmature";
+            this.pbBackArmature.Size = new System.Drawing.Size(401, 245);
+            this.pbBackArmature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBackArmature.TabIndex = 51;
+            this.pbBackArmature.TabStop = false;
+            this.pbBackArmature.Visible = false;
+            // 
             // pbFront
             // 
             this.pbFront.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbFront.BackgroundImage")));
@@ -1186,6 +1185,167 @@
             this.pbFront.TabIndex = 49;
             this.pbFront.TabStop = false;
             this.pbFront.Visible = false;
+            // 
+            // pbLoadCell
+            // 
+            this.pbLoadCell.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLoadCell.BackgroundImage")));
+            this.pbLoadCell.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbLoadCell.Location = new System.Drawing.Point(6, 17);
+            this.pbLoadCell.Name = "pbLoadCell";
+            this.pbLoadCell.Size = new System.Drawing.Size(401, 245);
+            this.pbLoadCell.TabIndex = 48;
+            this.pbLoadCell.TabStop = false;
+            this.pbLoadCell.Visible = false;
+            // 
+            // pbBack
+            // 
+            this.pbBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbBack.BackgroundImage")));
+            this.pbBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbBack.Location = new System.Drawing.Point(6, 17);
+            this.pbBack.Name = "pbBack";
+            this.pbBack.Size = new System.Drawing.Size(401, 245);
+            this.pbBack.TabIndex = 50;
+            this.pbBack.TabStop = false;
+            this.pbBack.Visible = false;
+            // 
+            // pbLeft
+            // 
+            this.pbLeft.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLeft.BackgroundImage")));
+            this.pbLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbLeft.Location = new System.Drawing.Point(6, 17);
+            this.pbLeft.Name = "pbLeft";
+            this.pbLeft.Size = new System.Drawing.Size(401, 245);
+            this.pbLeft.TabIndex = 47;
+            this.pbLeft.TabStop = false;
+            this.pbLeft.Visible = false;
+            // 
+            // pbRight
+            // 
+            this.pbRight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRight.BackgroundImage")));
+            this.pbRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbRight.Location = new System.Drawing.Point(6, 17);
+            this.pbRight.Name = "pbRight";
+            this.pbRight.Size = new System.Drawing.Size(401, 245);
+            this.pbRight.TabIndex = 45;
+            this.pbRight.TabStop = false;
+            this.pbRight.Visible = false;
+            // 
+            // pbCalibratedWeight
+            // 
+            this.pbCalibratedWeight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCalibratedWeight.BackgroundImage")));
+            this.pbCalibratedWeight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbCalibratedWeight.Image = global::OCLSA_Project_Version_01.Properties.Resources.CalibratedWeightNew;
+            this.pbCalibratedWeight.Location = new System.Drawing.Point(6, 17);
+            this.pbCalibratedWeight.Name = "pbCalibratedWeight";
+            this.pbCalibratedWeight.Size = new System.Drawing.Size(401, 245);
+            this.pbCalibratedWeight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCalibratedWeight.TabIndex = 52;
+            this.pbCalibratedWeight.TabStop = false;
+            this.pbCalibratedWeight.Visible = false;
+            // 
+            // pbCenterWeight
+            // 
+            this.pbCenterWeight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCenterWeight.BackgroundImage")));
+            this.pbCenterWeight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbCenterWeight.Image = global::OCLSA_Project_Version_01.Properties.Resources.Center;
+            this.pbCenterWeight.Location = new System.Drawing.Point(6, 17);
+            this.pbCenterWeight.Name = "pbCenterWeight";
+            this.pbCenterWeight.Size = new System.Drawing.Size(401, 245);
+            this.pbCenterWeight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCenterWeight.TabIndex = 53;
+            this.pbCenterWeight.TabStop = false;
+            this.pbCenterWeight.Visible = false;
+            // 
+            // pbD1Armature
+            // 
+            this.pbD1Armature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbD1Armature.BackgroundImage")));
+            this.pbD1Armature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbD1Armature.Image = global::OCLSA_Project_Version_01.Properties.Resources.D1;
+            this.pbD1Armature.Location = new System.Drawing.Point(6, 17);
+            this.pbD1Armature.Name = "pbD1Armature";
+            this.pbD1Armature.Size = new System.Drawing.Size(401, 245);
+            this.pbD1Armature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbD1Armature.TabIndex = 54;
+            this.pbD1Armature.TabStop = false;
+            this.pbD1Armature.Visible = false;
+            // 
+            // pbD2Armature
+            // 
+            this.pbD2Armature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbD2Armature.BackgroundImage")));
+            this.pbD2Armature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbD2Armature.Image = global::OCLSA_Project_Version_01.Properties.Resources.D2;
+            this.pbD2Armature.Location = new System.Drawing.Point(6, 17);
+            this.pbD2Armature.Name = "pbD2Armature";
+            this.pbD2Armature.Size = new System.Drawing.Size(401, 245);
+            this.pbD2Armature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbD2Armature.TabIndex = 55;
+            this.pbD2Armature.TabStop = false;
+            this.pbD2Armature.Visible = false;
+            // 
+            // pbD3Armature
+            // 
+            this.pbD3Armature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbD3Armature.BackgroundImage")));
+            this.pbD3Armature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbD3Armature.Image = global::OCLSA_Project_Version_01.Properties.Resources.D3;
+            this.pbD3Armature.Location = new System.Drawing.Point(6, 17);
+            this.pbD3Armature.Name = "pbD3Armature";
+            this.pbD3Armature.Size = new System.Drawing.Size(401, 245);
+            this.pbD3Armature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbD3Armature.TabIndex = 56;
+            this.pbD3Armature.TabStop = false;
+            this.pbD3Armature.Visible = false;
+            // 
+            // pbD4Armature
+            // 
+            this.pbD4Armature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbD4Armature.BackgroundImage")));
+            this.pbD4Armature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbD4Armature.Image = global::OCLSA_Project_Version_01.Properties.Resources.D4;
+            this.pbD4Armature.Location = new System.Drawing.Point(6, 17);
+            this.pbD4Armature.Name = "pbD4Armature";
+            this.pbD4Armature.Size = new System.Drawing.Size(401, 245);
+            this.pbD4Armature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbD4Armature.TabIndex = 57;
+            this.pbD4Armature.TabStop = false;
+            this.pbD4Armature.Visible = false;
+            // 
+            // pbFrontArmature
+            // 
+            this.pbFrontArmature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbFrontArmature.BackgroundImage")));
+            this.pbFrontArmature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbFrontArmature.Image = global::OCLSA_Project_Version_01.Properties.Resources.Front;
+            this.pbFrontArmature.Location = new System.Drawing.Point(6, 17);
+            this.pbFrontArmature.Name = "pbFrontArmature";
+            this.pbFrontArmature.Size = new System.Drawing.Size(401, 245);
+            this.pbFrontArmature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbFrontArmature.TabIndex = 58;
+            this.pbFrontArmature.TabStop = false;
+            this.pbFrontArmature.Visible = false;
+            // 
+            // pbLeftArmature
+            // 
+            this.pbLeftArmature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbLeftArmature.BackgroundImage")));
+            this.pbLeftArmature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbLeftArmature.Image = global::OCLSA_Project_Version_01.Properties.Resources.Left;
+            this.pbLeftArmature.Location = new System.Drawing.Point(6, 17);
+            this.pbLeftArmature.Name = "pbLeftArmature";
+            this.pbLeftArmature.Size = new System.Drawing.Size(401, 245);
+            this.pbLeftArmature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLeftArmature.TabIndex = 59;
+            this.pbLeftArmature.TabStop = false;
+            this.pbLeftArmature.Visible = false;
+            // 
+            // pbRightArmature
+            // 
+            this.pbRightArmature.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbRightArmature.BackgroundImage")));
+            this.pbRightArmature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbRightArmature.Image = global::OCLSA_Project_Version_01.Properties.Resources.Right;
+            this.pbRightArmature.Location = new System.Drawing.Point(6, 17);
+            this.pbRightArmature.Name = "pbRightArmature";
+            this.pbRightArmature.Size = new System.Drawing.Size(401, 245);
+            this.pbRightArmature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbRightArmature.TabIndex = 60;
+            this.pbRightArmature.TabStop = false;
+            this.pbRightArmature.Visible = false;
             // 
             // MainForm
             // 
@@ -1210,10 +1370,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1224,12 +1380,26 @@
             this.menuStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackArmature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFront)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoadCell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCalibratedWeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCenterWeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD1Armature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD2Armature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD3Armature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbD4Armature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFrontArmature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLeftArmature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRightArmature)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1340,6 +1510,16 @@
         private System.Windows.Forms.Timer stableCheckTimer;
         private System.Windows.Forms.Label lblDisplayMessage;
         internal System.Windows.Forms.PictureBox pbFront;
+        internal System.Windows.Forms.PictureBox pbBackArmature;
+        internal System.Windows.Forms.PictureBox pbRightArmature;
+        internal System.Windows.Forms.PictureBox pbLeftArmature;
+        internal System.Windows.Forms.PictureBox pbFrontArmature;
+        internal System.Windows.Forms.PictureBox pbD4Armature;
+        internal System.Windows.Forms.PictureBox pbD3Armature;
+        internal System.Windows.Forms.PictureBox pbD2Armature;
+        internal System.Windows.Forms.PictureBox pbD1Armature;
+        internal System.Windows.Forms.PictureBox pbCenterWeight;
+        internal System.Windows.Forms.PictureBox pbCalibratedWeight;
     }
 }
 

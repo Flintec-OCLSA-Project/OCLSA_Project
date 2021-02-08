@@ -49,9 +49,6 @@ namespace OCLSA_Project_Version_01
             this.tbMinimumUnbalance = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel8 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnEdit = new WindowsFormsAero.Button();
-            this.btnCancel = new WindowsFormsAero.Button();
-            this.btnSave = new WindowsFormsAero.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rbSameValue = new System.Windows.Forms.RadioButton();
@@ -84,18 +81,21 @@ namespace OCLSA_Project_Version_01
             this.aeroLinkLabel20 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel19 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbFrontLeftCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.btnEdit = new WindowsFormsAero.Button();
+            this.btnCancel = new WindowsFormsAero.Button();
+            this.btnSave = new WindowsFormsAero.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.tbFsoCorrectionValue = new WindowsFormsAero.TextBox();
-            this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
-            this.tbAppliedLoad = new WindowsFormsAero.TextBox();
-            this.aeroLinkLabel23 = new AeroSuite.Controls.AeroLinkLabel();
-            this.aeroLinkLabel24 = new AeroSuite.Controls.AeroLinkLabel();
-            this.tbFullLoad = new WindowsFormsAero.TextBox();
             this.tbFactor = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel25 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel24 = new AeroSuite.Controls.AeroLinkLabel();
+            this.tbFullLoad = new WindowsFormsAero.TextBox();
+            this.tbFsoCorrectionValue = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel23 = new AeroSuite.Controls.AeroLinkLabel();
+            this.tbAppliedLoad = new WindowsFormsAero.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -306,42 +306,6 @@ namespace OCLSA_Project_Version_01
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cornering Details";
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnEdit.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(503, 84);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(178, 40);
-            this.btnEdit.TabIndex = 41;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = false;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnCancel.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(710, 84);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(178, 40);
-            this.btnCancel.TabIndex = 40;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnSave.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(503, 84);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(178, 40);
-            this.btnSave.TabIndex = 39;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // groupBox8
             // 
@@ -652,6 +616,42 @@ namespace OCLSA_Project_Version_01
             this.tbFrontLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
             this.tbFrontLeftCornerTrimValue.TabIndex = 27;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnEdit.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.Location = new System.Drawing.Point(503, 84);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(178, 40);
+            this.btnEdit.TabIndex = 41;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnCancel.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(710, 84);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(178, 40);
+            this.btnCancel.TabIndex = 40;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnSave.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(503, 84);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(178, 40);
+            this.btnSave.TabIndex = 39;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -698,39 +698,22 @@ namespace OCLSA_Project_Version_01
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "FSO Calculation And Related Data";
             // 
-            // tbFsoCorrectionValue
+            // tbFactor
             // 
-            this.tbFsoCorrectionValue.Location = new System.Drawing.Point(199, 79);
-            this.tbFsoCorrectionValue.Name = "tbFsoCorrectionValue";
-            this.tbFsoCorrectionValue.Size = new System.Drawing.Size(124, 22);
-            this.tbFsoCorrectionValue.TabIndex = 45;
+            this.tbFactor.Location = new System.Drawing.Point(764, 39);
+            this.tbFactor.Name = "tbFactor";
+            this.tbFactor.Size = new System.Drawing.Size(124, 22);
+            this.tbFactor.TabIndex = 49;
             // 
-            // aeroLinkLabel13
+            // aeroLinkLabel25
             // 
-            this.aeroLinkLabel13.AutoSize = true;
-            this.aeroLinkLabel13.Location = new System.Drawing.Point(35, 42);
-            this.aeroLinkLabel13.Name = "aeroLinkLabel13";
-            this.aeroLinkLabel13.Size = new System.Drawing.Size(76, 15);
-            this.aeroLinkLabel13.TabIndex = 42;
-            this.aeroLinkLabel13.TabStop = true;
-            this.aeroLinkLabel13.Text = "Applied Load";
-            // 
-            // tbAppliedLoad
-            // 
-            this.tbAppliedLoad.Location = new System.Drawing.Point(199, 39);
-            this.tbAppliedLoad.Name = "tbAppliedLoad";
-            this.tbAppliedLoad.Size = new System.Drawing.Size(124, 22);
-            this.tbAppliedLoad.TabIndex = 43;
-            // 
-            // aeroLinkLabel23
-            // 
-            this.aeroLinkLabel23.AutoSize = true;
-            this.aeroLinkLabel23.Location = new System.Drawing.Point(35, 82);
-            this.aeroLinkLabel23.Name = "aeroLinkLabel23";
-            this.aeroLinkLabel23.Size = new System.Drawing.Size(119, 15);
-            this.aeroLinkLabel23.TabIndex = 44;
-            this.aeroLinkLabel23.TabStop = true;
-            this.aeroLinkLabel23.Text = "FSO Correction Value";
+            this.aeroLinkLabel25.AutoSize = true;
+            this.aeroLinkLabel25.Location = new System.Drawing.Point(668, 42);
+            this.aeroLinkLabel25.Name = "aeroLinkLabel25";
+            this.aeroLinkLabel25.Size = new System.Drawing.Size(40, 15);
+            this.aeroLinkLabel25.TabIndex = 48;
+            this.aeroLinkLabel25.TabStop = true;
+            this.aeroLinkLabel25.Text = "Factor";
             // 
             // aeroLinkLabel24
             // 
@@ -749,22 +732,39 @@ namespace OCLSA_Project_Version_01
             this.tbFullLoad.Size = new System.Drawing.Size(124, 22);
             this.tbFullLoad.TabIndex = 47;
             // 
-            // tbFactor
+            // tbFsoCorrectionValue
             // 
-            this.tbFactor.Location = new System.Drawing.Point(764, 39);
-            this.tbFactor.Name = "tbFactor";
-            this.tbFactor.Size = new System.Drawing.Size(124, 22);
-            this.tbFactor.TabIndex = 49;
+            this.tbFsoCorrectionValue.Location = new System.Drawing.Point(199, 79);
+            this.tbFsoCorrectionValue.Name = "tbFsoCorrectionValue";
+            this.tbFsoCorrectionValue.Size = new System.Drawing.Size(124, 22);
+            this.tbFsoCorrectionValue.TabIndex = 45;
             // 
-            // aeroLinkLabel25
+            // aeroLinkLabel13
             // 
-            this.aeroLinkLabel25.AutoSize = true;
-            this.aeroLinkLabel25.Location = new System.Drawing.Point(668, 42);
-            this.aeroLinkLabel25.Name = "aeroLinkLabel25";
-            this.aeroLinkLabel25.Size = new System.Drawing.Size(40, 15);
-            this.aeroLinkLabel25.TabIndex = 48;
-            this.aeroLinkLabel25.TabStop = true;
-            this.aeroLinkLabel25.Text = "Factor";
+            this.aeroLinkLabel13.AutoSize = true;
+            this.aeroLinkLabel13.Location = new System.Drawing.Point(35, 42);
+            this.aeroLinkLabel13.Name = "aeroLinkLabel13";
+            this.aeroLinkLabel13.Size = new System.Drawing.Size(76, 15);
+            this.aeroLinkLabel13.TabIndex = 42;
+            this.aeroLinkLabel13.TabStop = true;
+            this.aeroLinkLabel13.Text = "Applied Load";
+            // 
+            // aeroLinkLabel23
+            // 
+            this.aeroLinkLabel23.AutoSize = true;
+            this.aeroLinkLabel23.Location = new System.Drawing.Point(35, 82);
+            this.aeroLinkLabel23.Name = "aeroLinkLabel23";
+            this.aeroLinkLabel23.Size = new System.Drawing.Size(119, 15);
+            this.aeroLinkLabel23.TabIndex = 44;
+            this.aeroLinkLabel23.TabStop = true;
+            this.aeroLinkLabel23.Text = "FSO Correction Value";
+            // 
+            // tbAppliedLoad
+            // 
+            this.tbAppliedLoad.Location = new System.Drawing.Point(199, 39);
+            this.tbAppliedLoad.Name = "tbAppliedLoad";
+            this.tbAppliedLoad.Size = new System.Drawing.Size(124, 22);
+            this.tbAppliedLoad.TabIndex = 43;
             // 
             // MasterDataForm
             // 
@@ -776,6 +776,8 @@ namespace OCLSA_Project_Version_01
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(957, 728);
+            this.MinimumSize = new System.Drawing.Size(957, 726);
             this.Name = "MasterDataForm";
             this.Text = "Master Data Form";
             this.groupBox4.ResumeLayout(false);
