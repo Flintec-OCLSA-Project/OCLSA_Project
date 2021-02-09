@@ -258,6 +258,8 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
+            ProcessDuration.Start();
+
             if (CheckBridgeUnbalance())
             {
                 tbStatus.Text = Status.Rejected.ToString();
@@ -550,7 +552,10 @@ namespace OCLSA_Project_Version_01
             SetStatusAndRejectCriteria(status, reason);
 
             EndingTime = DateTime.Now;
+            ProcessDuration.Stop();
             StopTrimming = true;
+
+            DisplayTotalTime();
 
             SaveFinalDataToDb();
 
@@ -630,7 +635,10 @@ namespace OCLSA_Project_Version_01
                     Operator = lblOperatorName.Text,
                     OperatorId = Convert.ToInt32(lblOperatorId.Text),
                     NoOfResistors = ResistorsToAdd,
-                    IsFsoCorrectionAvailable = IsFsoCorrectionAvailable
+                    IsFsoCorrectionAvailable = IsFsoCorrectionAvailable,
+                    TotalTimeInMinutes = string.IsNullOrWhiteSpace(tbTotalTime.Text)
+                        ? 0
+                        : Convert.ToInt32(tbTotalTime.Text)
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);

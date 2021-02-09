@@ -30,3 +30,4 @@ E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedFSOCorrectionValueField.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedResistorCount.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedFsoCorrectionField.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedTotalTimeInMinutesField.resources

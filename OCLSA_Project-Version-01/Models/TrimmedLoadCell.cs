@@ -102,5 +102,8 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public bool IsFsoCorrectionAvailable { get; set; }
+
+        [Required]
+        public int TotalTimeInMinutes { get; set; }
     }
 }
