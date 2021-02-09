@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -148,6 +149,8 @@ namespace OCLSA_Project_Version_01
 
             ShowMessage(@"Press start to continue...");
 
+            ProcessDuration = Stopwatch.StartNew();
+
             btnStart.Enabled = true;
             btnStop.Enabled = true;
         }
@@ -258,12 +261,10 @@ namespace OCLSA_Project_Version_01
                 return;
             }
 
-            ProcessDuration.Start();
-
             if (CheckBridgeUnbalance())
             {
                 tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", Status.Rejected, RejectionCriteria.HighBalance);
+                await StopProcessAndExit(@"Load Cell is rejected due to High Balance...!!!", Status.Rejected, RejectionCriteria.HighBalance);
                 return;
             }
 
@@ -288,11 +289,11 @@ namespace OCLSA_Project_Version_01
             {
                 case true when result.IsFsoLow:
                     tbStatus.Text = Status.Rejected.ToString();
-                    StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
+                    await StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
                     return;
                 case true when result.IsFsoHigh:
                     tbStatus.Text = Status.Rejected.ToString();
-                    StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
+                    await StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
                     return;
             }
             
@@ -359,21 +360,21 @@ namespace OCLSA_Project_Version_01
 
                         ClearDisplayedCornerReadings();
 
-                        if (i <= 10) continue;
-                        StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.", 
+                        if (i <= 2) continue;
+                        await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
                             Status.Failed, RejectionCriteria.Unstable);
                         break;
                     }
 
-                    if(StopTrimming) return;
-
                     tbTrimmedCyclesCount.Text = TrimCount.ToString();
+
+                    if (StopTrimming) return;
 
                     await CheckDisplayAllFinalCorners();
 
                     if (!IsCalculatedFsoInRange())
                     {
-                        AddResistorsToCorrectFso();
+                        await AddResistorsToCorrectFso();
                         return;
                     }
                     
@@ -409,7 +410,7 @@ namespace OCLSA_Project_Version_01
             }
         }
 
-        private void AddResistorsToCorrectFso()
+        private async Task AddResistorsToCorrectFso()
         {
             var loadCellInDb = CheckLoadCell();
 
@@ -419,7 +420,7 @@ namespace OCLSA_Project_Version_01
             {
                 case nameof(MetalCategory.Aluminium):
                 {
-                    StopProcessAndExit(@"FSO is high & can not be corrected by adding resistors...!!!", Status.Rejected,
+                    await StopProcessAndExit(@"FSO is high & can not be corrected by adding resistors...!!!", Status.Rejected,
                         RejectionCriteria.HighFso);
                     break;
                 }
@@ -453,7 +454,7 @@ namespace OCLSA_Project_Version_01
                 }
                 default:
                 {
-                    StopProcessAndExit(@"FSO can not be corrected by adding resistors...!!!", Status.Failed,
+                    await StopProcessAndExit(@"FSO can not be corrected by adding resistors...!!!", Status.Failed,
                         RejectionCriteria.HighFso);
                     break;
                 }
@@ -545,7 +546,7 @@ namespace OCLSA_Project_Version_01
             lblDisplayMessage.Text = "";
         }
 
-        private void StopProcessAndExit(string errorMessage, Status status, RejectionCriteria reason)
+        private async Task StopProcessAndExit(string errorMessage, Status status, RejectionCriteria reason)
         {
             ShowMessage(errorMessage);
 
@@ -559,7 +560,20 @@ namespace OCLSA_Project_Version_01
 
             SaveFinalDataToDb();
 
-            ResetMainForm();
+            await Task.Delay(TimeSpan.FromSeconds(2));
+
+            var result = Result("Select YES to start a new task & NO to exit from the application.",
+                "Choose Option");
+
+            if(result == DialogResult.Yes) ResetMainForm();
+            else
+            {
+                Application.Exit();
+                Form loginForm = new LoginForm();
+                loginForm.Show();
+            }
+
+
         }
 
         private void SaveFinalDataToDb()
@@ -781,7 +795,7 @@ namespace OCLSA_Project_Version_01
 
             if (CheckExcessiveCorners(loadCell))
             {
-                StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", Status.Failed, RejectionCriteria.ExcessiveCorners);
+                await StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", Status.Failed, RejectionCriteria.ExcessiveCorners);
                 return;
             }
 
@@ -1122,6 +1136,13 @@ namespace OCLSA_Project_Version_01
                 .GetField(value.ToString())
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
+
+        private static DialogResult Result(string message, string title)
+        {
+            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            var result = MessageBox.Show(message, title, buttons);
+            return result;
         }
     }
 
