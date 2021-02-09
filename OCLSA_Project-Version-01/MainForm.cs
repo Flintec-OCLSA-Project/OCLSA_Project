@@ -70,7 +70,7 @@ namespace OCLSA_Project_Version_01
             InitializeComponent();
             _context = new ApplicationDbContext();
 
-            pbLoadCell.Show();
+            pbPositions.Image = Properties.Resources.LoadCell;
         }
 
         public MainForm(string fullName, int employeeId, string location, string station, Image image)
@@ -79,7 +79,7 @@ namespace OCLSA_Project_Version_01
 
             _context = new ApplicationDbContext();
 
-            pbLoadCell.Show();
+            pbPositions.Image = Properties.Resources.LoadCell;
 
             lblOperatorName.Text = fullName;
             lblOperatorId.Text = employeeId.ToString();
@@ -282,20 +282,18 @@ namespace OCLSA_Project_Version_01
             var result = CheckFso();
             var initialFso = result.InitialFso;
 
-            if (result.IsFsoNotOk && result.IsFsoLow)
+            switch (result.IsFsoNotOk)
             {
-                tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
-                return;
+                case true when result.IsFsoLow:
+                    tbStatus.Text = Status.Rejected.ToString();
+                    StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
+                    return;
+                case true when result.IsFsoHigh:
+                    tbStatus.Text = Status.Rejected.ToString();
+                    StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
+                    return;
             }
-
-            if (result.IsFsoNotOk && result.IsFsoHigh)
-            {
-                tbStatus.Text = Status.Rejected.ToString();
-                StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
-                return;
-            }
-
+            
             tbInitialFSO.Text = initialFso;
 
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -674,7 +672,7 @@ namespace OCLSA_Project_Version_01
             StopTrimming = false;
             ProcessDuration.Reset();
             OneTrimCycleDuration.Reset();
-            pbLoadCell.Show();
+            pbPositions.Image = Properties.Resources.LoadCell;
         }
 
         private void ClearAllInputsAndOutputs()
@@ -1033,72 +1031,68 @@ namespace OCLSA_Project_Version_01
 
         private void ShowTrimPosition(string positionName)
         {
-            pbLoadCell.Hide();
-
             switch (positionName)
             {
                 case "Left":
-                    pbLeft.Show();
+                    pbPositions.Image = Properties.Resources.TrimLeft;
                     break;
 
                 case "Back":
-                    pbBack.Show();
+                    pbPositions.Image = Properties.Resources.TrimBack;
                     break;
 
                 case "Right":
-                    pbRight.Show();
+                    pbPositions.Image = Properties.Resources.TrimRight;
                     break;
 
                 case "Front":
-                    pbFront.Show();
+                    pbPositions.Image = Properties.Resources.TrimFront;
                     break;
             }
         }
 
         private void ShowArmaturePosition(string positionName)
         {
-            pbLoadCell.Hide();
-
             switch (positionName)
             {
                 case "Left":
-                    pbLeftArmature.Show();
+                    pbPositions.Image = Properties.Resources.Left;
                     break;
 
                 case "Back":
-                    pbBackArmature.Show();
+                    pbPositions.Image = Properties.Resources.Back;
                     break;
 
                 case "Right":
-                    pbRightArmature.Show();
+                    pbPositions.Image = Properties.Resources.Right;
                     break;
 
                 case "Front":
-                    pbFrontArmature.Show();
+                    pbPositions.Image = Properties.Resources.Front;
                     break;
 
                 case "D1":
-                    pbD1Armature.Show();
+                    pbPositions.Image = Properties.Resources.D1;
                     break;
 
                 case "D2":
-                    pbD2Armature.Show();
+                    pbPositions.Image = Properties.Resources.D2;
                     break;
 
                 case "D3":
-                    pbD3Armature.Show();
+                    pbPositions.Image = Properties.Resources.D3;
                     break;
 
                 case "D4":
-                    pbD4Armature.Show();
+                    pbPositions.Image = Properties.Resources.D4;
                     break;
 
                 case "Center":
-                    pbCenterWeight.Show();
+                    pbPositions.Image = Properties.Resources.Center;
                     break;
 
                 case "FinalCenter":
-                    pbCalibratedWeight.Show();
+                    pbPositions.Image = Properties.Resources.CalibratedWeightNew;
                     break;
             }
         }
