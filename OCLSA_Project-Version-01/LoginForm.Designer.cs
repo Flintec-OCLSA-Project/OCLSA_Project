@@ -127,7 +127,7 @@ namespace OCLSA_Project_Version_01
             // btnOperatorCancel
             // 
             this.btnOperatorCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOperatorCancel.Location = new System.Drawing.Point(463, 256);
+            this.btnOperatorCancel.Location = new System.Drawing.Point(492, 252);
             this.btnOperatorCancel.Name = "btnOperatorCancel";
             this.btnOperatorCancel.Size = new System.Drawing.Size(127, 43);
             this.btnOperatorCancel.TabIndex = 22;
@@ -136,8 +136,9 @@ namespace OCLSA_Project_Version_01
             // 
             // btnOperatorLogin
             // 
+            this.btnOperatorLogin.AutoSize = true;
             this.btnOperatorLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOperatorLogin.Location = new System.Drawing.Point(316, 256);
+            this.btnOperatorLogin.Location = new System.Drawing.Point(332, 252);
             this.btnOperatorLogin.Name = "btnOperatorLogin";
             this.btnOperatorLogin.Size = new System.Drawing.Size(127, 43);
             this.btnOperatorLogin.TabIndex = 20;
@@ -171,6 +172,7 @@ namespace OCLSA_Project_Version_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(648, 369);
             this.Controls.Add(this.cbStation);
             this.Controls.Add(this.Station);

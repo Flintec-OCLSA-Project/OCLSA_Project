@@ -1,16 +1,16 @@
-﻿using System;
+﻿using OCLSA_Project_Version_01.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OCLSA_Project_Version_01.Models;
 
 namespace OCLSA_Project_Version_01
 {
@@ -56,7 +56,7 @@ namespace OCLSA_Project_Version_01
         public string LoadCellStatus { get; set; }
         public string LoadCellRejectCriteria { get; set; }
 
-        public bool StopTrimming { get; set; }
+        private bool _stopTrimming;
 
         public Stopwatch OneTrimCycleDuration { get; set; }
         public TimeSpan TimeElapsed { get; set; }
@@ -130,7 +130,7 @@ namespace OCLSA_Project_Version_01
 
             var loadCell = CheckLoadCell();
 
-            if (loadCell == null)
+            if (loadCell == null)       //Todo - Check load cell is trimmed or not
             {
                 ShowMessage(@"Load cell not found");
                 tbSerialNumber.Clear();
@@ -138,7 +138,7 @@ namespace OCLSA_Project_Version_01
             }
 
             LoadCellType = loadCell.TypeName;
-            
+
             CheckDisplayCornerTrimValues(loadCell);
 
             GetMasterData(loadCell);
@@ -161,7 +161,7 @@ namespace OCLSA_Project_Version_01
             {
                 CornerTrimValue = (double)loadCell.Type.CornerTrimValue;
 
-                var trimCornerLabels = new List<Control> {lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner};
+                var trimCornerLabels = new List<Control> { lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner };
 
                 foreach (var cornerLabel in trimCornerLabels)
                 {
@@ -171,16 +171,16 @@ namespace OCLSA_Project_Version_01
             else
             {
                 if (loadCell.Type.LeftCornerTrimValue != null)
-                    LeftCornerTrimValue = (double) loadCell.Type.LeftCornerTrimValue;
+                    LeftCornerTrimValue = (double)loadCell.Type.LeftCornerTrimValue;
 
                 if (loadCell.Type.BackCornerTrimValue != null)
-                    BackCornerTrimValue = (double) loadCell.Type.BackCornerTrimValue;
+                    BackCornerTrimValue = (double)loadCell.Type.BackCornerTrimValue;
 
                 if (loadCell.Type.RightCornerTrimValue != null)
-                    RightCornerTrimValue = (double) loadCell.Type.RightCornerTrimValue;
+                    RightCornerTrimValue = (double)loadCell.Type.RightCornerTrimValue;
 
                 if (loadCell.Type.FrontCornerTrimValue != null)
-                    FrontCornerTrimValue = (double) loadCell.Type.FrontCornerTrimValue;
+                    FrontCornerTrimValue = (double)loadCell.Type.FrontCornerTrimValue;
 
                 DisplayMasterCornerData();
             }
@@ -237,11 +237,11 @@ namespace OCLSA_Project_Version_01
         private void WriteCommand(string command)
         {
             try
-            { 
+            {
                 serialPortVT400.WriteLine(command);
             }
             catch (Exception error)
-            { 
+            {
                 ShowMessage(error.Message);
             }
         }
@@ -270,7 +270,7 @@ namespace OCLSA_Project_Version_01
 
             await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
-            
+
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
             ShowMessage(@"Keep weight on Center");
@@ -279,7 +279,7 @@ namespace OCLSA_Project_Version_01
 
             while (CheckWeight(currentReading))
             {
-                await DisplayWaitingStatus(@"Keep weight on Center",10, false);
+                await DisplayWaitingStatus(@"Keep weight on Center", 10, false);
             }
 
             var result = CheckFso();
@@ -296,7 +296,7 @@ namespace OCLSA_Project_Version_01
                     await StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
                     return;
             }
-            
+
             tbInitialFSO.Text = initialFso;
 
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -327,77 +327,83 @@ namespace OCLSA_Project_Version_01
             switch (checkCornerTestMode.TestModeInDb)
             {
                 case TestMode.CornerTest:
-                {
-                    await CheckInitialCornerTest(loadCell);
-
-                    for (var i = 0; i < 15; i++)
                     {
-                        OneTrimCycleDuration = Stopwatch.StartNew();
+                        await CheckInitialCornerTest(loadCell);
 
-                        await CheckDisplayMainCorners();
-
-                        if (CheckToTrim())
+                        for (var i = 0; i < 15; i++)
                         {
-                            ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
-                            ShowArmaturePosition(@"Left");
-                            CornerReadings.Clear();
-                            CenterReadings.Clear();
+                            OneTrimCycleDuration = Stopwatch.StartNew();
+
+                            await CheckDisplayMainCorners();
+
+                            if (CheckToTrim())
+                            {
+                                ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
+                                ShowArmaturePosition(@"Left");
+                                CornerReadings.Clear();
+                                CenterReadings.Clear();
+                                ClearDisplayedCornerReadings();
+                                break;
+                            }
+
+                            await RemoveWeightAndShowTrimDetails();
+
+                            OneTrimCycleDuration.Stop();
+
+                            CalculateOneTrimCycleDuration();
+
+                            DisplayDataTable();
+
+                            ClearCornerAndCenterLists();
+
+                            ShowMessage(@"Press OK to check corners are OK...");
+
                             ClearDisplayedCornerReadings();
+
+                            if (i <= 1) continue;
+
+                            tbTrimmedCyclesCount.Text = TrimCount.ToString();
+                            _stopTrimming = true;
+                            await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
+                                Status.Failed, RejectionCriteria.Unstable);
                             break;
+
                         }
-                        
-                        await RemoveWeightAndShowTrimDetails();
 
-                        OneTrimCycleDuration.Stop();
+                        //Todo - Check this & Trim cycle time count bug
 
-                        CalculateOneTrimCycleDuration();
+                        if (_stopTrimming) return;
 
-                        DisplayDataTable();
+                        tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
-                        ClearCornerAndCenterLists();
+                        await CheckDisplayAllFinalCorners();
 
-                        ShowMessage(@"Press OK to check corners are OK...");
+                        if (!IsCalculatedFsoInRange())
+                        {
+                            await AddResistorsToCorrectFso();
+                            return;
+                        }
 
-                        ClearDisplayedCornerReadings();
+                        ShowMessage(@"Load Cell is Passed");
 
-                        if (i <= 2) continue;
-                        await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
-                            Status.Failed, RejectionCriteria.Unstable);
+                        SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
+
+                        ProcessDuration.Stop();
+
+                        DisplayFinalFso();
+                        DisplayTotalTime();
+
+                        EndingTime = DateTime.Now;
+
+                        SaveFinalDataToDb();
+
+                        ShowMessage(@"Process is completed. Press OK to trim a new cell.");
+
+                        ResetMainForm();
+
                         break;
                     }
 
-                    tbTrimmedCyclesCount.Text = TrimCount.ToString();
-
-                    if (StopTrimming) return;
-
-                    await CheckDisplayAllFinalCorners();
-
-                    if (!IsCalculatedFsoInRange())
-                    {
-                        await AddResistorsToCorrectFso();
-                        return;
-                    }
-                    
-                    ShowMessage(@"Load Cell is Passed");
-
-                    SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
-
-                    ProcessDuration.Stop();
-
-                    DisplayFinalFso();
-                    DisplayTotalTime();
-
-                    EndingTime = DateTime.Now;
-
-                    SaveFinalDataToDb();
-
-                    ShowMessage(@"Process is completed. Press OK to trim a new cell.");
-
-                    ResetMainForm();
-
-                    break;
-                }
-                
                 case TestMode.DiagonalTest:
                     break;
 
@@ -414,50 +420,50 @@ namespace OCLSA_Project_Version_01
         {
             var loadCellInDb = CheckLoadCell();
 
-            if(loadCellInDb == null) return;
+            if (loadCellInDb == null) return;
 
             switch (loadCellInDb.MetalCategory)
             {
                 case nameof(MetalCategory.Aluminium):
-                {
-                    await StopProcessAndExit(@"FSO is high & can not be corrected by adding resistors...!!!", Status.Rejected,
-                        RejectionCriteria.HighFso);
-                    break;
-                }
+                    {
+                        await StopProcessAndExit(@"FSO is high & can not be corrected by adding resistors...!!!", Status.Rejected,
+                            RejectionCriteria.HighFso);
+                        break;
+                    }
                 case nameof(MetalCategory.Steel):
-                {
-                    if (MinimumFsoReading < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
-                        ResistorsToAdd = 1;
+                    {
+                        if (MinimumFsoReading < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
+                            ResistorsToAdd = 1;
 
-                    if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFso)
-                        ResistorsToAdd = 3;
+                        if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFso)
+                            ResistorsToAdd = 3;
 
-                    SetStatusAndRejectCriteria(Status.Failed, RejectionCriteria.HighFso);
+                        SetStatusAndRejectCriteria(Status.Failed, RejectionCriteria.HighFso);
 
-                    IsFsoCorrectionAvailable = true;
+                        IsFsoCorrectionAvailable = true;
 
-                    ProcessDuration.Stop();
-                    DisplayTotalTime();
-                    EndingTime = DateTime.Now;
+                        ProcessDuration.Stop();
+                        DisplayTotalTime();
+                        EndingTime = DateTime.Now;
 
-                    SaveFinalDataToDb();
+                        SaveFinalDataToDb();
 
-                    ShowMessage(
-                        ResistorsToAdd > 1 
-                        ? $@"Add CP {ResistorsToAdd} resistor to fix High FSO. Press OK to trim a new cell."
-                        : $@"Add {ResistorsToAdd} resistors to fix High FSO. Press OK to trim a new cell."
-                        );
+                        ShowMessage(
+                            ResistorsToAdd > 1
+                            ? $@"Add CP {ResistorsToAdd} resistor to fix High FSO. Press OK to trim a new cell."
+                            : $@"Add {ResistorsToAdd} resistors to fix High FSO. Press OK to trim a new cell."
+                            );
 
-                    ResetMainForm();
-                    
-                    break;
-                }
+                        ResetMainForm();
+
+                        break;
+                    }
                 default:
-                {
-                    await StopProcessAndExit(@"FSO can not be corrected by adding resistors...!!!", Status.Failed,
-                        RejectionCriteria.HighFso);
-                    break;
-                }
+                    {
+                        await StopProcessAndExit(@"FSO can not be corrected by adding resistors...!!!", Status.Failed,
+                            RejectionCriteria.HighFso);
+                        break;
+                    }
             }
         }
 
@@ -554,7 +560,6 @@ namespace OCLSA_Project_Version_01
 
             EndingTime = DateTime.Now;
             ProcessDuration.Stop();
-            StopTrimming = true;
 
             DisplayTotalTime();
 
@@ -565,80 +570,83 @@ namespace OCLSA_Project_Version_01
             var result = Result("Select YES to start a new task & NO to exit from the application.",
                 "Choose Option");
 
-            if(result == DialogResult.Yes) ResetMainForm();
+            if (result == DialogResult.Yes)
+            {
+                ResetMainForm();
+            }
             else
             {
                 Application.Exit();
                 Form loginForm = new LoginForm();
                 loginForm.Show();
             }
-
-
         }
 
         private void SaveFinalDataToDb()
         {
             try
             {
+                var totalTimeInMinutes = Regex.Replace(tbTotalTime.Text, "[^0-9]+", string.Empty);
+
                 var trimmedLoadCell = new TrimmedLoadCell
                 {
                     SerialNumber = tbSerialNumber.Text,
                     LoadCellType = LoadCellType,
                     StartingTime = StartingTime,
                     EndingTime = EndingTime,
-                    BridgeUnbalance = string.IsNullOrWhiteSpace(tbBridgeUnbalance.Text) 
-                        ? 0d 
+                    BridgeUnbalance = string.IsNullOrWhiteSpace(tbBridgeUnbalance.Text)
+                        ? 0d
                         : Convert.ToDouble(tbBridgeUnbalance.Text),
                     InitialFso = string.IsNullOrWhiteSpace(tbInitialFSO.Text)
-                        ? 0d 
+                        ? 0d
                         : Convert.ToDouble(tbInitialFSO.Text),
                     InitialLeftCorner = string.IsNullOrWhiteSpace(tbInitialLeftCornerReading.Text)
                         ? 0d
                         : Convert.ToDouble(tbInitialLeftCornerReading.Text),
-                    InitialD1Corner = string.IsNullOrWhiteSpace(tbInitialD1Reading.Text) 
-                        ? 0d 
+                    InitialD1Corner = string.IsNullOrWhiteSpace(tbInitialD1Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialD1Reading.Text),
-                    InitialBackCorner = string.IsNullOrWhiteSpace(tbInitialBackCornerReading.Text) 
-                        ? 0d 
+                    InitialBackCorner = string.IsNullOrWhiteSpace(tbInitialBackCornerReading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialBackCornerReading.Text),
-                    InitialD2Corner = string.IsNullOrWhiteSpace(tbInitialD2Reading.Text) 
-                        ? 0d 
+                    InitialD2Corner = string.IsNullOrWhiteSpace(tbInitialD2Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialD2Reading.Text),
-                    InitialRightCorner = string.IsNullOrWhiteSpace(tbInitialRightCornerReading.Text) 
-                        ? 0d 
+                    InitialRightCorner = string.IsNullOrWhiteSpace(tbInitialRightCornerReading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialRightCornerReading.Text),
-                    InitialD3Corner = string.IsNullOrWhiteSpace(tbInitialD3Reading.Text) 
-                        ? 0d 
+                    InitialD3Corner = string.IsNullOrWhiteSpace(tbInitialD3Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialD3Reading.Text),
-                    InitialFrontCorner = string.IsNullOrWhiteSpace(tbInitialFrontCornerReading.Text) 
-                        ? 0d 
+                    InitialFrontCorner = string.IsNullOrWhiteSpace(tbInitialFrontCornerReading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialFrontCornerReading.Text),
-                    InitialD4Corner = string.IsNullOrWhiteSpace(tbInitialD4Reading.Text) 
-                        ? 0d 
+                    InitialD4Corner = string.IsNullOrWhiteSpace(tbInitialD4Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbInitialD4Reading.Text),
-                    FinalLeftCorner = string.IsNullOrWhiteSpace(tbLeftCorner.Text) 
-                        ? 0d 
+                    FinalLeftCorner = string.IsNullOrWhiteSpace(tbLeftCorner.Text)
+                        ? 0d
                         : Convert.ToDouble(tbLeftCorner.Text),
-                    FinalD1Corner = string.IsNullOrWhiteSpace(tbD1Reading.Text) 
-                        ? 0d 
+                    FinalD1Corner = string.IsNullOrWhiteSpace(tbD1Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbD1Reading.Text),
-                    FinalBackCorner = string.IsNullOrWhiteSpace(tbBackCorner.Text) 
-                        ? 0d 
+                    FinalBackCorner = string.IsNullOrWhiteSpace(tbBackCorner.Text)
+                        ? 0d
                         : Convert.ToDouble(tbBackCorner.Text),
-                    FinalD2Corner = string.IsNullOrWhiteSpace(tbD2Reading.Text) 
-                        ? 0d 
+                    FinalD2Corner = string.IsNullOrWhiteSpace(tbD2Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbD2Reading.Text),
-                    FinalRightCorner = string.IsNullOrWhiteSpace(tbRightCorner.Text) 
-                        ? 0d 
+                    FinalRightCorner = string.IsNullOrWhiteSpace(tbRightCorner.Text)
+                        ? 0d
                         : Convert.ToDouble(tbRightCorner.Text),
-                    FinalD3Corner = string.IsNullOrWhiteSpace(tbD3Reading.Text) 
-                        ? 0d 
+                    FinalD3Corner = string.IsNullOrWhiteSpace(tbD3Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbD3Reading.Text),
-                    FinalFrontCorner = string.IsNullOrWhiteSpace(tbFrontCorner.Text) 
-                        ? 0d 
+                    FinalFrontCorner = string.IsNullOrWhiteSpace(tbFrontCorner.Text)
+                        ? 0d
                         : Convert.ToDouble(tbFrontCorner.Text),
-                    FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text) 
-                        ? 0d 
+                    FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text)
+                        ? 0d
                         : Convert.ToDouble(tbD4Reading.Text),
                     TrimmedFso = TrimmedFso,
                     FactoredFso = CalculatedFso,
@@ -652,7 +660,7 @@ namespace OCLSA_Project_Version_01
                     IsFsoCorrectionAvailable = IsFsoCorrectionAvailable,
                     TotalTimeInMinutes = string.IsNullOrWhiteSpace(tbTotalTime.Text)
                         ? 0
-                        : Convert.ToInt32(tbTotalTime.Text)
+                        : int.Parse(totalTimeInMinutes)
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);
@@ -691,7 +699,6 @@ namespace OCLSA_Project_Version_01
             TrimmedFso = 0.0;
             CalculatedFso = 0.0;
             IsFsoCorrectionAvailable = false;
-            StopTrimming = false;
             ProcessDuration.Reset();
             OneTrimCycleDuration.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
@@ -822,7 +829,7 @@ namespace OCLSA_Project_Version_01
             var areCornersDifferenceInRange = leftRightCornerDifference < LeftRightCornerDifferenceInDb
                                               && frontBackCornerDifference < FrontBackCornerDifferenceInDb;
 
-            return CornerTrimValue != 0 ? CheckCornersAndDifference(areCornersDifferenceInRange) 
+            return CornerTrimValue != 0 ? CheckCornersAndDifference(areCornersDifferenceInRange)
                 : CheckCornersWithSameValueAndDifference(areCornersDifferenceInRange);
         }
 
@@ -859,16 +866,16 @@ namespace OCLSA_Project_Version_01
             TrimCount = 0;
 
             var columns = from d in cornerList
-                select new
-                {
-                    Trim_Cycle = ++TrimCount,
-                    Left= d.LeftCorner,
-                    Back = d.BackCorner,
-                    Right = d.RightCorner,
-                    Front = d.FrontCorner,
-                    d.Center,
-                    Time = TimeInMinutesAndSeconds
-                };
+                          select new
+                          {
+                              Trim_Cycle = ++TrimCount,
+                              Left = d.LeftCorner,
+                              Back = d.BackCorner,
+                              Right = d.RightCorner,
+                              Front = d.FrontCorner,
+                              d.Center,
+                              Time = TimeInMinutesAndSeconds
+                          };
 
             trimDataGridView.DataSource = columns.ToList();
         }
@@ -926,12 +933,12 @@ namespace OCLSA_Project_Version_01
 
             if (loadCell == null)
             {
-                return new CheckCornerTestModeResult(){LoadCell = null, TestModeInDb = null, IsLoadCellNotAvailable = true};
+                return new CheckCornerTestModeResult() { LoadCell = null, TestModeInDb = null, IsLoadCellNotAvailable = true };
             }
 
             var testModeInDb = loadCell.Type.TestMode;
 
-            return new CheckCornerTestModeResult(){LoadCell = loadCell, TestModeInDb = testModeInDb, IsLoadCellNotAvailable = false};
+            return new CheckCornerTestModeResult() { LoadCell = loadCell, TestModeInDb = testModeInDb, IsLoadCellNotAvailable = false };
         }
 
         private CheckFsoResult CheckFso()
@@ -941,18 +948,18 @@ namespace OCLSA_Project_Version_01
             if (Convert.ToDouble(initialFso) <= MinimumFsoReading)
             {
                 ShowMessage(@"Initial FSO is too Low...!!!");
-                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoLow = true};
+                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoLow = true };
             }
 
             if (MaximumFsoReading <= Convert.ToDouble(initialFso))
             {
                 ShowMessage(@"Initial FSO is too High...!!!");
-                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoHigh = true};
+                return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = true, IsFsoHigh = true };
             }
 
             EndingTime = DateTime.Now;
 
-            return new CheckFsoResult(){InitialFso = initialFso, IsFsoNotOk = false};
+            return new CheckFsoResult() { InitialFso = initialFso, IsFsoNotOk = false };
         }
 
         private bool CheckWeight(double currentReading)
@@ -1040,9 +1047,9 @@ namespace OCLSA_Project_Version_01
                 textBox.Text = currentReading;
                 return;
             }
-            
+
             CornerReadings.Add(corner, Convert.ToDouble(currentReading));
-            
+
             textBox.Text = currentReading;
         }
 
@@ -1121,7 +1128,7 @@ namespace OCLSA_Project_Version_01
 
         private void lblReading_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void stableCheckTimer_Tick(object sender, EventArgs e)
