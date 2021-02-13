@@ -127,13 +127,24 @@ namespace OCLSA_Project_Version_01
             }
 
             StartingTime = DateTime.Now;
+            ProcessDuration = Stopwatch.StartNew();
 
             var loadCell = CheckLoadCell();
 
-            if (loadCell == null)       //Todo - Check load cell is trimmed or not
+            if (loadCell == null)
             {
                 ShowMessage(@"Load cell not found");
                 tbSerialNumber.Clear();
+                return;
+            }
+
+            var trimmedLoadCell = CheckTrimmedLoadCell();
+
+            //Todo - Direct user what to do when a serial number of trimmed cell is entered
+            if (trimmedLoadCell != null && !trimmedLoadCell.IsFsoCorrectionAvailable)
+            {
+                ShowMessage(@"Load Cell is tested before. Press OK to Exit.");
+                ResetMainForm();
                 return;
             }
 
@@ -148,8 +159,6 @@ namespace OCLSA_Project_Version_01
             tbSerialNumber.ReadOnly = true;
 
             ShowMessage(@"Press start to continue...");
-
-            ProcessDuration = Stopwatch.StartNew();
 
             btnStart.Enabled = true;
             btnStop.Enabled = true;
@@ -352,6 +361,8 @@ namespace OCLSA_Project_Version_01
 
                             CalculateOneTrimCycleDuration();
 
+                            OneTrimCycleDuration.Reset();
+
                             DisplayDataTable();
 
                             ClearCornerAndCenterLists();
@@ -367,12 +378,15 @@ namespace OCLSA_Project_Version_01
                             await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
                                 Status.Failed, RejectionCriteria.Unstable);
                             break;
-
                         }
 
                         //Todo - Check this & Trim cycle time count bug
 
-                        if (_stopTrimming) return;
+                        if (_stopTrimming)
+                        {
+                            _stopTrimming = false;
+                            return;
+                        }
 
                         tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
@@ -699,9 +713,10 @@ namespace OCLSA_Project_Version_01
             TrimmedFso = 0.0;
             CalculatedFso = 0.0;
             IsFsoCorrectionAvailable = false;
-            ProcessDuration.Reset();
-            OneTrimCycleDuration.Reset();
+            ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
+
+            OneTrimCycleDuration?.Reset();
         }
 
         private void ClearAllInputsAndOutputs()
@@ -710,6 +725,8 @@ namespace OCLSA_Project_Version_01
             {
                 textBox.Clear();
             }
+
+            tbSerialNumber.Clear();
 
             var labelList = new List<Label>
             {
@@ -856,6 +873,12 @@ namespace OCLSA_Project_Version_01
         private LoadCell CheckLoadCell()
         {
             var loadCell = _context.LoadCells.Include(l => l.Type).SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
+            return loadCell;
+        }
+
+        private TrimmedLoadCell CheckTrimmedLoadCell()
+        {
+            var loadCell = _context.TrimmedLoadCells.SingleOrDefault(l => l.SerialNumber == tbSerialNumber.Text);
             return loadCell;
         }
 
@@ -1150,6 +1173,11 @@ namespace OCLSA_Project_Version_01
             const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             var result = MessageBox.Show(message, title, buttons);
             return result;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
