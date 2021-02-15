@@ -740,7 +740,7 @@
             // lblRightCorner
             // 
             this.lblRightCorner.AutoSize = true;
-            this.lblRightCorner.Location = new System.Drawing.Point(213, 168);
+            this.lblRightCorner.Location = new System.Drawing.Point(213, 158);
             this.lblRightCorner.Name = "lblRightCorner";
             this.lblRightCorner.Size = new System.Drawing.Size(15, 17);
             this.lblRightCorner.TabIndex = 28;
@@ -750,7 +750,7 @@
             // lblLeftCorner
             // 
             this.lblLeftCorner.AutoSize = true;
-            this.lblLeftCorner.Location = new System.Drawing.Point(213, 140);
+            this.lblLeftCorner.Location = new System.Drawing.Point(213, 130);
             this.lblLeftCorner.Name = "lblLeftCorner";
             this.lblLeftCorner.Size = new System.Drawing.Size(15, 17);
             this.lblLeftCorner.TabIndex = 27;
@@ -760,7 +760,7 @@
             // lblBackCorner
             // 
             this.lblBackCorner.AutoSize = true;
-            this.lblBackCorner.Location = new System.Drawing.Point(213, 113);
+            this.lblBackCorner.Location = new System.Drawing.Point(213, 103);
             this.lblBackCorner.Name = "lblBackCorner";
             this.lblBackCorner.Size = new System.Drawing.Size(15, 17);
             this.lblBackCorner.TabIndex = 26;
@@ -770,7 +770,7 @@
             // lblFrontCorner
             // 
             this.lblFrontCorner.AutoSize = true;
-            this.lblFrontCorner.Location = new System.Drawing.Point(213, 86);
+            this.lblFrontCorner.Location = new System.Drawing.Point(213, 76);
             this.lblFrontCorner.Name = "lblFrontCorner";
             this.lblFrontCorner.Size = new System.Drawing.Size(15, 17);
             this.lblFrontCorner.TabIndex = 25;
@@ -790,7 +790,7 @@
             // aeroLinkLabel28
             // 
             this.aeroLinkLabel28.AutoSize = true;
-            this.aeroLinkLabel28.Location = new System.Drawing.Point(177, 113);
+            this.aeroLinkLabel28.Location = new System.Drawing.Point(177, 103);
             this.aeroLinkLabel28.Name = "aeroLinkLabel28";
             this.aeroLinkLabel28.Size = new System.Drawing.Size(26, 17);
             this.aeroLinkLabel28.TabIndex = 19;
@@ -800,7 +800,7 @@
             // aeroLinkLabel27
             // 
             this.aeroLinkLabel27.AutoSize = true;
-            this.aeroLinkLabel27.Location = new System.Drawing.Point(177, 140);
+            this.aeroLinkLabel27.Location = new System.Drawing.Point(177, 130);
             this.aeroLinkLabel27.Name = "aeroLinkLabel27";
             this.aeroLinkLabel27.Size = new System.Drawing.Size(26, 17);
             this.aeroLinkLabel27.TabIndex = 18;
@@ -810,7 +810,7 @@
             // aeroLinkLabel26
             // 
             this.aeroLinkLabel26.AutoSize = true;
-            this.aeroLinkLabel26.Location = new System.Drawing.Point(177, 168);
+            this.aeroLinkLabel26.Location = new System.Drawing.Point(177, 158);
             this.aeroLinkLabel26.Name = "aeroLinkLabel26";
             this.aeroLinkLabel26.Size = new System.Drawing.Size(26, 17);
             this.aeroLinkLabel26.TabIndex = 17;
@@ -820,7 +820,7 @@
             // aeroLinkLabel25
             // 
             this.aeroLinkLabel25.AutoSize = true;
-            this.aeroLinkLabel25.Location = new System.Drawing.Point(177, 86);
+            this.aeroLinkLabel25.Location = new System.Drawing.Point(177, 76);
             this.aeroLinkLabel25.Name = "aeroLinkLabel25";
             this.aeroLinkLabel25.Size = new System.Drawing.Size(26, 17);
             this.aeroLinkLabel25.TabIndex = 16;
@@ -840,7 +840,7 @@
             // aeroLinkLabel23
             // 
             this.aeroLinkLabel23.AutoSize = true;
-            this.aeroLinkLabel23.Location = new System.Drawing.Point(89, 168);
+            this.aeroLinkLabel23.Location = new System.Drawing.Point(89, 158);
             this.aeroLinkLabel23.Name = "aeroLinkLabel23";
             this.aeroLinkLabel23.Size = new System.Drawing.Size(89, 17);
             this.aeroLinkLabel23.TabIndex = 14;
@@ -850,7 +850,7 @@
             // aeroLinkLabel22
             // 
             this.aeroLinkLabel22.AutoSize = true;
-            this.aeroLinkLabel22.Location = new System.Drawing.Point(89, 140);
+            this.aeroLinkLabel22.Location = new System.Drawing.Point(89, 130);
             this.aeroLinkLabel22.Name = "aeroLinkLabel22";
             this.aeroLinkLabel22.Size = new System.Drawing.Size(83, 17);
             this.aeroLinkLabel22.TabIndex = 13;
@@ -860,7 +860,7 @@
             // aeroLinkLabel21
             // 
             this.aeroLinkLabel21.AutoSize = true;
-            this.aeroLinkLabel21.Location = new System.Drawing.Point(88, 113);
+            this.aeroLinkLabel21.Location = new System.Drawing.Point(88, 103);
             this.aeroLinkLabel21.Name = "aeroLinkLabel21";
             this.aeroLinkLabel21.Size = new System.Drawing.Size(89, 17);
             this.aeroLinkLabel21.TabIndex = 12;
@@ -870,7 +870,7 @@
             // aeroLinkLabel20
             // 
             this.aeroLinkLabel20.AutoSize = true;
-            this.aeroLinkLabel20.Location = new System.Drawing.Point(89, 86);
+            this.aeroLinkLabel20.Location = new System.Drawing.Point(89, 76);
             this.aeroLinkLabel20.Name = "aeroLinkLabel20";
             this.aeroLinkLabel20.Size = new System.Drawing.Size(90, 17);
             this.aeroLinkLabel20.TabIndex = 11;

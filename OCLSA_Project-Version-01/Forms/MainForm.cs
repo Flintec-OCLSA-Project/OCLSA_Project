@@ -1,4 +1,5 @@
 ﻿using OCLSA_Project_Version_01.Common;
+using OCLSA_Project_Version_01.DataAccess.MainForm;
 using OCLSA_Project_Version_01.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OCLSA_Project_Version_01.DataAccess.MainForm;
 
 namespace OCLSA_Project_Version_01.Forms
 {
@@ -717,8 +717,8 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
-
             OneTrimCycleDuration?.Reset();
+            trimDataGridView?.Rows.Clear();
         }
 
         private void ClearAllInputsAndOutputs()
@@ -836,8 +836,6 @@ namespace OCLSA_Project_Version_01.Forms
             await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
 
             CornerReadings.Clear();
-
-            ShowMessage(@"Press OK when Trimming is completed");
         }
 
         private bool CheckToTrim()
@@ -1174,7 +1172,10 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var result = ResultMessage.Result(@"Do you want to stop the process?", @"Choose option");
 
-            if (result == DialogResult.Yes) ResetMainForm();
+            if (result == DialogResult.No) return;
+
+            Application.ExitThread();
+
         }
     }
 }
