@@ -1,4 +1,5 @@
 ﻿using OCLSA_Project_Version_01.Common;
+using OCLSA_Project_Version_01.DataAccess.LoginForm;
 using OCLSA_Project_Version_01.Models;
 using System;
 using System.Drawing;
@@ -33,7 +34,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (username != "" && password != "")
             {
-                var result = CheckUserInDb();
+                var result = CheckUserInDb(username);
                 var userInDb = result.UserInDb;
                 if (result.IsInvalidUser) return;
 
@@ -118,7 +119,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (CheckInputFields()) return;
 
-            var result = CheckUserInDb();
+            var username = tbUsername.Text;
+            var result = CheckUserInDb(username);
             var userInDb = result.UserInDb;
             if (result.IsInvalidUser) return;
 
@@ -139,9 +141,9 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
-        private CheckUserInDbResult CheckUserInDb()
+        public CheckUserInDbResult CheckUserInDb(string username)
         {
-            var userInDb = _context.Employees.SingleOrDefault(u => u.UserName == tbUsername.Text);
+            var userInDb = _context.Employees.SingleOrDefault(u => u.UserName == username);
 
             if (userInDb != null)
             {
@@ -159,11 +161,5 @@ namespace OCLSA_Project_Version_01.Forms
             MessageBox.Show(@"Fill the fields...!!!");
             return true;
         }
-    }
-
-    public class CheckUserInDbResult
-    {
-        public Employee UserInDb { get; set; }
-        public bool IsInvalidUser { get; set; }
     }
 }

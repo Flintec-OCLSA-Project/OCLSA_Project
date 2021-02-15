@@ -16,10 +16,7 @@ E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.SqlServer.dll
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.xml
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\bin\Debug\EntityFramework.SqlServer.xml
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.MasterDataForm.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedModels.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.LoginForm.resources
-E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.MainForm.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedEmployeeModel.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.ChangedDataTypeInEmployeeModel.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedNewFieldsToTypeModel.resources
@@ -31,3 +28,6 @@ E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedResistorCount.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedFsoCorrectionField.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedTotalTimeInMinutesField.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Forms.MainForm.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Forms.MasterDataForm.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Forms.LoginUser.resources

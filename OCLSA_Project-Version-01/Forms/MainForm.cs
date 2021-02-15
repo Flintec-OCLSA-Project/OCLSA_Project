@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OCLSA_Project_Version_01.DataAccess.MainForm;
 
 namespace OCLSA_Project_Version_01.Forms
 {
@@ -1171,80 +1172,9 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            var result = ResultMessage.Result(@"Do you want to stop the process?", @"Choose option");
 
+            if (result == DialogResult.Yes) ResetMainForm();
         }
-    }
-
-    public class CheckFsoResult
-    {
-        public string InitialFso { get; set; }
-        public bool IsFsoNotOk { get; set; }
-        public bool IsFsoLow { get; set; }
-        public bool IsFsoHigh { get; set; }
-    }
-
-    public class CheckCornerTestModeResult
-    {
-        public LoadCell LoadCell { get; set; }
-        public string TestModeInDb { get; set; }
-        public bool IsLoadCellNotAvailable { get; set; }
-    }
-
-    public class Corner
-    {
-        public double LeftCorner { get; set; }
-        public double BackCorner { get; set; }
-        public double RightCorner { get; set; }
-        public double FrontCorner { get; set; }
-        public double Center { get; set; }
-
-        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner, double center)
-        {
-            LeftCorner = leftCorner;
-            BackCorner = backCorner;
-            RightCorner = rightCorner;
-            FrontCorner = frontCorner;
-            Center = center;
-        }
-    }
-
-    public enum Status
-    {
-        Rejected,
-        Passed,
-        Failed
-    }
-
-    public enum RejectionCriteria
-    {
-        [Description("High Balance")]
-        HighBalance,
-
-        [Description("High FSO")]
-        HighFso,
-
-        [Description("Low FSO")]
-        LowFso,
-
-        [Description("Excessive Corners")]
-        ExcessiveCorners,
-
-        [Description("Unstable")]
-        Unstable,
-
-        [Description("High Zero")]
-        HighZero,
-
-        [Description("No Complete")]
-        NoComplete,
-
-        [Description("No")]
-        No
-    }
-
-    public enum MetalCategory
-    {
-        Steel,
-        Aluminium
     }
 }
