@@ -813,7 +813,6 @@ namespace OCLSA_Project_Version_01.Forms
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
-        private WindowsFormsAero.TextBox tbLoadCellType;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
         private System.Windows.Forms.GroupBox groupBox6;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
@@ -877,5 +876,6 @@ namespace OCLSA_Project_Version_01.Forms
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel23;
         private WindowsFormsAero.TextBox tbAppliedLoad;
         public WindowsFormsAero.TextBox tbTestMode;
+        public WindowsFormsAero.TextBox tbLoadCellType;
     }
 }

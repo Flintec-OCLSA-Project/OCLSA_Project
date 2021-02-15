@@ -1,4 +1,4 @@
-﻿namespace OCLSA_Project_Version_01.Common
+﻿namespace OCLSA_Project_Version_01.DataAccess.MainForm
 {
     public static class TestMode
     {

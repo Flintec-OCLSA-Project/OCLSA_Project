@@ -3,23 +3,24 @@ using OCLSA_Project_Version_01.DataAccess.LoginForm;
 using OCLSA_Project_Version_01.Models;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace OCLSA_Project_Version_01.Forms
 {
     public partial class LoginForm : Form
     {
-        private readonly ApplicationDbContext _context;
+        public readonly ApplicationDbContext Context;
         private DialogResult _result;
         public ImageConvertor ImageConvertor { get; }
+        public User User { get; }
 
         public LoginForm()
         {
             InitializeComponent();
 
-            _context = new ApplicationDbContext();
+            Context = new ApplicationDbContext();
             ImageConvertor = new ImageConvertor();
+            User = new User(this);
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -34,7 +35,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (username != "" && password != "")
             {
-                var result = CheckUserInDb(username);
+                var result = User.CheckUserInDb(username);
                 var userInDb = result.UserInDb;
                 if (result.IsInvalidUser) return;
 
@@ -120,7 +121,7 @@ namespace OCLSA_Project_Version_01.Forms
             if (CheckInputFields()) return;
 
             var username = tbUsername.Text;
-            var result = CheckUserInDb(username);
+            var result = User.CheckUserInDb(username);
             var userInDb = result.UserInDb;
             if (result.IsInvalidUser) return;
 
@@ -139,20 +140,6 @@ namespace OCLSA_Project_Version_01.Forms
                     MessageBox.Show(@"Administration status error...!!!");
                     break;
             }
-        }
-
-        public CheckUserInDbResult CheckUserInDb(string username)
-        {
-            var userInDb = _context.Employees.SingleOrDefault(u => u.UserName == username);
-
-            if (userInDb != null)
-            {
-                return new CheckUserInDbResult { UserInDb = userInDb, IsInvalidUser = false };
-            }
-
-            MessageBox.Show(@"Invalid User. Please Check Username...!!!");
-
-            return new CheckUserInDbResult { UserInDb = null, IsInvalidUser = true };
         }
 
         private bool CheckInputFields()
