@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OCLSA_Project_Version_01.Common;
+using OCLSA_Project_Version_01.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using OCLSA_Project_Version_01.Models;
 using Type = OCLSA_Project_Version_01.Models.Type;
 
 namespace OCLSA_Project_Version_01.Forms
@@ -36,7 +37,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (loadCellTypeInDb != null)
             {
-                var messageBoxResult = Result("Load Cell Type is already existing. Do you want to edit the Load Cell Type?", "Choose Option");
+                var messageBoxResult = ResultMessage.Result("Load Cell Type is already existing. Do you want to edit the Load Cell Type?", "Choose Option");
 
                 if (messageBoxResult == DialogResult.Yes)
                 {
@@ -51,7 +52,7 @@ namespace OCLSA_Project_Version_01.Forms
                         rbSameValue.Checked = true;
                     else
                         rbDifferentValues.Checked = true;
-                    
+
                     DisplayLoadCellTypeData(loadCellTypeInDb);
                 }
                 else
@@ -72,7 +73,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             SaveLoadCellTypeDataToDb();
 
-            var messageBoxResult = Result("New Load Cell Type is added. Do you want to add another Load Cell Type?",
+            var messageBoxResult = ResultMessage.Result("New Load Cell Type is added. Do you want to add another Load Cell Type?",
                 "Choose Option");
 
             if (messageBoxResult == DialogResult.Yes)
@@ -105,7 +106,7 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            var messageBoxResult = Result("Do you want to exit?", "Choose Option");
+            var messageBoxResult = ResultMessage.Result("Do you want to exit?", "Choose Option");
 
             if (messageBoxResult == DialogResult.Yes) Application.Exit();
         }
@@ -302,8 +303,8 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
-                tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, 
-                tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue, 
+                tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue,
+                tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue,
                 tbFrontRightCornerTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
 
@@ -321,13 +322,6 @@ namespace OCLSA_Project_Version_01.Forms
             }
 
             return false;
-        }
-
-        private static DialogResult Result(string message, string title)
-        {
-            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            var result = MessageBox.Show(message, title, buttons);
-            return result;
         }
 
         private void EnableOrDisableCornerInputs(bool command)
@@ -382,7 +376,7 @@ namespace OCLSA_Project_Version_01.Forms
                 tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, tbLeftCornerTrimValue,
                 tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue,
-                tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue, tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, 
+                tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue, tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor,
                 tbFsoCorrectionValue
             };
 

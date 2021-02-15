@@ -201,13 +201,13 @@ namespace OCLSA_Project_Version_01.Forms
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label OCLSA;
-        private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnOperatorCancel;
         private System.Windows.Forms.Button btnOperatorLogin;
-        private System.Windows.Forms.ComboBox cbStation;
         private System.Windows.Forms.Label Station;
+        public System.Windows.Forms.TextBox tbPassword;
+        public System.Windows.Forms.TextBox tbUsername;
+        public System.Windows.Forms.ComboBox cbStation;
     }
 }

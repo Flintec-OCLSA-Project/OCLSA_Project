@@ -1,9 +1,9 @@
-﻿using System;
+﻿using OCLSA_Project_Version_01.Common;
+using OCLSA_Project_Version_01.Models;
+using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OCLSA_Project_Version_01.Models;
 
 namespace OCLSA_Project_Version_01.Forms
 {
@@ -11,12 +11,14 @@ namespace OCLSA_Project_Version_01.Forms
     {
         private readonly ApplicationDbContext _context;
         private DialogResult _result;
+        public ImageConvertor ImageConvertor { get; }
 
         public LoginForm()
         {
             InitializeComponent();
 
             _context = new ApplicationDbContext();
+            ImageConvertor = new ImageConvertor();
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -45,7 +47,7 @@ namespace OCLSA_Project_Version_01.Forms
                     {
                         case "OK":
                             if (_result != DialogResult.Yes && _result != DialogResult.No)
-                                _result = Result(
+                                _result = ResultMessage.Result(
                                     "Select YES to open Master-data Window & NO to open Corner Trimming Window.",
                                     "Choose Option");
 
@@ -55,7 +57,7 @@ namespace OCLSA_Project_Version_01.Forms
                         case "NO":
                             if (cbStation.Enabled != true) cbStation.Enabled = true;
 
-                            var image = ByteArrayToImage(userInDb.Image);
+                            var image = ImageConvertor.ByteArrayToImage(userInDb.Image);
                             CheckStationAndDisplay(fullName, employeeId, location, image);
                             break;
 
@@ -73,13 +75,6 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 MessageBox.Show(@"Fill all the relevant fields...!!!");
             }
-        }
-
-        private static DialogResult Result(string message, string title)
-        {
-            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            var result = MessageBox.Show(message, title, buttons);
-            return result;
         }
 
         private void GetResponseAndDisplay()
@@ -130,7 +125,7 @@ namespace OCLSA_Project_Version_01.Forms
             switch (userInDb.Administration)
             {
                 case "OK":
-                    _result = Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose Option");
+                    _result = ResultMessage.Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose Option");
                     break;
 
                 case "NO":
@@ -150,12 +145,12 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (userInDb != null)
             {
-                return new CheckUserInDbResult{UserInDb = userInDb, IsInvalidUser = false};
+                return new CheckUserInDbResult { UserInDb = userInDb, IsInvalidUser = false };
             }
 
             MessageBox.Show(@"Invalid User. Please Check Username...!!!");
 
-            return new CheckUserInDbResult {UserInDb = null, IsInvalidUser = true};
+            return new CheckUserInDbResult { UserInDb = null, IsInvalidUser = true };
         }
 
         private bool CheckInputFields()
@@ -163,17 +158,6 @@ namespace OCLSA_Project_Version_01.Forms
             if (tbUsername.Text != "" && tbPassword.Text != "") return false;
             MessageBox.Show(@"Fill the fields...!!!");
             return true;
-
-        }
-
-        private Image ByteArrayToImage(byte[] byteArrayIn)
-        {
-            using (var stream = new MemoryStream(byteArrayIn))
-            {
-                var returnImage = Image.FromStream(stream,false,true);
-
-                return returnImage;
-            }
         }
     }
 

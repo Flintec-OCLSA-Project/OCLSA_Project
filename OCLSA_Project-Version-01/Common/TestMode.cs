@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OCLSA_Project_Version_01.Models
+﻿namespace OCLSA_Project_Version_01.Common
 {
     public static class TestMode
     {

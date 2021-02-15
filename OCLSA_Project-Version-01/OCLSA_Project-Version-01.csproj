@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ImageConvertor.cs" />
+    <Compile Include="Common\ResultMessage.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,7 +130,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
-    <Compile Include="Models\TestMode.cs" />
+    <Compile Include="Common\TestMode.cs" />
     <Compile Include="Models\TrimmedLoadCell.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Employee.cs" />

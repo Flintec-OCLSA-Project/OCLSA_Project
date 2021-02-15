@@ -1,4 +1,5 @@
-﻿using OCLSA_Project_Version_01.Models;
+﻿using OCLSA_Project_Version_01.Common;
+using OCLSA_Project_Version_01.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -581,7 +582,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             await Task.Delay(TimeSpan.FromSeconds(2));
 
-            var result = Result("Select YES to start a new task & NO to exit from the application.",
+            var result = ResultMessage.Result("Select YES to start a new task & NO to exit from the application.",
                 "Choose Option");
 
             if (result == DialogResult.Yes)
@@ -1166,13 +1167,6 @@ namespace OCLSA_Project_Version_01.Forms
                 .GetField(value.ToString())
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        private static DialogResult Result(string message, string title)
-        {
-            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            var result = MessageBox.Show(message, title, buttons);
-            return result;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
