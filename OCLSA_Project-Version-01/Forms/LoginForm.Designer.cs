@@ -133,7 +133,6 @@ namespace OCLSA_Project_Version_01.Forms
             this.btnOperatorCancel.TabIndex = 22;
             this.btnOperatorCancel.Text = "Cancel";
             this.btnOperatorCancel.UseVisualStyleBackColor = true;
-            this.btnOperatorCancel.Click += new System.EventHandler(this.btnOperatorCancel_Click);
             // 
             // btnOperatorLogin
             // 
@@ -204,7 +203,7 @@ namespace OCLSA_Project_Version_01.Forms
         private System.Windows.Forms.Label OCLSA;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label label5;
-        public System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnOperatorCancel;
         private System.Windows.Forms.Button btnOperatorLogin;

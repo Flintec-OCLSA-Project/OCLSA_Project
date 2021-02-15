@@ -59,22 +59,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MasterDataForm.cs">
+    <Compile Include="Forms\MasterDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MasterDataForm.Designer.cs">
+    <Compile Include="Forms\MasterDataForm.Designer.cs">
       <DependentUpon>MasterDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202101151022232_AddedModels.cs" />
@@ -134,13 +134,13 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MasterDataForm.resx">
+    <EmbeddedResource Include="Forms\MasterDataForm.resx">
       <DependentUpon>MasterDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101151022232_AddedModels.resx">
@@ -204,55 +204,53 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\Back.JPG" />
+    <None Include="Resources\Pictures\Back.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\blank-profile-picture-973460_640.png" />
+    <None Include="Resources\Pictures\CalibratedWeight.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\CalibratedWeight.JPG" />
+    <None Include="Resources\Pictures\Center.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\Center.JPG" />
+    <None Include="Resources\Pictures\D1.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\D1.JPG" />
+    <None Include="Resources\Pictures\D2.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\D2.JPG" />
+    <None Include="Resources\Pictures\D3.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\D3.JPG" />
+    <None Include="Resources\Pictures\D4.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\D4.JPG" />
+    <None Include="Resources\Pictures\Front.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\Front.JPG" />
+    <None Include="Resources\Pictures\Left.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\Left.JPG" />
+    <None Include="Resources\Pictures\Right.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\Right.JPG" />
+    <None Include="Resources\Pictures\CalibratedWeightNew.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\CalibratedWeightNew.jpg" />
+    <None Include="Resources\Pictures\LoadCell.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\LoadCell.png" />
+    <None Include="Resources\Pictures\TrimBack.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\TrimBack.png" />
+    <None Include="Resources\Pictures\TrimFront.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\TrimFront.png" />
+    <None Include="Resources\Pictures\TrimLeft.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pictures\TrimLeft.png" />
+    <None Include="Resources\Pictures\TrimRight.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Pictures\TrimRight.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

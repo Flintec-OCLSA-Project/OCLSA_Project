@@ -1,5 +1,4 @@
 ﻿using OCLSA_Project_Version_01.Models;
-using OCLSA_Project_Version_01.WorkFlow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -360,11 +359,11 @@ namespace OCLSA_Project_Version_01.Forms
 
                             OneTrimCycleDuration.Stop();
 
-                            var oneTrimCycleDuration = CalculateOneTrimCycleDuration();
+                            CalculateOneTrimCycleDuration();
 
                             OneTrimCycleDuration.Reset();
 
-                            DisplayDataTable(oneTrimCycleDuration);
+                            DisplayDataTable();
 
                             ClearCornerAndCenterLists();
 
@@ -431,12 +430,6 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            var result = ResultMessage.Result("Do you want to stop the process and exit?", "Choose option");
-            if (result == DialogResult.Yes) ResetMainForm();
-        }
-
         private async Task AddResistorsToCorrectFso()
         {
             var loadCellInDb = CheckLoadCell();
@@ -501,10 +494,10 @@ namespace OCLSA_Project_Version_01.Forms
             CenterReadings.Clear();
         }
 
-        private string CalculateOneTrimCycleDuration()
+        private void CalculateOneTrimCycleDuration()
         {
             TimeElapsed = OneTrimCycleDuration.Elapsed.Duration();
-            return $"{TimeElapsed.Minutes:D2}:{TimeElapsed.Seconds:D2}";
+            TimeInMinutesAndSeconds = $"{TimeElapsed.Minutes:D2}:{TimeElapsed.Seconds:D2}";
         }
 
         private async Task RemoveWeightAndShowTrimDetails()
@@ -588,7 +581,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             await Task.Delay(TimeSpan.FromSeconds(2));
 
-            var result = ResultMessage.Result("Select YES to start a new task & NO to exit from the application.",
+            var result = Result("Select YES to start a new task & NO to exit from the application.",
                 "Choose Option");
 
             if (result == DialogResult.Yes)
@@ -722,6 +715,7 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
+
             OneTrimCycleDuration?.Reset();
         }
 
@@ -840,6 +834,8 @@ namespace OCLSA_Project_Version_01.Forms
             await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
 
             CornerReadings.Clear();
+
+            ShowMessage(@"Press OK when Trimming is completed");
         }
 
         private bool CheckToTrim()
@@ -886,7 +882,7 @@ namespace OCLSA_Project_Version_01.Forms
             return loadCell;
         }
 
-        private void DisplayDataTable(string time)
+        private void DisplayDataTable()
         {
             var cornerList = GetDisplayData();
 
@@ -901,7 +897,7 @@ namespace OCLSA_Project_Version_01.Forms
                               Right = d.RightCorner,
                               Front = d.FrontCorner,
                               d.Center,
-                              Time = time
+                              Time = TimeInMinutesAndSeconds
                           };
 
             trimDataGridView.DataSource = columns.ToList();
@@ -1171,5 +1167,90 @@ namespace OCLSA_Project_Version_01.Forms
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
+
+        private static DialogResult Result(string message, string title)
+        {
+            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            var result = MessageBox.Show(message, title, buttons);
+            return result;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    public class CheckFsoResult
+    {
+        public string InitialFso { get; set; }
+        public bool IsFsoNotOk { get; set; }
+        public bool IsFsoLow { get; set; }
+        public bool IsFsoHigh { get; set; }
+    }
+
+    public class CheckCornerTestModeResult
+    {
+        public LoadCell LoadCell { get; set; }
+        public string TestModeInDb { get; set; }
+        public bool IsLoadCellNotAvailable { get; set; }
+    }
+
+    public class Corner
+    {
+        public double LeftCorner { get; set; }
+        public double BackCorner { get; set; }
+        public double RightCorner { get; set; }
+        public double FrontCorner { get; set; }
+        public double Center { get; set; }
+
+        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner, double center)
+        {
+            LeftCorner = leftCorner;
+            BackCorner = backCorner;
+            RightCorner = rightCorner;
+            FrontCorner = frontCorner;
+            Center = center;
+        }
+    }
+
+    public enum Status
+    {
+        Rejected,
+        Passed,
+        Failed
+    }
+
+    public enum RejectionCriteria
+    {
+        [Description("High Balance")]
+        HighBalance,
+
+        [Description("High FSO")]
+        HighFso,
+
+        [Description("Low FSO")]
+        LowFso,
+
+        [Description("Excessive Corners")]
+        ExcessiveCorners,
+
+        [Description("Unstable")]
+        Unstable,
+
+        [Description("High Zero")]
+        HighZero,
+
+        [Description("No Complete")]
+        NoComplete,
+
+        [Description("No")]
+        No
+    }
+
+    public enum MetalCategory
+    {
+        Steel,
+        Aluminium
     }
 }

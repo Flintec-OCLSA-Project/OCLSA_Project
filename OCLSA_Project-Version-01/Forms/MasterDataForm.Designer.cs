@@ -32,21 +32,21 @@ namespace OCLSA_Project_Version_01.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.aeroLinkLabel22 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbMaximumCenter = new WindowsFormsAero.TextBox();
+            this.tbMaximumCenter = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel4 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel5 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbMinimumFso = new WindowsFormsAero.TextBox();
-            this.TbMaximumFso = new WindowsFormsAero.TextBox();
+            this.tbMinimumFso = new WindowsFormsAero.TextBox();
+            this.tbMaximumFso = new WindowsFormsAero.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.TbTestMode = new WindowsFormsAero.TextBox();
+            this.tbTestMode = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbLoadCellType = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel2 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.aeroLinkLabel7 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel6 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbMaximumUnbalance = new WindowsFormsAero.TextBox();
-            this.TbMinimumUnbalance = new WindowsFormsAero.TextBox();
+            this.tbMaximumUnbalance = new WindowsFormsAero.TextBox();
+            this.tbMinimumUnbalance = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel8 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -55,32 +55,32 @@ namespace OCLSA_Project_Version_01.Forms
             this.rbDifferentValues = new System.Windows.Forms.RadioButton();
             this.aeroLinkLabel14 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.TbExcessiveCornerValue = new WindowsFormsAero.TextBox();
+            this.tbExcessiveCornerValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel21 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbFrontBackCornerDifference = new WindowsFormsAero.TextBox();
-            this.TbLeftRightCornerDifference = new WindowsFormsAero.TextBox();
+            this.tbFrontBackCornerDifference = new WindowsFormsAero.TextBox();
+            this.tbLeftRightCornerDifference = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel12 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.TbCornersTrimValue = new WindowsFormsAero.TextBox();
-            this.TbLeftCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbCornersTrimValue = new WindowsFormsAero.TextBox();
+            this.tbLeftCornerTrimValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel10 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbBackCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbBackCornerTrimValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel17 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel9 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel3 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbBackRightCornerTrimValue = new WindowsFormsAero.TextBox();
-            this.TbFrontCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbBackRightCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbFrontCornerTrimValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel16 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel18 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbRightCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbRightCornerTrimValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel15 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbFrontRightCornerTrimValue = new WindowsFormsAero.TextBox();
-            this.TbBackLeftCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbFrontRightCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbBackLeftCornerTrimValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel20 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel19 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbFrontLeftCornerTrimValue = new WindowsFormsAero.TextBox();
+            this.tbFrontLeftCornerTrimValue = new WindowsFormsAero.TextBox();
             this.btnEdit = new WindowsFormsAero.Button();
             this.btnCancel = new WindowsFormsAero.Button();
             this.btnSave = new WindowsFormsAero.Button();
@@ -88,14 +88,14 @@ namespace OCLSA_Project_Version_01.Forms
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.TbFactor = new WindowsFormsAero.TextBox();
+            this.tbFactor = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel25 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel24 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbFullLoad = new WindowsFormsAero.TextBox();
-            this.TbFsoCorrectionValue = new WindowsFormsAero.TextBox();
+            this.tbFullLoad = new WindowsFormsAero.TextBox();
+            this.tbFsoCorrectionValue = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel23 = new AeroSuite.Controls.AeroLinkLabel();
-            this.TbAppliedLoad = new WindowsFormsAero.TextBox();
+            this.tbAppliedLoad = new WindowsFormsAero.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -127,11 +127,11 @@ namespace OCLSA_Project_Version_01.Forms
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.aeroLinkLabel22);
-            this.groupBox9.Controls.Add(this.TbMaximumCenter);
+            this.groupBox9.Controls.Add(this.tbMaximumCenter);
             this.groupBox9.Controls.Add(this.aeroLinkLabel4);
             this.groupBox9.Controls.Add(this.aeroLinkLabel5);
-            this.groupBox9.Controls.Add(this.TbMinimumFso);
-            this.groupBox9.Controls.Add(this.TbMaximumFso);
+            this.groupBox9.Controls.Add(this.tbMinimumFso);
+            this.groupBox9.Controls.Add(this.tbMaximumFso);
             this.groupBox9.Location = new System.Drawing.Point(20, 315);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(332, 155);
@@ -151,10 +151,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbMaximumCenter
             // 
-            this.TbMaximumCenter.Location = new System.Drawing.Point(179, 107);
-            this.TbMaximumCenter.Name = "TbMaximumCenter";
-            this.TbMaximumCenter.Size = new System.Drawing.Size(124, 22);
-            this.TbMaximumCenter.TabIndex = 27;
+            this.tbMaximumCenter.Location = new System.Drawing.Point(179, 107);
+            this.tbMaximumCenter.Name = "tbMaximumCenter";
+            this.tbMaximumCenter.Size = new System.Drawing.Size(124, 22);
+            this.tbMaximumCenter.TabIndex = 27;
             // 
             // aeroLinkLabel4
             // 
@@ -178,21 +178,21 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbMinimumFso
             // 
-            this.TbMinimumFso.Location = new System.Drawing.Point(179, 36);
-            this.TbMinimumFso.Name = "TbMinimumFso";
-            this.TbMinimumFso.Size = new System.Drawing.Size(123, 22);
-            this.TbMinimumFso.TabIndex = 24;
+            this.tbMinimumFso.Location = new System.Drawing.Point(179, 36);
+            this.tbMinimumFso.Name = "tbMinimumFso";
+            this.tbMinimumFso.Size = new System.Drawing.Size(123, 22);
+            this.tbMinimumFso.TabIndex = 24;
             // 
             // tbMaximumFso
             // 
-            this.TbMaximumFso.Location = new System.Drawing.Point(179, 71);
-            this.TbMaximumFso.Name = "TbMaximumFso";
-            this.TbMaximumFso.Size = new System.Drawing.Size(123, 22);
-            this.TbMaximumFso.TabIndex = 25;
+            this.tbMaximumFso.Location = new System.Drawing.Point(179, 71);
+            this.tbMaximumFso.Name = "tbMaximumFso";
+            this.tbMaximumFso.Size = new System.Drawing.Size(123, 22);
+            this.tbMaximumFso.TabIndex = 25;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.TbTestMode);
+            this.groupBox5.Controls.Add(this.tbTestMode);
             this.groupBox5.Controls.Add(this.aeroLinkLabel1);
             this.groupBox5.Controls.Add(this.tbLoadCellType);
             this.groupBox5.Controls.Add(this.aeroLinkLabel2);
@@ -205,10 +205,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbTestMode
             // 
-            this.TbTestMode.Location = new System.Drawing.Point(179, 73);
-            this.TbTestMode.Name = "TbTestMode";
-            this.TbTestMode.Size = new System.Drawing.Size(121, 22);
-            this.TbTestMode.TabIndex = 25;
+            this.tbTestMode.Location = new System.Drawing.Point(179, 73);
+            this.tbTestMode.Name = "tbTestMode";
+            this.tbTestMode.Size = new System.Drawing.Size(121, 22);
+            this.tbTestMode.TabIndex = 25;
             // 
             // aeroLinkLabel1
             // 
@@ -242,8 +242,8 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             this.groupBox6.Controls.Add(this.aeroLinkLabel7);
             this.groupBox6.Controls.Add(this.aeroLinkLabel6);
-            this.groupBox6.Controls.Add(this.TbMaximumUnbalance);
-            this.groupBox6.Controls.Add(this.TbMinimumUnbalance);
+            this.groupBox6.Controls.Add(this.tbMaximumUnbalance);
+            this.groupBox6.Controls.Add(this.tbMinimumUnbalance);
             this.groupBox6.Location = new System.Drawing.Point(20, 169);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(332, 126);
@@ -273,17 +273,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbMaximumUnbalance
             // 
-            this.TbMaximumUnbalance.Location = new System.Drawing.Point(179, 74);
-            this.TbMaximumUnbalance.Name = "TbMaximumUnbalance";
-            this.TbMaximumUnbalance.Size = new System.Drawing.Size(123, 22);
-            this.TbMaximumUnbalance.TabIndex = 11;
+            this.tbMaximumUnbalance.Location = new System.Drawing.Point(179, 74);
+            this.tbMaximumUnbalance.Name = "tbMaximumUnbalance";
+            this.tbMaximumUnbalance.Size = new System.Drawing.Size(123, 22);
+            this.tbMaximumUnbalance.TabIndex = 11;
             // 
             // tbMinimumUnbalance
             // 
-            this.TbMinimumUnbalance.Location = new System.Drawing.Point(179, 36);
-            this.TbMinimumUnbalance.Name = "TbMinimumUnbalance";
-            this.TbMinimumUnbalance.Size = new System.Drawing.Size(123, 22);
-            this.TbMinimumUnbalance.TabIndex = 12;
+            this.tbMinimumUnbalance.Location = new System.Drawing.Point(179, 36);
+            this.tbMinimumUnbalance.Name = "tbMinimumUnbalance";
+            this.tbMinimumUnbalance.Size = new System.Drawing.Size(123, 22);
+            this.tbMinimumUnbalance.TabIndex = 12;
             // 
             // aeroLinkLabel8
             // 
@@ -363,7 +363,7 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.TbExcessiveCornerValue);
+            this.groupBox3.Controls.Add(this.tbExcessiveCornerValue);
             this.groupBox3.Controls.Add(this.aeroLinkLabel21);
             this.groupBox3.Location = new System.Drawing.Point(330, 358);
             this.groupBox3.Name = "groupBox3";
@@ -374,10 +374,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbExcessiveCornerValue
             // 
-            this.TbExcessiveCornerValue.Location = new System.Drawing.Point(58, 50);
-            this.TbExcessiveCornerValue.Name = "TbExcessiveCornerValue";
-            this.TbExcessiveCornerValue.Size = new System.Drawing.Size(109, 22);
-            this.TbExcessiveCornerValue.TabIndex = 34;
+            this.tbExcessiveCornerValue.Location = new System.Drawing.Point(58, 50);
+            this.tbExcessiveCornerValue.Name = "tbExcessiveCornerValue";
+            this.tbExcessiveCornerValue.Size = new System.Drawing.Size(109, 22);
+            this.tbExcessiveCornerValue.TabIndex = 34;
             // 
             // aeroLinkLabel21
             // 
@@ -392,8 +392,8 @@ namespace OCLSA_Project_Version_01.Forms
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.aeroLinkLabel11);
-            this.groupBox2.Controls.Add(this.TbFrontBackCornerDifference);
-            this.groupBox2.Controls.Add(this.TbLeftRightCornerDifference);
+            this.groupBox2.Controls.Add(this.tbFrontBackCornerDifference);
+            this.groupBox2.Controls.Add(this.tbLeftRightCornerDifference);
             this.groupBox2.Controls.Add(this.aeroLinkLabel12);
             this.groupBox2.Location = new System.Drawing.Point(17, 358);
             this.groupBox2.Name = "groupBox2";
@@ -414,17 +414,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbFrontBackCornerDifference
             // 
-            this.TbFrontBackCornerDifference.Location = new System.Drawing.Point(174, 72);
-            this.TbFrontBackCornerDifference.Name = "TbFrontBackCornerDifference";
-            this.TbFrontBackCornerDifference.Size = new System.Drawing.Size(114, 22);
-            this.TbFrontBackCornerDifference.TabIndex = 14;
+            this.tbFrontBackCornerDifference.Location = new System.Drawing.Point(174, 72);
+            this.tbFrontBackCornerDifference.Name = "tbFrontBackCornerDifference";
+            this.tbFrontBackCornerDifference.Size = new System.Drawing.Size(114, 22);
+            this.tbFrontBackCornerDifference.TabIndex = 14;
             // 
             // tbLeftRightCornerDifference
             // 
-            this.TbLeftRightCornerDifference.Location = new System.Drawing.Point(174, 32);
-            this.TbLeftRightCornerDifference.Name = "TbLeftRightCornerDifference";
-            this.TbLeftRightCornerDifference.Size = new System.Drawing.Size(114, 22);
-            this.TbLeftRightCornerDifference.TabIndex = 15;
+            this.tbLeftRightCornerDifference.Location = new System.Drawing.Point(174, 32);
+            this.tbLeftRightCornerDifference.Name = "tbLeftRightCornerDifference";
+            this.tbLeftRightCornerDifference.Size = new System.Drawing.Size(114, 22);
+            this.tbLeftRightCornerDifference.TabIndex = 15;
             // 
             // aeroLinkLabel12
             // 
@@ -438,24 +438,24 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.TbCornersTrimValue);
-            this.groupBox7.Controls.Add(this.TbLeftCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbCornersTrimValue);
+            this.groupBox7.Controls.Add(this.tbLeftCornerTrimValue);
             this.groupBox7.Controls.Add(this.aeroLinkLabel10);
-            this.groupBox7.Controls.Add(this.TbBackCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbBackCornerTrimValue);
             this.groupBox7.Controls.Add(this.aeroLinkLabel17);
             this.groupBox7.Controls.Add(this.aeroLinkLabel9);
             this.groupBox7.Controls.Add(this.aeroLinkLabel3);
-            this.groupBox7.Controls.Add(this.TbBackRightCornerTrimValue);
-            this.groupBox7.Controls.Add(this.TbFrontCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbBackRightCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbFrontCornerTrimValue);
             this.groupBox7.Controls.Add(this.aeroLinkLabel16);
             this.groupBox7.Controls.Add(this.aeroLinkLabel18);
-            this.groupBox7.Controls.Add(this.TbRightCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbRightCornerTrimValue);
             this.groupBox7.Controls.Add(this.aeroLinkLabel15);
-            this.groupBox7.Controls.Add(this.TbFrontRightCornerTrimValue);
-            this.groupBox7.Controls.Add(this.TbBackLeftCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbFrontRightCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbBackLeftCornerTrimValue);
             this.groupBox7.Controls.Add(this.aeroLinkLabel20);
             this.groupBox7.Controls.Add(this.aeroLinkLabel19);
-            this.groupBox7.Controls.Add(this.TbFrontLeftCornerTrimValue);
+            this.groupBox7.Controls.Add(this.tbFrontLeftCornerTrimValue);
             this.groupBox7.Location = new System.Drawing.Point(17, 117);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(491, 222);
@@ -465,17 +465,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbCornersTrimValue
             // 
-            this.TbCornersTrimValue.Location = new System.Drawing.Point(221, 179);
-            this.TbCornersTrimValue.Name = "TbCornersTrimValue";
-            this.TbCornersTrimValue.Size = new System.Drawing.Size(189, 22);
-            this.TbCornersTrimValue.TabIndex = 30;
+            this.tbCornersTrimValue.Location = new System.Drawing.Point(221, 179);
+            this.tbCornersTrimValue.Name = "tbCornersTrimValue";
+            this.tbCornersTrimValue.Size = new System.Drawing.Size(189, 22);
+            this.tbCornersTrimValue.TabIndex = 30;
             // 
             // tbLeftCornerTrimValue
             // 
-            this.TbLeftCornerTrimValue.Location = new System.Drawing.Point(102, 37);
-            this.TbLeftCornerTrimValue.Name = "TbLeftCornerTrimValue";
-            this.TbLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbLeftCornerTrimValue.TabIndex = 18;
+            this.tbLeftCornerTrimValue.Location = new System.Drawing.Point(102, 37);
+            this.tbLeftCornerTrimValue.Name = "tbLeftCornerTrimValue";
+            this.tbLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbLeftCornerTrimValue.TabIndex = 18;
             // 
             // aeroLinkLabel10
             // 
@@ -489,10 +489,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbBackCornerTrimValue
             // 
-            this.TbBackCornerTrimValue.Location = new System.Drawing.Point(102, 67);
-            this.TbBackCornerTrimValue.Name = "TbBackCornerTrimValue";
-            this.TbBackCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbBackCornerTrimValue.TabIndex = 17;
+            this.tbBackCornerTrimValue.Location = new System.Drawing.Point(102, 67);
+            this.tbBackCornerTrimValue.Name = "tbBackCornerTrimValue";
+            this.tbBackCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbBackCornerTrimValue.TabIndex = 17;
             // 
             // aeroLinkLabel17
             // 
@@ -526,17 +526,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbBackRightCornerTrimValue
             // 
-            this.TbBackRightCornerTrimValue.Location = new System.Drawing.Point(378, 98);
-            this.TbBackRightCornerTrimValue.Name = "TbBackRightCornerTrimValue";
-            this.TbBackRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbBackRightCornerTrimValue.TabIndex = 31;
+            this.tbBackRightCornerTrimValue.Location = new System.Drawing.Point(378, 98);
+            this.tbBackRightCornerTrimValue.Name = "tbBackRightCornerTrimValue";
+            this.tbBackRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbBackRightCornerTrimValue.TabIndex = 31;
             // 
             // tbFrontCornerTrimValue
             // 
-            this.TbFrontCornerTrimValue.Location = new System.Drawing.Point(102, 127);
-            this.TbFrontCornerTrimValue.Name = "TbFrontCornerTrimValue";
-            this.TbFrontCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbFrontCornerTrimValue.TabIndex = 22;
+            this.tbFrontCornerTrimValue.Location = new System.Drawing.Point(102, 127);
+            this.tbFrontCornerTrimValue.Name = "tbFrontCornerTrimValue";
+            this.tbFrontCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbFrontCornerTrimValue.TabIndex = 22;
             // 
             // aeroLinkLabel16
             // 
@@ -560,10 +560,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbRightCornerTrimValue
             // 
-            this.TbRightCornerTrimValue.Location = new System.Drawing.Point(102, 97);
-            this.TbRightCornerTrimValue.Name = "TbRightCornerTrimValue";
-            this.TbRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbRightCornerTrimValue.TabIndex = 23;
+            this.tbRightCornerTrimValue.Location = new System.Drawing.Point(102, 97);
+            this.tbRightCornerTrimValue.Name = "tbRightCornerTrimValue";
+            this.tbRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbRightCornerTrimValue.TabIndex = 23;
             // 
             // aeroLinkLabel15
             // 
@@ -577,17 +577,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbFrontRightCornerTrimValue
             // 
-            this.TbFrontRightCornerTrimValue.Location = new System.Drawing.Point(378, 127);
-            this.TbFrontRightCornerTrimValue.Name = "TbFrontRightCornerTrimValue";
-            this.TbFrontRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbFrontRightCornerTrimValue.TabIndex = 30;
+            this.tbFrontRightCornerTrimValue.Location = new System.Drawing.Point(378, 127);
+            this.tbFrontRightCornerTrimValue.Name = "tbFrontRightCornerTrimValue";
+            this.tbFrontRightCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbFrontRightCornerTrimValue.TabIndex = 30;
             // 
             // tbBackLeftCornerTrimValue
             // 
-            this.TbBackLeftCornerTrimValue.Location = new System.Drawing.Point(378, 67);
-            this.TbBackLeftCornerTrimValue.Name = "TbBackLeftCornerTrimValue";
-            this.TbBackLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbBackLeftCornerTrimValue.TabIndex = 26;
+            this.tbBackLeftCornerTrimValue.Location = new System.Drawing.Point(378, 67);
+            this.tbBackLeftCornerTrimValue.Name = "tbBackLeftCornerTrimValue";
+            this.tbBackLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbBackLeftCornerTrimValue.TabIndex = 26;
             // 
             // aeroLinkLabel20
             // 
@@ -611,10 +611,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbFrontLeftCornerTrimValue
             // 
-            this.TbFrontLeftCornerTrimValue.Location = new System.Drawing.Point(378, 37);
-            this.TbFrontLeftCornerTrimValue.Name = "TbFrontLeftCornerTrimValue";
-            this.TbFrontLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
-            this.TbFrontLeftCornerTrimValue.TabIndex = 27;
+            this.tbFrontLeftCornerTrimValue.Location = new System.Drawing.Point(378, 37);
+            this.tbFrontLeftCornerTrimValue.Name = "tbFrontLeftCornerTrimValue";
+            this.tbFrontLeftCornerTrimValue.Size = new System.Drawing.Size(103, 22);
+            this.tbFrontLeftCornerTrimValue.TabIndex = 27;
             // 
             // btnEdit
             // 
@@ -681,15 +681,15 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             this.groupBox10.Controls.Add(this.btnEdit);
             this.groupBox10.Controls.Add(this.btnSave);
-            this.groupBox10.Controls.Add(this.TbFactor);
+            this.groupBox10.Controls.Add(this.tbFactor);
             this.groupBox10.Controls.Add(this.aeroLinkLabel25);
             this.groupBox10.Controls.Add(this.aeroLinkLabel24);
             this.groupBox10.Controls.Add(this.btnCancel);
-            this.groupBox10.Controls.Add(this.TbFullLoad);
-            this.groupBox10.Controls.Add(this.TbFsoCorrectionValue);
+            this.groupBox10.Controls.Add(this.tbFullLoad);
+            this.groupBox10.Controls.Add(this.tbFsoCorrectionValue);
             this.groupBox10.Controls.Add(this.aeroLinkLabel13);
             this.groupBox10.Controls.Add(this.aeroLinkLabel23);
-            this.groupBox10.Controls.Add(this.TbAppliedLoad);
+            this.groupBox10.Controls.Add(this.tbAppliedLoad);
             this.groupBox10.Font = new System.Drawing.Font("Open Sans SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox10.Location = new System.Drawing.Point(12, 539);
             this.groupBox10.Name = "groupBox10";
@@ -700,10 +700,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbFactor
             // 
-            this.TbFactor.Location = new System.Drawing.Point(764, 39);
-            this.TbFactor.Name = "TbFactor";
-            this.TbFactor.Size = new System.Drawing.Size(124, 22);
-            this.TbFactor.TabIndex = 49;
+            this.tbFactor.Location = new System.Drawing.Point(764, 39);
+            this.tbFactor.Name = "tbFactor";
+            this.tbFactor.Size = new System.Drawing.Size(124, 22);
+            this.tbFactor.TabIndex = 49;
             // 
             // aeroLinkLabel25
             // 
@@ -727,17 +727,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbFullLoad
             // 
-            this.TbFullLoad.Location = new System.Drawing.Point(503, 39);
-            this.TbFullLoad.Name = "TbFullLoad";
-            this.TbFullLoad.Size = new System.Drawing.Size(124, 22);
-            this.TbFullLoad.TabIndex = 47;
+            this.tbFullLoad.Location = new System.Drawing.Point(503, 39);
+            this.tbFullLoad.Name = "tbFullLoad";
+            this.tbFullLoad.Size = new System.Drawing.Size(124, 22);
+            this.tbFullLoad.TabIndex = 47;
             // 
             // tbFsoCorrectionValue
             // 
-            this.TbFsoCorrectionValue.Location = new System.Drawing.Point(199, 79);
-            this.TbFsoCorrectionValue.Name = "TbFsoCorrectionValue";
-            this.TbFsoCorrectionValue.Size = new System.Drawing.Size(124, 22);
-            this.TbFsoCorrectionValue.TabIndex = 45;
+            this.tbFsoCorrectionValue.Location = new System.Drawing.Point(199, 79);
+            this.tbFsoCorrectionValue.Name = "tbFsoCorrectionValue";
+            this.tbFsoCorrectionValue.Size = new System.Drawing.Size(124, 22);
+            this.tbFsoCorrectionValue.TabIndex = 45;
             // 
             // aeroLinkLabel13
             // 
@@ -761,10 +761,10 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbAppliedLoad
             // 
-            this.TbAppliedLoad.Location = new System.Drawing.Point(199, 39);
-            this.TbAppliedLoad.Name = "TbAppliedLoad";
-            this.TbAppliedLoad.Size = new System.Drawing.Size(124, 22);
-            this.TbAppliedLoad.TabIndex = 43;
+            this.tbAppliedLoad.Location = new System.Drawing.Point(199, 39);
+            this.tbAppliedLoad.Name = "tbAppliedLoad";
+            this.tbAppliedLoad.Size = new System.Drawing.Size(124, 22);
+            this.tbAppliedLoad.TabIndex = 43;
             // 
             // MasterDataForm
             // 
@@ -813,37 +813,54 @@ namespace OCLSA_Project_Version_01.Forms
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel1;
-        public WindowsFormsAero.TextBox tbLoadCellType;
+        private WindowsFormsAero.TextBox tbLoadCellType;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel2;
         private System.Windows.Forms.GroupBox groupBox6;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel7;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel6;
+        private WindowsFormsAero.TextBox tbMaximumUnbalance;
+        private WindowsFormsAero.TextBox tbMinimumUnbalance;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel8;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox8;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel14;
         private System.Windows.Forms.GroupBox groupBox3;
+        private WindowsFormsAero.TextBox tbExcessiveCornerValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel21;
         private System.Windows.Forms.GroupBox groupBox2;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel11;
+        private WindowsFormsAero.TextBox tbFrontBackCornerDifference;
+        private WindowsFormsAero.TextBox tbLeftRightCornerDifference;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel12;
         private System.Windows.Forms.GroupBox groupBox7;
+        private WindowsFormsAero.TextBox tbCornersTrimValue;
+        private WindowsFormsAero.TextBox tbLeftCornerTrimValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel10;
+        private WindowsFormsAero.TextBox tbBackCornerTrimValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel17;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel9;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel3;
+        private WindowsFormsAero.TextBox tbBackRightCornerTrimValue;
+        private WindowsFormsAero.TextBox tbFrontCornerTrimValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel16;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel18;
+        private WindowsFormsAero.TextBox tbRightCornerTrimValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel15;
+        private WindowsFormsAero.TextBox tbFrontRightCornerTrimValue;
+        private WindowsFormsAero.TextBox tbBackLeftCornerTrimValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel20;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel19;
+        private WindowsFormsAero.TextBox tbFrontLeftCornerTrimValue;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox9;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel22;
+        private WindowsFormsAero.TextBox tbMaximumCenter;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel4;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel5;
+        private WindowsFormsAero.TextBox tbMinimumFso;
+        private WindowsFormsAero.TextBox tbMaximumFso;
         private WindowsFormsAero.Button btnCancel;
         private WindowsFormsAero.Button btnSave;
         private System.Windows.Forms.Panel panel1;
@@ -851,9 +868,14 @@ namespace OCLSA_Project_Version_01.Forms
         private System.Windows.Forms.RadioButton rbDifferentValues;
         private WindowsFormsAero.Button btnEdit;
         private System.Windows.Forms.GroupBox groupBox10;
+        private WindowsFormsAero.TextBox tbFactor;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel25;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel24;
+        private WindowsFormsAero.TextBox tbFullLoad;
+        private WindowsFormsAero.TextBox tbFsoCorrectionValue;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel13;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel23;
+        private WindowsFormsAero.TextBox tbAppliedLoad;
+        public WindowsFormsAero.TextBox tbTestMode;
     }
 }

@@ -1,41 +1,16 @@
-﻿using OCLSA_Project_Version_01.DataAccess.MasterDataForm;
-using OCLSA_Project_Version_01.Models;
-using OCLSA_Project_Version_01.WorkFlow;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TextBox = WindowsFormsAero.TextBox;
+using OCLSA_Project_Version_01.Models;
+using Type = OCLSA_Project_Version_01.Models.Type;
 
 namespace OCLSA_Project_Version_01.Forms
 {
     public partial class MasterDataForm : Form
     {
-        public readonly ApplicationDbContext Context;
-        public LoadCellData LoadCellData { get; }
-
-        public TextBox TbTestMode { set; get; }
-        public TextBox TbMaximumCenter { set; get; }
-        public TextBox TbLeftCornerTrimValue { set; get; }
-        public TextBox TbBackCornerTrimValue { set; get; }
-        public TextBox TbRightCornerTrimValue { set; get; }
-        public TextBox TbFrontCornerTrimValue { set; get; }
-        public TextBox TbFrontLeftCornerTrimValue { set; get; }
-        public TextBox TbBackLeftCornerTrimValue { set; get; }
-        public TextBox TbBackRightCornerTrimValue { set; get; }
-        public TextBox TbFrontRightCornerTrimValue { set; get; }
-        public TextBox TbCornersTrimValue { set; get; }
-        public TextBox TbExcessiveCornerValue { set; get; }
-        public TextBox TbFrontBackCornerDifference { set; get; }
-        public TextBox TbLeftRightCornerDifference { set; get; }
-        public TextBox TbMinimumUnbalance { set; get; }
-        public TextBox TbMaximumUnbalance { set; get; }
-        public TextBox TbMinimumFso { set; get; }
-        public TextBox TbMaximumFso { set; get; }
-        public TextBox TbAppliedLoad { set; get; }
-        public TextBox TbFullLoad { set; get; }
-        public TextBox TbFactor { set; get; }
-        public TextBox TbFsoCorrectionValue { set; get; }
+        private readonly ApplicationDbContext _context;
 
         public MasterDataForm()
         {
@@ -44,8 +19,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             btnEdit.Hide();
 
-            Context = new ApplicationDbContext();
-            LoadCellData = new LoadCellData(this);
+            _context = new ApplicationDbContext();
         }
 
         private void tbLoadCellType_KeyPress(object sender, KeyPressEventArgs e)
@@ -58,11 +32,11 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            var loadCellTypeInDb = LoadCellData.FindLoadCellTypeInDb();
+            var loadCellTypeInDb = FindLoadCellTypeInDb();
 
             if (loadCellTypeInDb != null)
             {
-                var messageBoxResult = ResultMessage.Result("Load Cell Type is already existing. Do you want to edit the Load Cell Type?", "Choose Option");
+                var messageBoxResult = Result("Load Cell Type is already existing. Do you want to edit the Load Cell Type?", "Choose Option");
 
                 if (messageBoxResult == DialogResult.Yes)
                 {
@@ -77,8 +51,8 @@ namespace OCLSA_Project_Version_01.Forms
                         rbSameValue.Checked = true;
                     else
                         rbDifferentValues.Checked = true;
-
-                    LoadCellData.DisplayLoadCellTypeData(loadCellTypeInDb, this);
+                    
+                    DisplayLoadCellTypeData(loadCellTypeInDb);
                 }
                 else
                     tbLoadCellType.Clear();
@@ -96,9 +70,9 @@ namespace OCLSA_Project_Version_01.Forms
         {
             if (CheckAllInputs()) return;
 
-            LoadCellData.SaveLoadCellTypeDataToDb(this);
+            SaveLoadCellTypeDataToDb();
 
-            var messageBoxResult = ResultMessage.Result("New Load Cell Type is added. Do you want to add another Load Cell Type?",
+            var messageBoxResult = Result("New Load Cell Type is added. Do you want to add another Load Cell Type?",
                 "Choose Option");
 
             if (messageBoxResult == DialogResult.Yes)
@@ -114,11 +88,11 @@ namespace OCLSA_Project_Version_01.Forms
         {
             if (CheckAllInputs()) return;
 
-            var loadCellTypeExisting = LoadCellData.FindExistingLoadCellType(this);
+            var loadCellTypeExisting = FindExistingLoadCellType();
 
             if (loadCellTypeExisting == null) return;
 
-            LoadCellData.EditLoadCellTypeDataInDb(loadCellTypeExisting, this);
+            EditLoadCellTypeDataInDb(loadCellTypeExisting);
 
             MessageBox.Show(@"Load Cell Type is updated successfully...");
 
@@ -131,7 +105,7 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            var messageBoxResult = ResultMessage.Result("Do you want to exit?", "Choose Option");
+            var messageBoxResult = Result("Do you want to exit?", "Choose Option");
 
             if (messageBoxResult == DialogResult.Yes) Application.Exit();
         }
@@ -141,13 +115,53 @@ namespace OCLSA_Project_Version_01.Forms
             Application.Exit();
         }
 
+        private void DisplayLoadCellTypeData(Type loadCellTypeInDb)
+        {
+            tbTestMode.Text = loadCellTypeInDb.TestMode;
+            tbMaximumCenter.Text = Convert.ToString(loadCellTypeInDb.MaximumCenterValue, CultureInfo.CurrentCulture);
+            tbLeftCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.LeftCornerTrimValue);
+            tbBackCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.BackCornerTrimValue);
+            tbRightCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.RightCornerTrimValue);
+            tbFrontCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.FrontCornerTrimValue);
+            tbFrontLeftCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.FrontLeftCornerTrimValue);
+            tbBackLeftCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.BackLeftCornerTrimValue);
+            tbBackRightCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.BackRightCornerTrimValue);
+            tbFrontRightCornerTrimValue.Text = Convert.ToString(loadCellTypeInDb.FrontRightCornerTrimValue);
+            tbCornersTrimValue.Text = Convert.ToString(loadCellTypeInDb.CornerTrimValue);
+            tbExcessiveCornerValue.Text = Convert.ToString(loadCellTypeInDb.ExcessiveCornerValue, CultureInfo.CurrentCulture);
+            tbFrontBackCornerDifference.Text =
+                Convert.ToString(loadCellTypeInDb.FrontBackCornerDifference, CultureInfo.CurrentCulture);
+            tbLeftRightCornerDifference.Text =
+                Convert.ToString(loadCellTypeInDb.LeftRightCornerDifference, CultureInfo.CurrentCulture);
+            tbMinimumUnbalance.Text = Convert.ToString(loadCellTypeInDb.MinimumUnbalanceValue, CultureInfo.CurrentCulture);
+            tbMaximumUnbalance.Text = Convert.ToString(loadCellTypeInDb.MaximumUnbalanceValue, CultureInfo.CurrentCulture);
+            tbMinimumFso.Text = Convert.ToString(loadCellTypeInDb.MinimumFsoValue, CultureInfo.CurrentCulture);
+            tbMaximumFso.Text = Convert.ToString(loadCellTypeInDb.MaximumFsoValue, CultureInfo.CurrentCulture);
+            tbAppliedLoad.Text = Convert.ToString(loadCellTypeInDb.AppliedLoad, CultureInfo.CurrentCulture);
+            tbFullLoad.Text = Convert.ToString(loadCellTypeInDb.Capacity, CultureInfo.CurrentCulture);
+            tbFactor.Text = Convert.ToString(loadCellTypeInDb.Factor, CultureInfo.CurrentCulture);
+            tbFsoCorrectionValue.Text = Convert.ToString(loadCellTypeInDb.FsoCorrectionValue, CultureInfo.CurrentCulture);
+        }
+
+        private Type FindLoadCellTypeInDb()
+        {
+            var loadCellTypeInDb = _context.Types.SingleOrDefault(l => l.Name == tbLoadCellType.Text);
+            return loadCellTypeInDb;
+        }
+
+        private Type FindExistingLoadCellType()
+        {
+            var loadCellTypeExisting = _context.Types.Find(tbLoadCellType.Text);
+            return loadCellTypeExisting;
+        }
+
         private void rbSameValue_CheckedChanged(object sender, EventArgs e)
         {
-            TbCornersTrimValue.Enabled = true;
+            tbCornersTrimValue.Enabled = true;
 
             if (!rbDifferentValues.Checked) return;
-            TbCornersTrimValue.Clear();
-            TbCornersTrimValue.Enabled = false;
+            tbCornersTrimValue.Clear();
+            tbCornersTrimValue.Enabled = false;
         }
 
         private void rbDifferentValues_CheckedChanged(object sender, EventArgs e)
@@ -156,8 +170,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             var cornerInputsList = new List<Control>
             {
-                TbLeftCornerTrimValue, TbBackCornerTrimValue, TbRightCornerTrimValue, TbFrontCornerTrimValue,
-                TbFrontLeftCornerTrimValue, TbBackLeftCornerTrimValue, TbBackRightCornerTrimValue, TbFrontRightCornerTrimValue
+                tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue,
+                tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue
             };
 
             if (!rbSameValue.Checked) return;
@@ -171,22 +185,126 @@ namespace OCLSA_Project_Version_01.Forms
 
         }
 
+        private void SaveLoadCellTypeDataToDb()
+        {
+            try
+            {
+                var loadCellType = new Type
+                {
+                    Name = RemoveWhitespace(tbLoadCellType.Text),
+                    TestMode = RemoveWhitespace(tbTestMode.Text),
+                    MaximumCenterValue = Convert.ToDouble(tbMaximumCenter.Text),
+                    LeftCornerTrimValue = string.IsNullOrWhiteSpace(tbLeftCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbLeftCornerTrimValue.Text),
+                    BackCornerTrimValue = string.IsNullOrWhiteSpace(tbBackCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbBackCornerTrimValue.Text),
+                    RightCornerTrimValue = string.IsNullOrWhiteSpace(tbRightCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbRightCornerTrimValue.Text),
+                    FrontCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbFrontCornerTrimValue.Text),
+                    FrontLeftCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontLeftCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbFrontLeftCornerTrimValue.Text),
+                    BackLeftCornerTrimValue = string.IsNullOrWhiteSpace(tbBackLeftCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbBackLeftCornerTrimValue.Text),
+                    BackRightCornerTrimValue = string.IsNullOrWhiteSpace(tbBackRightCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbBackRightCornerTrimValue.Text),
+                    FrontRightCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontRightCornerTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbFrontRightCornerTrimValue.Text),
+                    CornerTrimValue = string.IsNullOrWhiteSpace(tbCornersTrimValue.Text)
+                        ? 0d
+                        : Convert.ToDouble(tbCornersTrimValue.Text),
+                    ExcessiveCornerValue = Convert.ToDouble(tbExcessiveCornerValue.Text),
+                    FrontBackCornerDifference = Convert.ToDouble(tbFrontBackCornerDifference.Text),
+                    LeftRightCornerDifference = Convert.ToDouble(tbLeftRightCornerDifference.Text),
+                    MinimumUnbalanceValue = Convert.ToDouble(tbMinimumUnbalance.Text),
+                    MaximumUnbalanceValue = Convert.ToDouble(tbMaximumUnbalance.Text),
+                    MinimumFsoValue = Convert.ToDouble(tbMinimumFso.Text),
+                    MaximumFsoValue = Convert.ToDouble(tbMaximumFso.Text),
+                    AppliedLoad = Convert.ToDouble(tbAppliedLoad.Text),
+                    Capacity = Convert.ToDouble(tbFullLoad.Text),
+                    Factor = Convert.ToDouble(tbFactor.Text),
+                    FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text)
+                };
+
+                _context.Types.Add(loadCellType);
+                _context.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void EditLoadCellTypeDataInDb(Type loadCellTypeExisting)
+        {
+            loadCellTypeExisting.Name = RemoveWhitespace(tbLoadCellType.Text);
+            loadCellTypeExisting.TestMode = RemoveWhitespace(tbTestMode.Text);
+            loadCellTypeExisting.LeftCornerTrimValue = string.IsNullOrWhiteSpace(tbLeftCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbLeftCornerTrimValue.Text);
+            loadCellTypeExisting.BackCornerTrimValue = string.IsNullOrWhiteSpace(tbBackCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbBackCornerTrimValue.Text);
+            loadCellTypeExisting.RightCornerTrimValue = string.IsNullOrWhiteSpace(tbRightCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbRightCornerTrimValue.Text);
+            loadCellTypeExisting.FrontCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbFrontCornerTrimValue.Text);
+            loadCellTypeExisting.FrontLeftCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontLeftCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbFrontLeftCornerTrimValue.Text);
+            loadCellTypeExisting.BackLeftCornerTrimValue = string.IsNullOrWhiteSpace(tbBackLeftCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbBackLeftCornerTrimValue.Text);
+            loadCellTypeExisting.BackRightCornerTrimValue = string.IsNullOrWhiteSpace(tbBackRightCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbBackRightCornerTrimValue.Text);
+            loadCellTypeExisting.FrontRightCornerTrimValue = string.IsNullOrWhiteSpace(tbFrontRightCornerTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbFrontRightCornerTrimValue.Text);
+            loadCellTypeExisting.CornerTrimValue = string.IsNullOrWhiteSpace(tbCornersTrimValue.Text)
+                ? 0d
+                : Convert.ToDouble(tbCornersTrimValue.Text);
+            loadCellTypeExisting.ExcessiveCornerValue = Convert.ToDouble(tbExcessiveCornerValue.Text);
+            loadCellTypeExisting.FrontBackCornerDifference = Convert.ToDouble(tbFrontBackCornerDifference.Text);
+            loadCellTypeExisting.LeftRightCornerDifference = Convert.ToDouble(tbLeftRightCornerDifference.Text);
+            loadCellTypeExisting.MinimumUnbalanceValue = Convert.ToDouble(tbMinimumUnbalance.Text);
+            loadCellTypeExisting.MaximumUnbalanceValue = Convert.ToDouble(tbMaximumUnbalance.Text);
+            loadCellTypeExisting.MinimumFsoValue = Convert.ToDouble(tbMinimumFso.Text);
+            loadCellTypeExisting.MaximumFsoValue = Convert.ToDouble(tbMaximumFso.Text);
+            loadCellTypeExisting.AppliedLoad = Convert.ToDouble(tbAppliedLoad.Text);
+            loadCellTypeExisting.Capacity = Convert.ToDouble(tbFullLoad.Text);
+            loadCellTypeExisting.Factor = Convert.ToDouble(tbFactor.Text);
+            loadCellTypeExisting.FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text);
+
+            _context.SaveChanges();
+        }
+
         private bool CheckAllInputs()
         {
             var textControlsWithOneCorner = new List<Control>
             {
-                tbLoadCellType, TbTestMode, TbMinimumUnbalance, TbMaximumUnbalance, TbMinimumFso, TbMaximumFso,
-                TbMaximumCenter, TbFrontBackCornerDifference, TbLeftRightCornerDifference, TbExcessiveCornerValue,
-                TbCornersTrimValue, TbAppliedLoad, TbFullLoad, TbFactor, TbFsoCorrectionValue
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
+                tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
 
             var textControlsWithAllCorners = new List<Control>
             {
-                tbLoadCellType, TbTestMode, TbMinimumUnbalance, TbMaximumUnbalance, TbMinimumFso, TbMaximumFso,
-                TbMaximumCenter, TbFrontBackCornerDifference, TbLeftRightCornerDifference, TbExcessiveCornerValue,
-                TbLeftCornerTrimValue, TbBackCornerTrimValue, TbRightCornerTrimValue, TbFrontCornerTrimValue,
-                TbFrontLeftCornerTrimValue, TbBackLeftCornerTrimValue, TbBackRightCornerTrimValue,
-                TbFrontRightCornerTrimValue, TbAppliedLoad, TbFullLoad, TbFactor, TbFsoCorrectionValue
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
+                tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, 
+                tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue, 
+                tbFrontRightCornerTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
 
 
@@ -205,12 +323,19 @@ namespace OCLSA_Project_Version_01.Forms
             return false;
         }
 
+        private static DialogResult Result(string message, string title)
+        {
+            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            var result = MessageBox.Show(message, title, buttons);
+            return result;
+        }
+
         private void EnableOrDisableCornerInputs(bool command)
         {
             var cornerInputsList = new List<Control>
             {
-                TbLeftCornerTrimValue, TbBackCornerTrimValue, TbRightCornerTrimValue, TbFrontCornerTrimValue,
-                TbFrontLeftCornerTrimValue, TbBackLeftCornerTrimValue, TbBackRightCornerTrimValue, TbFrontRightCornerTrimValue
+                tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue,
+                tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue
             };
 
             foreach (var corner in cornerInputsList)
@@ -223,9 +348,9 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var inputsList = new List<Control>
             {
-                TbTestMode, TbMinimumUnbalance, TbMaximumUnbalance, TbMinimumFso, TbMaximumFso,
-                TbMaximumCenter, TbFrontBackCornerDifference, TbLeftRightCornerDifference, TbExcessiveCornerValue, btnSave,
-                TbAppliedLoad, TbFullLoad, TbFactor, TbFsoCorrectionValue
+                tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, btnSave,
+                tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
 
             foreach (var input in inputsList)
@@ -236,22 +361,29 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void DisableControls()
         {
-            TbCornersTrimValue.Enabled = false;
+            tbCornersTrimValue.Enabled = false;
             EnableOrDisableCornerInputs(false);
             EnableOrDisableInputs(false);
             rbSameValue.Enabled = false;
             rbDifferentValues.Enabled = false;
         }
 
+        private static string RemoveWhitespace(string input)
+        {
+            return new string(input.ToCharArray()
+                .Where(c => !char.IsWhiteSpace(c))
+                .ToArray());
+        }
+
         private void ClearControls()
         {
             var controls = new List<Control>
             {
-                tbLoadCellType, TbTestMode, TbMinimumUnbalance, TbMaximumUnbalance, TbMinimumFso, TbMaximumFso,
-                TbMaximumCenter, TbFrontBackCornerDifference, TbLeftRightCornerDifference, TbExcessiveCornerValue, TbLeftCornerTrimValue,
-                TbBackCornerTrimValue, TbRightCornerTrimValue, TbFrontCornerTrimValue, TbFrontLeftCornerTrimValue, TbBackLeftCornerTrimValue,
-                TbBackRightCornerTrimValue, TbFrontRightCornerTrimValue, TbCornersTrimValue, TbAppliedLoad, TbFullLoad, TbFactor,
-                TbFsoCorrectionValue
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, tbLeftCornerTrimValue,
+                tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue,
+                tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue, tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, 
+                tbFsoCorrectionValue
             };
 
             var checkBoxControls = new List<RadioButton>

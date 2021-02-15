@@ -83,16 +83,6 @@ namespace OCLSA_Project_Version_01.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CalibratedWeightNew {
-            get {
-                object obj = ResourceManager.GetObject("CalibratedWeightNew", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Center {
             get {
                 object obj = ResourceManager.GetObject("Center", resourceCulture);

@@ -1,58 +1,27 @@
-﻿using OCLSA_Project_Version_01.DataAccess.LoginForm;
-using OCLSA_Project_Version_01.Models;
-using OCLSA_Project_Version_01.WorkFlow;
-using System;
+﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using OCLSA_Project_Version_01.Models;
 
 namespace OCLSA_Project_Version_01.Forms
 {
     public partial class LoginForm : Form
     {
-        public readonly ApplicationDbContext Context;
+        private readonly ApplicationDbContext _context;
         private DialogResult _result;
-        public ImageConvertor ImageConvertor { get; }
-        public LoginUser LoginUser { get; }
 
         public LoginForm()
         {
             InitializeComponent();
 
-            Context = new ApplicationDbContext();
-            ImageConvertor = new ImageConvertor();
-            LoginUser = new LoginUser(this);
+            _context = new ApplicationDbContext();
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
             cbStation.Enabled = false;
-        }
-
-        private void tbPassword_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar != Convert.ToChar(Keys.Return)) return;
-
-            if (CheckInputFields()) return;
-
-            var result = LoginUser.CheckUserInDb();
-            var userInDb = result.UserInDb;
-            if (result.IsInvalidUser) return;
-
-            switch (userInDb.Administration)
-            {
-                case "OK":
-                    _result = ResultMessage.Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose Option");
-                    break;
-
-                case "NO":
-                    MessageBox.Show(@"Select the station & Click on Login...!!!");
-                    cbStation.Enabled = true;
-                    break;
-
-                default:
-                    MessageBox.Show(@"Administration status error...!!!");
-                    break;
-            }
         }
 
         private void btnOperatorLogin_Click(object sender, EventArgs e)
@@ -62,7 +31,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (username != "" && password != "")
             {
-                var result = LoginUser.CheckUserInDb();
+                var result = CheckUserInDb();
                 var userInDb = result.UserInDb;
                 if (result.IsInvalidUser) return;
 
@@ -76,7 +45,7 @@ namespace OCLSA_Project_Version_01.Forms
                     {
                         case "OK":
                             if (_result != DialogResult.Yes && _result != DialogResult.No)
-                                _result = ResultMessage.Result(
+                                _result = Result(
                                     "Select YES to open Master-data Window & NO to open Corner Trimming Window.",
                                     "Choose Option");
 
@@ -86,7 +55,7 @@ namespace OCLSA_Project_Version_01.Forms
                         case "NO":
                             if (cbStation.Enabled != true) cbStation.Enabled = true;
 
-                            var image = ImageConvertor.ByteArrayToImage(userInDb.Image);
+                            var image = ByteArrayToImage(userInDb.Image);
                             CheckStationAndDisplay(fullName, employeeId, location, image);
                             break;
 
@@ -106,10 +75,11 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
-        private void btnOperatorCancel_Click(object sender, EventArgs e)
+        private static DialogResult Result(string message, string title)
         {
-            var result = ResultMessage.Result(@"Do you want to cancel and exit?", @"Choose option");
-            if (result == DialogResult.Yes) Application.Exit();
+            const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            var result = MessageBox.Show(message, title, buttons);
+            return result;
         }
 
         private void GetResponseAndDisplay()
@@ -140,6 +110,54 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
+        private void DisplayForm(Form form)
+        {
+            Hide();
+            form.ShowDialog();
+            Close();
+        }
+
+        private void tbPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != Convert.ToChar(Keys.Return)) return;
+
+            if (CheckInputFields()) return;
+
+            var result = CheckUserInDb();
+            var userInDb = result.UserInDb;
+            if (result.IsInvalidUser) return;
+
+            switch (userInDb.Administration)
+            {
+                case "OK":
+                    _result = Result("Select YES to open Master-data Window & NO to open Corner Trimming Window.", "Choose Option");
+                    break;
+
+                case "NO":
+                    MessageBox.Show(@"Select the station & Click on Login...!!!");
+                    cbStation.Enabled = true;
+                    break;
+
+                default:
+                    MessageBox.Show(@"Administration status error...!!!");
+                    break;
+            }
+        }
+
+        private CheckUserInDbResult CheckUserInDb()
+        {
+            var userInDb = _context.Employees.SingleOrDefault(u => u.UserName == tbUsername.Text);
+
+            if (userInDb != null)
+            {
+                return new CheckUserInDbResult{UserInDb = userInDb, IsInvalidUser = false};
+            }
+
+            MessageBox.Show(@"Invalid User. Please Check Username...!!!");
+
+            return new CheckUserInDbResult {UserInDb = null, IsInvalidUser = true};
+        }
+
         private bool CheckInputFields()
         {
             if (tbUsername.Text != "" && tbPassword.Text != "") return false;
@@ -148,11 +166,20 @@ namespace OCLSA_Project_Version_01.Forms
 
         }
 
-        private void DisplayForm(Form form)
+        private Image ByteArrayToImage(byte[] byteArrayIn)
         {
-            Hide();
-            form.ShowDialog();
-            Close();
+            using (var stream = new MemoryStream(byteArrayIn))
+            {
+                var returnImage = Image.FromStream(stream,false,true);
+
+                return returnImage;
+            }
         }
+    }
+
+    public class CheckUserInDbResult
+    {
+        public Employee UserInDb { get; set; }
+        public bool IsInvalidUser { get; set; }
     }
 }
