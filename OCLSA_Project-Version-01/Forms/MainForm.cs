@@ -60,10 +60,6 @@ namespace OCLSA_Project_Version_01.Forms
 
         private bool _stopTrimming;
 
-        public Stopwatch OneTrimCycleDuration { get; set; }
-        public TimeSpan TimeElapsed { get; set; }
-        public string TimeInMinutesAndSeconds { get; set; }
-
         public int ResistorsToAdd { get; set; }
 
         public bool IsFsoCorrectionAvailable { get; set; }
@@ -105,8 +101,8 @@ namespace OCLSA_Project_Version_01.Forms
                 else
                 {
                     serialPortVT400.Open();
-                    serialPortVT400.DiscardInBuffer();
-                    serialPortVT400.DiscardOutBuffer();
+                    /*serialPortVT400.DiscardInBuffer();
+                    serialPortVT400.DiscardOutBuffer();*/
                     initialTimer.Start();
                     stableCheckTimer.Start();
                 }
@@ -239,6 +235,11 @@ namespace OCLSA_Project_Version_01.Forms
                 lblReading.Text = dataReading.Split('P')[1];
             }
 
+            if (dataReading.Split('R').Length > 1)
+            {
+                label1.Text = dataReading.Split('R')[1];
+            }
+
             if (dataReading.Split('T').Length > 1)
             {
                 lblReading.Text = dataReading.Split('T')[1];
@@ -249,6 +250,8 @@ namespace OCLSA_Project_Version_01.Forms
         {
             try
             {
+                serialPortVT400.DiscardInBuffer();
+                serialPortVT400.DiscardOutBuffer();
                 serialPortVT400.WriteLine(command);
             }
             catch (Exception error)
@@ -279,8 +282,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            WriteCommand("01");
+            //WriteCommand("01");
 
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
@@ -310,7 +312,6 @@ namespace OCLSA_Project_Version_01.Forms
 
             tbInitialFSO.Text = initialFso;
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
 
             ShowMessage(@"Move weight to Left Corner");
@@ -343,7 +344,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                         for (var i = 0; i < 15; i++)
                         {
-                            OneTrimCycleDuration = Stopwatch.StartNew();
+                            var oneTrimCycleDuration = Stopwatch.StartNew();
 
                             await CheckDisplayMainCorners();
 
@@ -359,14 +360,11 @@ namespace OCLSA_Project_Version_01.Forms
 
                             await RemoveWeightAndShowTrimDetails();
 
-                            OneTrimCycleDuration.Stop();
+                            oneTrimCycleDuration.Stop();
+                            var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+                            oneTrimCycleDuration.Reset();
 
-                            CalculateOneTrimCycleDuration();
-
-                            OneTrimCycleDuration.Reset();
-
-                            DisplayDataTable();
-
+                            DisplayDataTable(time);
                             ClearCornerAndCenterLists();
 
                             ShowMessage(@"Press OK to check corners are OK...");
@@ -381,8 +379,6 @@ namespace OCLSA_Project_Version_01.Forms
                                 Status.Failed, RejectionCriteria.Unstable);
                             break;
                         }
-
-                        //Todo - Check this & Trim cycle time count bug
 
                         if (_stopTrimming)
                         {
@@ -496,10 +492,10 @@ namespace OCLSA_Project_Version_01.Forms
             CenterReadings.Clear();
         }
 
-        private void CalculateOneTrimCycleDuration()
+        private string CalculateOneTrimCycleDuration(Stopwatch duration)
         {
-            TimeElapsed = OneTrimCycleDuration.Elapsed.Duration();
-            TimeInMinutesAndSeconds = $"{TimeElapsed.Minutes:D2}:{TimeElapsed.Seconds:D2}";
+            var timeElapsed = duration.Elapsed.Duration();
+            return $"{timeElapsed.Minutes:D2}:{timeElapsed.Seconds:D2}";
         }
 
         private async Task RemoveWeightAndShowTrimDetails()
@@ -519,7 +515,6 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
 
             ShowMessage(@"Remove the weight and keep on Left Corner");
@@ -540,10 +535,8 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
-            GetDisplaySaveCenterReadings();
-
-            await Task.Delay(TimeSpan.FromSeconds(1));
             WriteCommand("01");
+            GetDisplaySaveCenterReadings(tbCenter);
         }
 
         private void GetLeftCornerReading(Control textBox)
@@ -717,7 +710,6 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
-            OneTrimCycleDuration?.Reset();
             trimDataGridView?.Rows.Clear();
         }
 
@@ -788,6 +780,7 @@ namespace OCLSA_Project_Version_01.Forms
             await GetCornerReadings("Center", tbCenter);
 
             WriteCommand("01");
+            tbInitialCenterReading.Text = lblReading.Text;
 
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
 
@@ -796,14 +789,16 @@ namespace OCLSA_Project_Version_01.Forms
             TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));
         }
 
-        private void GetDisplaySaveCenterReadings()
+        private void GetDisplaySaveCenterReadings(Control textBox)
         {
-            tbCenter.Text = lblReading.Text;
-            CenterReadings.Add(Convert.ToDouble(tbCenter.Text));
+            textBox.Text = lblReading.Text;
+            CenterReadings.Add(Convert.ToDouble(textBox.Text));
         }
 
         private async Task CheckInitialCornerTest(LoadCell loadCell)
         {
+            var oneTrimCycleDuration = Stopwatch.StartNew();
+
             GetLeftCornerReading(tbInitialLeftCornerReading);
             await GetCornerReadings("D1", tbInitialD1Reading);
             await GetCornerReadings("Back", tbInitialBackCornerReading);
@@ -826,6 +821,8 @@ namespace OCLSA_Project_Version_01.Forms
             }
 
             WriteCommand("01");
+            tbInitialCenterReading.Text = lblReading.Text;
+            GetDisplaySaveCenterReadings(tbInitialCenterReading);
 
             ShowMessage(@"Please remove the weight");
             await DisplayWaitingStatus(@"Please remove the weight", 5, true);
@@ -835,7 +832,12 @@ namespace OCLSA_Project_Version_01.Forms
             ShowTrimPosition(GetMinimumCornerName());
             await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
 
-            CornerReadings.Clear();
+            oneTrimCycleDuration.Stop();
+            var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+            oneTrimCycleDuration.Reset();
+
+            DisplayDataTable(time);
+            ClearCornerAndCenterLists();
         }
 
         private bool CheckToTrim()
@@ -882,7 +884,7 @@ namespace OCLSA_Project_Version_01.Forms
             return loadCell;
         }
 
-        private void DisplayDataTable()
+        private void DisplayDataTable(string time)
         {
             var cornerList = GetDisplayData();
 
@@ -897,7 +899,7 @@ namespace OCLSA_Project_Version_01.Forms
                               Right = d.RightCorner,
                               Front = d.FrontCorner,
                               d.Center,
-                              Time = TimeInMinutesAndSeconds
+                              Time = time
                           };
 
             trimDataGridView.DataSource = columns.ToList();
@@ -1065,11 +1067,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            if (corner == "Center")
-            {
-                textBox.Text = currentReading;
-                return;
-            }
+            if (corner == "Center") return;
 
             CornerReadings.Add(corner, Convert.ToDouble(currentReading));
 
