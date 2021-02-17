@@ -129,7 +129,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
-            this.stableCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1053,7 +1052,6 @@
             this.lblReading.Size = new System.Drawing.Size(209, 65);
             this.lblReading.TabIndex = 0;
             this.lblReading.Text = "0.00000";
-            this.lblReading.TextChanged += new System.EventHandler(this.lblReading_TextChanged);
             // 
             // label7
             // 
@@ -1124,11 +1122,6 @@
             // 
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
-            // 
-            // stableCheckTimer
-            // 
-            this.stableCheckTimer.Interval = 2000;
-            this.stableCheckTimer.Tick += new System.EventHandler(this.stableCheckTimer_Tick);
             // 
             // MainForm
             // 
@@ -1272,7 +1265,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.Timer stableCheckTimer;
         private System.Windows.Forms.Label lblDisplayMessage;
         private System.Windows.Forms.PictureBox pbPositions;
     }

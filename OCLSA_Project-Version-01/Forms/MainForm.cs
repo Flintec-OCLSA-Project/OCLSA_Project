@@ -3,7 +3,6 @@ using OCLSA_Project_Version_01.DataAccess.MainForm;
 using OCLSA_Project_Version_01.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Drawing;
@@ -105,7 +104,6 @@ namespace OCLSA_Project_Version_01.Forms
                     /*serialPortVT400.DiscardInBuffer();
                     serialPortVT400.DiscardOutBuffer();*/
                     initialTimer.Start();
-                    stableCheckTimer.Start();
                 }
             }
             catch (Exception exception)
@@ -113,6 +111,52 @@ namespace OCLSA_Project_Version_01.Forms
                 ShowMessage(exception.Message);
             }
 
+        }
+
+        private void initialTimer_Tick(object sender, EventArgs e)
+        {
+            WriteCommand("?");
+
+            Thread.Sleep(100);
+
+            var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
+
+            lblStable.Text = dataReading.Contains('@') ? @"Not Stable" : @"Stable";
+            lblStable.ForeColor = lblStable.Text == @"Not Stable" ? Color.Red : Color.Lime;
+
+            if (dataReading.Split('P').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('P')[1];
+            }
+
+            if (dataReading.Split('R').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('R')[1];
+            }
+
+            if (dataReading.Split('T').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('T')[1];
+            }
+
+            if (dataReading.Split('@').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('@')[1];
+            }
+        }
+
+        private void WriteCommand(string command)
+        {
+            try
+            {
+                serialPortVT400.DiscardInBuffer();
+                serialPortVT400.DiscardOutBuffer();
+                serialPortVT400.WriteLine(command);
+            }
+            catch (Exception error)
+            {
+                ShowMessage(error.Message);
+            }
         }
 
         private void tbSerialNumber_KeyPress(object sender, KeyPressEventArgs e)
@@ -163,109 +207,35 @@ namespace OCLSA_Project_Version_01.Forms
             btnStop.Enabled = true;
         }
 
-        private void CheckDisplayCornerTrimValues(LoadCell loadCell)
+        private void TenSecondsCounter_Tick(object sender, EventArgs e)
         {
-            if (loadCell.Type.CornerTrimValue != null && loadCell.Type.CornerTrimValue != 0.0)
+            _tenSecondsCount--;
+
+            if (_tenSecondsCount < 0)
             {
-                CornerTrimValue = (double)loadCell.Type.CornerTrimValue;
-
-                var trimCornerLabels = new List<Control> { lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner };
-
-                foreach (var cornerLabel in trimCornerLabels)
-                {
-                    cornerLabel.Text = CornerTrimValue.ToString(CultureInfo.InvariantCulture);
-                }
+                TenSecondsCounter.Stop();
+                lblWaiting.Text = "";
+                _tenSecondsCount = 10;
             }
             else
             {
-                if (loadCell.Type.LeftCornerTrimValue != null)
-                    LeftCornerTrimValue = (double)loadCell.Type.LeftCornerTrimValue;
-
-                if (loadCell.Type.BackCornerTrimValue != null)
-                    BackCornerTrimValue = (double)loadCell.Type.BackCornerTrimValue;
-
-                if (loadCell.Type.RightCornerTrimValue != null)
-                    RightCornerTrimValue = (double)loadCell.Type.RightCornerTrimValue;
-
-                if (loadCell.Type.FrontCornerTrimValue != null)
-                    FrontCornerTrimValue = (double)loadCell.Type.FrontCornerTrimValue;
-
-                DisplayMasterCornerData();
+                lblWaiting.Text = $@"Wait {_tenSecondsCount} Seconds";
             }
         }
 
-        private void DisplayMasterCornerData()
+        private void FiveSecondsCounter_Tick(object sender, EventArgs e)
         {
-            lblLeftCorner.Text = LeftCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-            lblBackCorner.Text = BackCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-            lblRightCorner.Text = RightCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-            lblFrontCorner.Text = FrontCornerTrimValue.ToString(CultureInfo.CurrentCulture);
-        }
+            _fiveSecondsCount--;
 
-        private void GetMasterData(LoadCell loadCell)
-        {
-            MaximumCenterReading = loadCell.Type.MaximumCenterValue;
-            MaximumUnbalanceReading = loadCell.Type.MaximumUnbalanceValue;
-            MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
-            MaximumFsoReading = loadCell.Type.MaximumFsoValue;
-            MinimumFsoReading = loadCell.Type.MinimumFsoValue;
-
-            LeftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
-            FrontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
-        }
-
-        private void DisplayMasterData()
-        {
-            lblMaximumCenter.Text = MaximumCenterReading.ToString(CultureInfo.InvariantCulture);
-            lblMaximumUnbalance.Text = MaximumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
-            lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
-            lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
-            lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
-        }
-
-        private void initialTimer_Tick(object sender, EventArgs e)
-        {
-            WriteCommand("?");
-
-            Thread.Sleep(100);
-
-            var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
-
-            lblStable.Text = dataReading.Contains('@') ? @"Not Stable" : @"Stable";
-            lblStable.ForeColor = lblStable.Text == @"Not Stable" ? Color.Red : Color.Lime;
-
-            if (dataReading.Split('P').Length > 1)
+            if (_fiveSecondsCount < 0)
             {
-                lblReading.Text = dataReading.Split('P')[1];
+                FiveSecondsCounter.Stop();
+                lblWaiting.Text = "";
+                _fiveSecondsCount = 5;
             }
-
-            if (dataReading.Split('R').Length > 1)
+            else
             {
-                lblReading.Text = dataReading.Split('R')[1];
-            }
-
-            if (dataReading.Split('T').Length > 1)
-            {
-                lblReading.Text = dataReading.Split('T')[1];
-            }
-
-            if (dataReading.Split('@').Length > 1)
-            {
-                lblReading.Text = dataReading.Split('@')[1];
-            }
-        }
-
-        private void WriteCommand(string command)
-        {
-            try
-            {
-                serialPortVT400.DiscardInBuffer();
-                serialPortVT400.DiscardOutBuffer();
-                serialPortVT400.WriteLine(command);
-            }
-            catch (Exception error)
-            {
-                ShowMessage(error.Message);
+                lblWaiting.Text = $@"Wait {_fiveSecondsCount} Seconds";
             }
         }
 
@@ -425,6 +395,76 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            var result = ResultMessage.Result(@"Do you want to stop the process?", @"Choose option");
+
+            if (result == DialogResult.No) return;
+
+            Application.ExitThread();
+
+        }
+
+        private void CheckDisplayCornerTrimValues(LoadCell loadCell)
+        {
+            if (loadCell.Type.CornerTrimValue != null && loadCell.Type.CornerTrimValue != 0.0)
+            {
+                CornerTrimValue = (double)loadCell.Type.CornerTrimValue;
+
+                var trimCornerLabels = new List<Control> { lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner };
+
+                foreach (var cornerLabel in trimCornerLabels)
+                {
+                    cornerLabel.Text = CornerTrimValue.ToString(CultureInfo.InvariantCulture);
+                }
+            }
+            else
+            {
+                if (loadCell.Type.LeftCornerTrimValue != null)
+                    LeftCornerTrimValue = (double)loadCell.Type.LeftCornerTrimValue;
+
+                if (loadCell.Type.BackCornerTrimValue != null)
+                    BackCornerTrimValue = (double)loadCell.Type.BackCornerTrimValue;
+
+                if (loadCell.Type.RightCornerTrimValue != null)
+                    RightCornerTrimValue = (double)loadCell.Type.RightCornerTrimValue;
+
+                if (loadCell.Type.FrontCornerTrimValue != null)
+                    FrontCornerTrimValue = (double)loadCell.Type.FrontCornerTrimValue;
+
+                DisplayMasterCornerData();
+            }
+        }
+
+        private void DisplayMasterCornerData()
+        {
+            lblLeftCorner.Text = LeftCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblBackCorner.Text = BackCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblRightCorner.Text = RightCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+            lblFrontCorner.Text = FrontCornerTrimValue.ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void GetMasterData(LoadCell loadCell)
+        {
+            MaximumCenterReading = loadCell.Type.MaximumCenterValue;
+            MaximumUnbalanceReading = loadCell.Type.MaximumUnbalanceValue;
+            MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
+            MaximumFsoReading = loadCell.Type.MaximumFsoValue;
+            MinimumFsoReading = loadCell.Type.MinimumFsoValue;
+
+            LeftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
+            FrontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
+        }
+
+        private void DisplayMasterData()
+        {
+            lblMaximumCenter.Text = MaximumCenterReading.ToString(CultureInfo.InvariantCulture);
+            lblMaximumUnbalance.Text = MaximumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
+            lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
+            lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
+            lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
+        }
+
         private async Task AddResistorsToCorrectFso()
         {
             var loadCellInDb = CheckLoadCell();
@@ -479,7 +519,7 @@ namespace OCLSA_Project_Version_01.Forms
         private void SetStatusAndRejectCriteria(Status status, RejectionCriteria reason)
         {
             LoadCellStatus = status.ToString();
-            LoadCellRejectCriteria = ToDescriptionString(reason);
+            LoadCellRejectCriteria = EnumStringFormatter.ToDescriptionString(reason);
             tbStatus.Text = status.ToString();
         }
 
@@ -581,7 +621,7 @@ namespace OCLSA_Project_Version_01.Forms
                 ResetMainForm();
             else
                 Application.Exit();
-            
+
         }
 
         private void SaveFinalDataToDb()
@@ -1017,38 +1057,6 @@ namespace OCLSA_Project_Version_01.Forms
             MessageBox.Show(message);
         }
 
-        private void TenSecondsCounter_Tick(object sender, EventArgs e)
-        {
-            _tenSecondsCount--;
-
-            if (_tenSecondsCount < 0)
-            {
-                TenSecondsCounter.Stop();
-                lblWaiting.Text = "";
-                _tenSecondsCount = 10;
-            }
-            else
-            {
-                lblWaiting.Text = $@"Wait {_tenSecondsCount} Seconds";
-            }
-        }
-
-        private void FiveSecondsCounter_Tick(object sender, EventArgs e)
-        {
-            _fiveSecondsCount--;
-
-            if (_fiveSecondsCount < 0)
-            {
-                FiveSecondsCounter.Stop();
-                lblWaiting.Text = "";
-                _fiveSecondsCount = 5;
-            }
-            else
-            {
-                lblWaiting.Text = $@"Wait {_fiveSecondsCount} Seconds";
-            }
-        }
-
         private async Task GetCornerReadings(string corner, Control textBox)
         {
             ShowMessage(GiveInstruction(corner));
@@ -1144,35 +1152,6 @@ namespace OCLSA_Project_Version_01.Forms
                     pbPositions.Image = Properties.Resources.CalibratedWeight;
                     break;
             }
-        }
-
-        private void lblReading_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void stableCheckTimer_Tick(object sender, EventArgs e)
-        {
-            lblReading_TextChanged(sender, e);
-        }
-
-        private static string ToDescriptionString(RejectionCriteria value)
-        {
-            var attributes = (DescriptionAttribute[])value
-                .GetType()
-                .GetField(value.ToString())
-                .GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            var result = ResultMessage.Result(@"Do you want to stop the process?", @"Choose option");
-
-            if (result == DialogResult.No) return;
-
-            Application.ExitThread();
-
         }
     }
 }
