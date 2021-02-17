@@ -379,7 +379,6 @@ namespace OCLSA_Project_Version_01.Forms
                         ShowMessage(@"Process is completed. Press OK to trim a new cell.");
 
                         ResetMainForm();
-
                         break;
                     }
 
@@ -402,7 +401,6 @@ namespace OCLSA_Project_Version_01.Forms
             if (result == DialogResult.No) return;
 
             Application.ExitThread();
-
         }
 
         private void CheckDisplayCornerTrimValues(LoadCell loadCell)
@@ -504,7 +502,6 @@ namespace OCLSA_Project_Version_01.Forms
                             );
 
                         ResetMainForm();
-
                         break;
                     }
                 default:
@@ -530,7 +527,7 @@ namespace OCLSA_Project_Version_01.Forms
             TrimTimeList.Clear();
         }
 
-        private string CalculateOneTrimCycleDuration(Stopwatch duration)
+        private static string CalculateOneTrimCycleDuration(Stopwatch duration)
         {
             var timeElapsed = duration.Elapsed.Duration();
             return $"{timeElapsed.Minutes:D2}:{timeElapsed.Seconds:D2}";

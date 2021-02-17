@@ -224,6 +224,7 @@
             // 
             // tbInitialD2Reading
             // 
+            this.tbInitialD2Reading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialD2Reading.Location = new System.Drawing.Point(423, 37);
             this.tbInitialD2Reading.Name = "tbInitialD2Reading";
             this.tbInitialD2Reading.Size = new System.Drawing.Size(120, 25);
@@ -248,6 +249,7 @@
             // 
             // tbInitialD1Reading
             // 
+            this.tbInitialD1Reading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialD1Reading.Location = new System.Drawing.Point(38, 37);
             this.tbInitialD1Reading.Name = "tbInitialD1Reading";
             this.tbInitialD1Reading.Size = new System.Drawing.Size(120, 25);
@@ -255,6 +257,7 @@
             // 
             // tbInitialD3Reading
             // 
+            this.tbInitialD3Reading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialD3Reading.Location = new System.Drawing.Point(423, 203);
             this.tbInitialD3Reading.Name = "tbInitialD3Reading";
             this.tbInitialD3Reading.Size = new System.Drawing.Size(120, 25);
@@ -289,6 +292,7 @@
             // 
             // tbInitialD4Reading
             // 
+            this.tbInitialD4Reading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialD4Reading.Location = new System.Drawing.Point(40, 203);
             this.tbInitialD4Reading.Name = "tbInitialD4Reading";
             this.tbInitialD4Reading.Size = new System.Drawing.Size(120, 25);
@@ -313,6 +317,7 @@
             // 
             // tbInitialRightCornerReading
             // 
+            this.tbInitialRightCornerReading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialRightCornerReading.Location = new System.Drawing.Point(423, 119);
             this.tbInitialRightCornerReading.Name = "tbInitialRightCornerReading";
             this.tbInitialRightCornerReading.Size = new System.Drawing.Size(120, 25);
@@ -327,6 +332,7 @@
             // 
             // tbInitialLeftCornerReading
             // 
+            this.tbInitialLeftCornerReading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialLeftCornerReading.Location = new System.Drawing.Point(40, 119);
             this.tbInitialLeftCornerReading.Name = "tbInitialLeftCornerReading";
             this.tbInitialLeftCornerReading.Size = new System.Drawing.Size(120, 25);
@@ -341,6 +347,7 @@
             // 
             // tbInitialBackCornerReading
             // 
+            this.tbInitialBackCornerReading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialBackCornerReading.Location = new System.Drawing.Point(232, 35);
             this.tbInitialBackCornerReading.Name = "tbInitialBackCornerReading";
             this.tbInitialBackCornerReading.Size = new System.Drawing.Size(120, 25);
@@ -355,6 +362,7 @@
             // 
             // tbInitialFrontCornerReading
             // 
+            this.tbInitialFrontCornerReading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialFrontCornerReading.Location = new System.Drawing.Point(232, 203);
             this.tbInitialFrontCornerReading.Name = "tbInitialFrontCornerReading";
             this.tbInitialFrontCornerReading.Size = new System.Drawing.Size(120, 25);
@@ -369,6 +377,7 @@
             // 
             // tbInitialCenterReading
             // 
+            this.tbInitialCenterReading.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbInitialCenterReading.Location = new System.Drawing.Point(232, 119);
             this.tbInitialCenterReading.Name = "tbInitialCenterReading";
             this.tbInitialCenterReading.Size = new System.Drawing.Size(120, 25);
@@ -1069,7 +1078,7 @@
             this.lblStable.AutoSize = true;
             this.lblStable.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblStable.Location = new System.Drawing.Point(27, 69);
+            this.lblStable.Location = new System.Drawing.Point(36, 69);
             this.lblStable.Name = "lblStable";
             this.lblStable.Size = new System.Drawing.Size(0, 28);
             this.lblStable.TabIndex = 3;
