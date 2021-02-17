@@ -1071,7 +1071,7 @@
             this.lblStable.AutoSize = true;
             this.lblStable.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblStable.Location = new System.Drawing.Point(956, 17);
+            this.lblStable.Location = new System.Drawing.Point(27, 69);
             this.lblStable.Name = "lblStable";
             this.lblStable.Size = new System.Drawing.Size(0, 28);
             this.lblStable.TabIndex = 3;
@@ -1081,7 +1081,7 @@
             this.lblWaiting.AutoSize = true;
             this.lblWaiting.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWaiting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblWaiting.Location = new System.Drawing.Point(956, 60);
+            this.lblWaiting.Location = new System.Drawing.Point(879, 21);
             this.lblWaiting.Name = "lblWaiting";
             this.lblWaiting.Size = new System.Drawing.Size(0, 28);
             this.lblWaiting.TabIndex = 4;
@@ -1104,7 +1104,7 @@
             this.lblDisplayMessage.AutoSize = true;
             this.lblDisplayMessage.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDisplayMessage.ForeColor = System.Drawing.Color.Aqua;
-            this.lblDisplayMessage.Location = new System.Drawing.Point(433, 60);
+            this.lblDisplayMessage.Location = new System.Drawing.Point(484, 67);
             this.lblDisplayMessage.Name = "lblDisplayMessage";
             this.lblDisplayMessage.Size = new System.Drawing.Size(0, 28);
             this.lblDisplayMessage.TabIndex = 5;

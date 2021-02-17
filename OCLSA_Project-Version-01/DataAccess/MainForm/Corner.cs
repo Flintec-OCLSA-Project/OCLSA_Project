@@ -7,14 +7,16 @@
         public double RightCorner { get; set; }
         public double FrontCorner { get; set; }
         public double Center { get; set; }
+        public string TrimTime { get; set; }
 
-        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner, double center)
+        public Corner(double leftCorner, double backCorner, double rightCorner, double frontCorner, double center, string trimTime)
         {
             LeftCorner = leftCorner;
             BackCorner = backCorner;
             RightCorner = rightCorner;
             FrontCorner = frontCorner;
             Center = center;
+            TrimTime = trimTime;
         }
     }
 }

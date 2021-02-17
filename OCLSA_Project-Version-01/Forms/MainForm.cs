@@ -23,6 +23,7 @@ namespace OCLSA_Project_Version_01.Forms
         public List<double> CenterReadings { get; set; } = new List<double>();
         public Dictionary<string, double> CornerReadings { get; set; } = new Dictionary<string, double>();
         private List<Corner> _cornerList = new List<Corner>();
+        private List<string> TrimTimeList { get; set; } = new List<string>();
 
         public double MaximumCenterReading { get; set; }
         public double MaximumUnbalanceReading { get; set; }
@@ -231,6 +232,7 @@ namespace OCLSA_Project_Version_01.Forms
             var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
 
             lblStable.Text = dataReading.Contains('@') ? @"Not Stable" : @"Stable";
+            lblStable.ForeColor = lblStable.Text == @"Not Stable" ? Color.Red : Color.Lime;
 
             if (dataReading.Split('P').Length > 1)
             {
@@ -356,9 +358,10 @@ namespace OCLSA_Project_Version_01.Forms
 
                             oneTrimCycleDuration.Stop();
                             var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+                            TrimTimeList.Add(time);
                             oneTrimCycleDuration.Reset();
 
-                            DisplayDataTable(time);
+                            DisplayDataTable();
                             ClearCornerAndCenterLists();
 
                             ShowMessage(@"Press OK to check corners are OK...");
@@ -484,6 +487,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             CornerReadings.Clear();
             CenterReadings.Clear();
+            TrimTimeList.Clear();
         }
 
         private string CalculateOneTrimCycleDuration(Stopwatch duration)
@@ -574,15 +578,10 @@ namespace OCLSA_Project_Version_01.Forms
                 "Choose Option");
 
             if (result == DialogResult.Yes)
-            {
                 ResetMainForm();
-            }
             else
-            {
                 Application.Exit();
-                Form loginForm = new LoginForm();
-                loginForm.Show();
-            }
+            
         }
 
         private void SaveFinalDataToDb()
@@ -828,9 +827,10 @@ namespace OCLSA_Project_Version_01.Forms
 
             oneTrimCycleDuration.Stop();
             var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+            TrimTimeList.Add(time);
             oneTrimCycleDuration.Reset();
 
-            DisplayDataTable(time);
+            DisplayDataTable();
             ClearCornerAndCenterLists();
         }
 
@@ -878,7 +878,7 @@ namespace OCLSA_Project_Version_01.Forms
             return loadCell;
         }
 
-        private void DisplayDataTable(string time)
+        private void DisplayDataTable()
         {
             var cornerList = GetDisplayData();
 
@@ -893,7 +893,7 @@ namespace OCLSA_Project_Version_01.Forms
                               Right = d.RightCorner,
                               Front = d.FrontCorner,
                               d.Center,
-                              Time = time
+                              Time = d.TrimTime
                           };
 
             trimDataGridView.DataSource = columns.ToList();
@@ -902,7 +902,12 @@ namespace OCLSA_Project_Version_01.Forms
         private IEnumerable<Corner> GetDisplayData()
         {
             var corner = new Corner(
-                CornerReadings["Left"], CornerReadings["Back"], CornerReadings["Right"], CornerReadings["Front"], CenterReadings[0]
+                CornerReadings["Left"],
+                CornerReadings["Back"],
+                CornerReadings["Right"],
+                CornerReadings["Front"],
+                CenterReadings[0],
+                TrimTimeList[0]
             );
 
             _cornerList.Add(corner);
@@ -1024,7 +1029,7 @@ namespace OCLSA_Project_Version_01.Forms
             }
             else
             {
-                lblWaiting.Text = $@"Wait {_tenSecondsCount}";
+                lblWaiting.Text = $@"Wait {_tenSecondsCount} Seconds";
             }
         }
 
@@ -1040,7 +1045,7 @@ namespace OCLSA_Project_Version_01.Forms
             }
             else
             {
-                lblWaiting.Text = $@"Wait {_fiveSecondsCount}";
+                lblWaiting.Text = $@"Wait {_fiveSecondsCount} Seconds";
             }
         }
 
