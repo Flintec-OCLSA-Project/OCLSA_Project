@@ -230,6 +230,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
 
+            lblStable.Text = dataReading.Contains('@') ? @"Not Stable" : @"Stable";
+
             if (dataReading.Split('P').Length > 1)
             {
                 lblReading.Text = dataReading.Split('P')[1];
@@ -237,12 +239,17 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (dataReading.Split('R').Length > 1)
             {
-                label1.Text = dataReading.Split('R')[1];
+                lblReading.Text = dataReading.Split('R')[1];
             }
 
             if (dataReading.Split('T').Length > 1)
             {
                 lblReading.Text = dataReading.Split('T')[1];
+            }
+
+            if (dataReading.Split('@').Length > 1)
+            {
+                lblReading.Text = dataReading.Split('@')[1];
             }
         }
 
@@ -262,19 +269,6 @@ namespace OCLSA_Project_Version_01.Forms
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            if (tbSerialNumber.TextLength <= 0) return;
-
-            if (lblReading.Text.Length > 0)
-            {
-                lblStable.Text = @"Stable";
-            }
-            else
-            {
-                lblStable.Text = @"Not Stable";
-                ShowMessage(@"Load Cell is not stable. Please Check Again!!!");
-                return;
-            }
-
             if (CheckBridgeUnbalance())
             {
                 tbStatus.Text = Status.Rejected.ToString();
@@ -282,7 +276,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            //WriteCommand("01");
+            //WriteCommand("1");
 
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
@@ -312,7 +306,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             tbInitialFSO.Text = initialFso;
 
-            WriteCommand("01");
+            WriteCommand("1");
 
             ShowMessage(@"Move weight to Left Corner");
             ShowArmaturePosition(@"Left");
@@ -326,7 +320,7 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Move weight from Left Corner to Center", 10, false);
 
-            WriteCommand("01");
+            WriteCommand("1");
 
             ShowMessage(@"Remove weight from Center & keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -515,7 +509,7 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
-            WriteCommand("01");
+            WriteCommand("1");
 
             ShowMessage(@"Remove the weight and keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -535,7 +529,7 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
-            WriteCommand("01");
+            WriteCommand("1");
             GetDisplaySaveCenterReadings(tbCenter);
         }
 
@@ -779,7 +773,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             await GetCornerReadings("Center", tbCenter);
 
-            WriteCommand("01");
+            WriteCommand("1");
             tbInitialCenterReading.Text = lblReading.Text;
 
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
@@ -820,7 +814,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            WriteCommand("01");
+            WriteCommand("1");
             tbInitialCenterReading.Text = lblReading.Text;
             GetDisplaySaveCenterReadings(tbInitialCenterReading);
 
