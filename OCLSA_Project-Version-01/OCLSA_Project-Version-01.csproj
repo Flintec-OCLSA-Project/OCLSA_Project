@@ -136,6 +136,10 @@
     <Compile Include="Migrations\202102090606408_AddedTotalTimeInMinutesField.Designer.cs">
       <DependentUpon>202102090606408_AddedTotalTimeInMinutesField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102180616025_AddedNewProperties.cs" />
+    <Compile Include="Migrations\202102180616025_AddedNewProperties.Designer.cs">
+      <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -189,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102090606408_AddedTotalTimeInMinutesField.resx">
       <DependentUpon>202102090606408_AddedTotalTimeInMinutesField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102180616025_AddedNewProperties.resx">
+      <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

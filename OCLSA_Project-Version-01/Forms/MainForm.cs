@@ -29,6 +29,8 @@ namespace OCLSA_Project_Version_01.Forms
         public double MinimumUnbalanceReading { get; set; }
         public double MaximumFsoReading { get; set; }
         public double MinimumFsoReading { get; set; }
+        public double MaximumFsoReadingFinal { get; set; }
+        public double MinimumFsoReadingFinal { get; set; }
         public double CornerTrimValue { get; set; }
 
         public string LoadCellType { get; set; }
@@ -63,6 +65,8 @@ namespace OCLSA_Project_Version_01.Forms
         public int ResistorsToAdd { get; set; }
 
         public bool IsFsoCorrectionAvailable { get; set; }
+
+        public bool CurrentStatus = true;
 
         public MainForm()
         {
@@ -121,8 +125,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             var dataReading = Convert.ToString(serialPortVT400.ReadExisting());
 
-            lblStable.Text = dataReading.Contains('@') ? @"Not Stable" : @"Stable";
-            lblStable.ForeColor = lblStable.Text == @"Not Stable" ? Color.Red : Color.Lime;
+            lblStable.Text = dataReading.Contains('@') ? @"Unstable" : @"Stable";
+            lblStable.ForeColor = lblStable.Text == @"Unstable" ? Color.Red : Color.Lime;
 
             if (dataReading.Split('P').Length > 1)
             {
@@ -248,6 +252,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
+            ShowMessage(@"Press TARE button to tare");
             //WriteCommand("1");
 
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
@@ -278,7 +283,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             tbInitialFSO.Text = initialFso;
 
-            WriteCommand("1");
+            ShowMessage(@"Press TARE button to tare");
+            //WriteCommand("1");
 
             ShowMessage(@"Move weight to Left Corner");
             ShowArmaturePosition(@"Left");
@@ -292,7 +298,8 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Move weight from Left Corner to Center", 10, false);
 
-            WriteCommand("1");
+            ShowMessage(@"Press TARE button to tare");
+            //WriteCommand("1");
 
             ShowMessage(@"Remove weight from Center & keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -306,79 +313,90 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 case TestMode.CornerTest:
                     {
+                        CurrentStatus = true;
+
                         await CheckInitialCornerTest(loadCell);
 
-                        for (var i = 0; i < 15; i++)
+                        if (CurrentStatus == true)
                         {
-                            var oneTrimCycleDuration = Stopwatch.StartNew();
-
-                            await CheckDisplayMainCorners();
-
-                            if (CheckToTrim())
+                            for (var i = 0; i < 15; i++)
                             {
-                                ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
-                                ShowArmaturePosition(@"Left");
-                                CornerReadings.Clear();
-                                CenterReadings.Clear();
+                                var oneTrimCycleDuration = Stopwatch.StartNew();
+
+                                await CheckDisplayMainCorners();
+
+                                if (CheckToTrim())
+                                {
+                                    ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
+                                    ShowArmaturePosition(@"Left");
+                                    CornerReadings.Clear();
+                                    CenterReadings.Clear();
+                                    ClearDisplayedCornerReadings();
+                                    break;
+                                }
+
+                                await RemoveWeightAndShowTrimDetails();
+
+                                oneTrimCycleDuration.Stop();
+                                var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+                                TrimTimeList.Add(time);
+                                oneTrimCycleDuration.Reset();
+
+                                DisplayDataTable();
+                                ClearCornerAndCenterLists();
+
+                                ShowMessage(@"Press OK to check corners are OK...");
+
                                 ClearDisplayedCornerReadings();
+
+                                if (i <= 10) continue;
+
+                                tbTrimmedCyclesCount.Text = TrimCount.ToString();
+                                _stopTrimming = true;
+                                await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
+                                    Status.Failed, RejectionCriteria.Unstable);
                                 break;
                             }
 
-                            await RemoveWeightAndShowTrimDetails();
-
-                            oneTrimCycleDuration.Stop();
-                            var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
-                            TrimTimeList.Add(time);
-                            oneTrimCycleDuration.Reset();
-
-                            DisplayDataTable();
-                            ClearCornerAndCenterLists();
-
-                            ShowMessage(@"Press OK to check corners are OK...");
-
-                            ClearDisplayedCornerReadings();
-
-                            if (i <= 1) continue;
+                            if (_stopTrimming)
+                            {
+                                _stopTrimming = false;
+                                return;
+                            }
 
                             tbTrimmedCyclesCount.Text = TrimCount.ToString();
-                            _stopTrimming = true;
-                            await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
-                                Status.Failed, RejectionCriteria.Unstable);
-                            break;
-                        }
 
-                        if (_stopTrimming)
+                            await CheckDisplayAllFinalCorners();
+
+                            if (!IsCalculatedFsoInRange())
+                            {
+                                await AddResistorsToCorrectFso();
+                                return;
+                            }
+
+                            ShowMessage(@"Load Cell is Passed");
+
+                            SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
+
+                            ProcessDuration.Stop();
+
+                            DisplayFinalFso();
+                            DisplayTotalTime();
+
+                            EndingTime = DateTime.Now;
+
+                            SaveFinalDataToDb();
+
+                            ShowMessage(@"Process is completed. Press OK to trim a new cell.");
+
+                            ResetMainForm();
+
+                        }
+                        else
                         {
-                            _stopTrimming = false;
-                            return;
+
                         }
 
-                        tbTrimmedCyclesCount.Text = TrimCount.ToString();
-
-                        await CheckDisplayAllFinalCorners();
-
-                        if (!IsCalculatedFsoInRange())
-                        {
-                            await AddResistorsToCorrectFso();
-                            return;
-                        }
-
-                        ShowMessage(@"Load Cell is Passed");
-
-                        SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
-
-                        ProcessDuration.Stop();
-
-                        DisplayFinalFso();
-                        DisplayTotalTime();
-
-                        EndingTime = DateTime.Now;
-
-                        SaveFinalDataToDb();
-
-                        ShowMessage(@"Process is completed. Press OK to trim a new cell.");
-
-                        ResetMainForm();
                         break;
                     }
 
@@ -449,6 +467,9 @@ namespace OCLSA_Project_Version_01.Forms
             MinimumUnbalanceReading = loadCell.Type.MinimumUnbalanceValue;
             MaximumFsoReading = loadCell.Type.MaximumFsoValue;
             MinimumFsoReading = loadCell.Type.MinimumFsoValue;
+            MinimumFsoReadingFinal = loadCell.Type.MinimumFsoValueFinal;
+            MaximumFsoReadingFinal = loadCell.Type.MaximumFsoValueFinal;
+
 
             LeftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
             FrontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
@@ -461,6 +482,8 @@ namespace OCLSA_Project_Version_01.Forms
             lblMinimumUnbalance.Text = MinimumUnbalanceReading.ToString(CultureInfo.InvariantCulture);
             lblMaximumFSO.Text = MaximumFsoReading.ToString(CultureInfo.InvariantCulture);
             lblMinimumFSO.Text = MinimumFsoReading.ToString(CultureInfo.InvariantCulture);
+            lblMinimumFSOFinal.Text = MinimumFsoReadingFinal.ToString(CultureInfo.CurrentCulture);
+            lblMaximumFSOFinal.Text = MaximumFsoReadingFinal.ToString(CultureInfo.CurrentCulture);
         }
 
         private async Task AddResistorsToCorrectFso()
@@ -550,7 +573,8 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
-            WriteCommand("1");
+            ShowMessage(@"Press TARE button to tare");
+            //WriteCommand("1");
 
             ShowMessage(@"Remove the weight and keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -570,7 +594,8 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
-            WriteCommand("1");
+            //ShowMessage(@"Press TARE button to tare");
+            //WriteCommand("1");
             GetDisplaySaveCenterReadings(tbCenter);
         }
 
@@ -722,7 +747,7 @@ namespace OCLSA_Project_Version_01.Forms
         private void DisplayFinalFso()
         {
             FinalFso = CalculatedFso;
-            tbFinalFSO.Text = FinalFso.ToString(CultureInfo.CurrentCulture);
+            tbFinalFSO.Text = Math.Round(FinalFso, 5).ToString(CultureInfo.CurrentCulture);
         }
 
         private void ResetMainForm()
@@ -740,17 +765,23 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
-            trimDataGridView?.Rows.Clear();
+            //trimDataGridView?.Rows.Clear();
         }
 
         private void ClearAllInputsAndOutputs()
         {
-            foreach (var textBox in Controls.OfType<TextBox>())
+            var textBoxList = new List<TextBox>
+            {
+                tbSerialNumber, tbBridgeUnbalance, tbInitialFSO, tbFinalFSO, tbTrimmedCyclesCount, tbTotalTime, tbStatus, tbInitialLeftCornerReading,
+                tbInitialBackCornerReading, tbInitialRightCornerReading, tbInitialFrontCornerReading, tbInitialD1Reading, tbInitialD2Reading,
+                tbInitialD3Reading, tbInitialD4Reading, tbLeftCorner, tbFrontCorner, tbBackCorner, tbRightCorner, tbD1Reading, tbD2Reading, tbD3Reading,
+                tbD4Reading, tbCenter, tbInitialCenterReading
+            };
+
+            foreach (var textBox in textBoxList)
             {
                 textBox.Clear();
             }
-
-            tbSerialNumber.Clear();
 
             var labelList = new List<Label>
             {
@@ -767,13 +798,15 @@ namespace OCLSA_Project_Version_01.Forms
 
         private bool IsCalculatedFsoInRange()
         {
+            ShowMessage(@"Press TARE button to tare");
+
             ShowMessage(@"Keep the calibrated weight on the Center");
             ShowArmaturePosition("FinalCenter");
 
             var calibratedCenterReading = lblReading.Text;
             CalculateFso(calibratedCenterReading);
 
-            return MinimumFsoReading < CalculatedFso && CalculatedFso < MaximumFsoReading;
+            return MinimumFsoReadingFinal < CalculatedFso && CalculatedFso < MaximumFsoReadingFinal;
         }
 
         private void CalculateFso(string output)
@@ -786,7 +819,7 @@ namespace OCLSA_Project_Version_01.Forms
             var capacity = checkLoadCell.Type.Capacity;
             var factor = checkLoadCell.Type.Factor;
 
-            CalculatedFso = (Convert.ToDouble(output) * capacity * factor) / appliedLoad;
+            CalculatedFso = Math.Round((Convert.ToDouble(output) * capacity * factor) / appliedLoad, 5);
         }
 
         private async Task CheckDisplayAllFinalCorners()
@@ -808,14 +841,12 @@ namespace OCLSA_Project_Version_01.Forms
             await DisplayWaitingStatus(@"Move armature to Left position", 5, true);
 
             await GetCornerReadings("Center", tbCenter);
-
-            WriteCommand("1");
-            tbInitialCenterReading.Text = lblReading.Text;
+            tbCenter.Text = lblReading.Text;
+            GetDisplaySaveCenterReadings(tbCenter);
 
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
 
             var trimmedCenterReading = lblReading.Text;
-
             TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));
         }
 
@@ -850,34 +881,79 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            WriteCommand("1");
             tbInitialCenterReading.Text = lblReading.Text;
             GetDisplaySaveCenterReadings(tbInitialCenterReading);
 
             ShowMessage(@"Please remove the weight");
             await DisplayWaitingStatus(@"Please remove the weight", 5, true);
 
-            ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+            if (CheckToTrim())
+            {
+                CurrentStatus = false;
 
-            ShowTrimPosition(GetMinimumCornerName());
-            await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
+                ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
+                ShowArmaturePosition(@"Left");
+                CornerReadings.Clear();
+                CenterReadings.Clear();
+                ClearDisplayedCornerReadings();
 
-            oneTrimCycleDuration.Stop();
-            var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
-            TrimTimeList.Add(time);
-            oneTrimCycleDuration.Reset();
+                /*Checking FSO*/
+                tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
-            DisplayDataTable();
-            ClearCornerAndCenterLists();
+                await CheckDisplayAllFinalCorners();
+
+                if (!IsCalculatedFsoInRange())
+                {
+                    await AddResistorsToCorrectFso();
+                    return;
+                }
+
+                ShowMessage(@"Load Cell is Passed");
+
+                SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
+
+                ProcessDuration.Stop();
+
+                DisplayFinalFso();
+                DisplayTotalTime();
+
+                EndingTime = DateTime.Now;
+
+                SaveFinalDataToDb();
+
+                ShowMessage(@"Process is completed. Press OK to trim a new cell.");
+
+                ResetMainForm();
+
+            }
+            else
+            {
+                CurrentStatus = true;
+
+                ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
+
+                ShowTrimPosition(GetMinimumCornerName());
+                await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
+
+                oneTrimCycleDuration.Stop();
+                var time = CalculateOneTrimCycleDuration(oneTrimCycleDuration);
+                TrimTimeList.Add(time);
+                oneTrimCycleDuration.Reset();
+
+                DisplayDataTable();
+                ClearCornerAndCenterLists();
+            }
+
+
         }
 
         private bool CheckToTrim()
         {
-            var leftRightCornerDifference = Math.Abs(CornerReadings["Left"]) - Math.Abs(CornerReadings["Right"]);
-            var frontBackCornerDifference = Math.Abs(CornerReadings["Front"]) - Math.Abs(CornerReadings["Back"]);
+            var leftRightCornerDifference = CornerReadings["Left"] - CornerReadings["Right"];
+            var frontBackCornerDifference = CornerReadings["Front"] - CornerReadings["Back"];
 
-            var areCornersDifferenceInRange = leftRightCornerDifference < LeftRightCornerDifferenceInDb
-                                              && frontBackCornerDifference < FrontBackCornerDifferenceInDb;
+            var areCornersDifferenceInRange = Math.Abs(leftRightCornerDifference) < LeftRightCornerDifferenceInDb
+                                              && Math.Abs(frontBackCornerDifference) < FrontBackCornerDifferenceInDb;
 
             return CornerTrimValue != 0 ? CheckCornersAndDifference(areCornersDifferenceInRange)
                 : CheckCornersWithSameValueAndDifference(areCornersDifferenceInRange);
@@ -895,10 +971,10 @@ namespace OCLSA_Project_Version_01.Forms
 
         private bool CheckCornersAndDifference(bool areCornersDifferenceInRange)
         {
-            var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < LeftCornerTrimValue)
-                                    && (Math.Abs(CornerReadings["Back"]) < BackCornerTrimValue)
-                                    && (Math.Abs(CornerReadings["Right"]) < RightCornerTrimValue)
-                                    && (Math.Abs(CornerReadings["Front"]) < FrontCornerTrimValue);
+            var areCornersInRange = (Math.Abs(CornerReadings["Left"]) < Convert.ToDouble(lblLeftCorner.Text))
+                                    && (Math.Abs(CornerReadings["Back"]) < Convert.ToDouble(lblBackCorner.Text))
+                                    && (Math.Abs(CornerReadings["Right"]) < Convert.ToDouble(lblRightCorner.Text))
+                                    && (Math.Abs(CornerReadings["Front"]) < Convert.ToDouble(lblFrontCorner.Text));
 
             return areCornersInRange && areCornersDifferenceInRange;
         }

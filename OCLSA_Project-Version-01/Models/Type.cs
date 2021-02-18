@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OCLSA_Project_Version_01.Models
 {
@@ -60,8 +54,14 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public double Factor { get; set; }
-        
+
         [Required]
         public double FsoCorrectionValue { get; set; }
+
+        [Required]
+        public double MaximumFsoValueFinal { get; set; }
+
+        [Required]
+        public double MinimumFsoValueFinal { get; set; }
     }
 }
