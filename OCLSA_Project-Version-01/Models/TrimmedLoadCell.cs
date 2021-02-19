@@ -27,14 +27,14 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public double InitialLeftCorner { get; set; }
-        
+
         [Required]
         public double InitialD1Corner { get; set; }
 
         [Required]
         public double InitialBackCorner { get; set; }
 
-        [Required]  
+        [Required]
         public double InitialD2Corner { get; set; }
 
         [Required]
@@ -94,7 +94,7 @@ namespace OCLSA_Project_Version_01.Models
         [Required]
         public string Operator { get; set; }
 
-        [Required] 
+        [Required]
         public int OperatorId { get; set; }
 
         [Required]
@@ -104,6 +104,6 @@ namespace OCLSA_Project_Version_01.Models
         public bool IsFsoCorrectionAvailable { get; set; }
 
         [Required]
-        public int TotalTimeInMinutes { get; set; }
+        public string TotalTime { get; set; }
     }
 }

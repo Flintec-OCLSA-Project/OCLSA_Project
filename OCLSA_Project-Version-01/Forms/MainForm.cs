@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -381,7 +380,7 @@ namespace OCLSA_Project_Version_01.Forms
                             ProcessDuration.Stop();
 
                             DisplayFinalFso();
-                            DisplayTotalTime();
+                            tbTotalTime.Text = DisplayTotalTime();
 
                             EndingTime = DateTime.Now;
 
@@ -470,7 +469,6 @@ namespace OCLSA_Project_Version_01.Forms
             MinimumFsoReadingFinal = loadCell.Type.MinimumFsoValueFinal;
             MaximumFsoReadingFinal = loadCell.Type.MaximumFsoValueFinal;
 
-
             LeftRightCornerDifferenceInDb = loadCell.Type.LeftRightCornerDifference;
             FrontBackCornerDifferenceInDb = loadCell.Type.FrontBackCornerDifference;
         }
@@ -513,7 +511,7 @@ namespace OCLSA_Project_Version_01.Forms
                         IsFsoCorrectionAvailable = true;
 
                         ProcessDuration.Stop();
-                        DisplayTotalTime();
+                        tbTotalTime.Text = DisplayTotalTime();
                         EndingTime = DateTime.Now;
 
                         SaveFinalDataToDb();
@@ -630,7 +628,7 @@ namespace OCLSA_Project_Version_01.Forms
             EndingTime = DateTime.Now;
             ProcessDuration.Stop();
 
-            DisplayTotalTime();
+            tbTotalTime.Text = DisplayTotalTime();
 
             SaveFinalDataToDb();
 
@@ -643,14 +641,14 @@ namespace OCLSA_Project_Version_01.Forms
                 ResetMainForm();
             else
                 Application.Exit();
-
         }
 
         private void SaveFinalDataToDb()
         {
             try
             {
-                var totalTimeInMinutes = Regex.Replace(tbTotalTime.Text, "[^0-9]+", string.Empty);
+                //var totalTimeInMinutes = Regex.Replace(tbTotalTime.Text, "[^0-9]+", string.Empty);
+                var totalTime = string.IsNullOrWhiteSpace(tbBridgeUnbalance.Text) ? "Unavailable" : tbTotalTime.Text;
 
                 var trimmedLoadCell = new TrimmedLoadCell
                 {
@@ -722,9 +720,7 @@ namespace OCLSA_Project_Version_01.Forms
                     OperatorId = Convert.ToInt32(lblOperatorId.Text),
                     NoOfResistors = ResistorsToAdd,
                     IsFsoCorrectionAvailable = IsFsoCorrectionAvailable,
-                    TotalTimeInMinutes = string.IsNullOrWhiteSpace(tbTotalTime.Text)
-                        ? 0
-                        : int.Parse(totalTimeInMinutes)
+                    TotalTime = totalTime
                 };
 
                 _context.TrimmedLoadCells.Add(trimmedLoadCell);
@@ -737,11 +733,10 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
-        private void DisplayTotalTime()
+        private string DisplayTotalTime()
         {
-            var processDuration = ProcessDuration.Elapsed.Minutes;
-
-            tbTotalTime.Text = $@"{processDuration} Minutes";
+            var processDuration = ProcessDuration.Elapsed.Duration();
+            return $@"{processDuration.Minutes:D2} : {processDuration.Seconds:D2}";
         }
 
         private void DisplayFinalFso()
@@ -754,7 +749,6 @@ namespace OCLSA_Project_Version_01.Forms
         {
             tbSerialNumber.ReadOnly = false;
             ClearAllInputsAndOutputs();
-            lblStable.Text = "";
             btnStart.Enabled = false;
             btnStart.Enabled = false;
             ResistorsToAdd = 0;
@@ -765,7 +759,12 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
-            //trimDataGridView?.Rows.Clear();
+            CurrentStatus = true;
+
+            if (CenterReadings.Count != 0) CenterReadings.Clear();
+            if (CornerReadings.Count != 0) CornerReadings.Clear();
+            if (TrimTimeList.Count != 0) TrimTimeList.Clear();
+            if (_cornerList.Count != 0) _cornerList.Clear();
         }
 
         private void ClearAllInputsAndOutputs()
@@ -877,7 +876,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (CheckExcessiveCorners(loadCell))
             {
-                await StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!", Status.Failed, RejectionCriteria.ExcessiveCorners);
+                await StopProcessAndExit(@"Load Cell is rejected due to Excessive Corners...!!!",
+                    Status.Failed, RejectionCriteria.ExcessiveCorners);
                 return;
             }
 
@@ -915,7 +915,7 @@ namespace OCLSA_Project_Version_01.Forms
                 ProcessDuration.Stop();
 
                 DisplayFinalFso();
-                DisplayTotalTime();
+                tbTotalTime.Text = DisplayTotalTime();
 
                 EndingTime = DateTime.Now;
 
@@ -943,8 +943,6 @@ namespace OCLSA_Project_Version_01.Forms
                 DisplayDataTable();
                 ClearCornerAndCenterLists();
             }
-
-
         }
 
         private bool CheckToTrim()

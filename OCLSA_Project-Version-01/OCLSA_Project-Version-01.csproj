@@ -140,6 +140,10 @@
     <Compile Include="Migrations\202102180616025_AddedNewProperties.Designer.cs">
       <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.cs" />
+    <Compile Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.Designer.cs">
+      <DependentUpon>202102190404400_ChangedTypeOfTotalTimeProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -196,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102180616025_AddedNewProperties.resx">
       <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.resx">
+      <DependentUpon>202102190404400_ChangedTypeOfTotalTimeProperty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
