@@ -292,7 +292,6 @@ namespace OCLSA_Project_Version_01.Forms
             ShowMessage(@"Give exercise to Load Cell");
             await DisplayWaitingStatus(@"Give exercise to Load Cell", 10, false);
 
-            await Task.Delay(TimeSpan.FromSeconds(2));
             ShowMessage(@"Move weight from Left Corner to Center");
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Move weight from Left Corner to Center", 10, false);
@@ -326,11 +325,9 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 if (CheckToTrim())
                                 {
-                                    ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
-                                    ShowArmaturePosition(@"Left");
-                                    CornerReadings.Clear();
-                                    CenterReadings.Clear();
-                                    ClearDisplayedCornerReadings();
+                                    ShowMessage(@"Corners are OK. No need to trim...!!! Remove the weight from Center");
+                                    ShowArmaturePosition(@"Center");
+                                    await DisplayWaitingStatus(@"Remove the weight from Center", 10, false);
                                     break;
                                 }
 
@@ -342,7 +339,7 @@ namespace OCLSA_Project_Version_01.Forms
                                 oneTrimCycleDuration.Reset();
 
                                 DisplayDataTable();
-                                ClearCornerAndCenterLists();
+                                ClearLists();
 
                                 ShowMessage(@"Press OK to check corners are OK...");
 
@@ -365,6 +362,11 @@ namespace OCLSA_Project_Version_01.Forms
 
                             tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
+                            if (await CheckFinalCenter(tbCenter.Text)) return;
+
+                            ClearLists();
+                            ClearDisplayedCornerReadings();
+
                             await CheckDisplayAllFinalCorners();
 
                             if (!IsCalculatedFsoInRange())
@@ -374,7 +376,6 @@ namespace OCLSA_Project_Version_01.Forms
                             }
 
                             ShowMessage(@"Load Cell is Passed");
-
                             SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                             ProcessDuration.Stop();
@@ -389,11 +390,6 @@ namespace OCLSA_Project_Version_01.Forms
                             ShowMessage(@"Process is completed. Press OK to trim a new cell.");
 
                             ResetMainForm();
-
-                        }
-                        else
-                        {
-
                         }
 
                         break;
@@ -418,6 +414,16 @@ namespace OCLSA_Project_Version_01.Forms
             if (result == DialogResult.No) return;
 
             Application.ExitThread();
+        }
+
+        private async Task<bool> CheckFinalCenter(string centerReading)
+        {
+            if (Math.Abs(Convert.ToDouble(centerReading)) < MaximumCenterReading) return false;
+
+            tbStatus.Text = Status.Rejected.ToString();
+            await StopProcessAndExit(@"Load Cell is rejected due to High Zero...!!!", Status.Rejected,
+                RejectionCriteria.HighZero);
+            return true;
         }
 
         private void CheckDisplayCornerTrimValues(LoadCell loadCell)
@@ -541,7 +547,7 @@ namespace OCLSA_Project_Version_01.Forms
             tbStatus.Text = status.ToString();
         }
 
-        private void ClearCornerAndCenterLists()
+        private void ClearLists()
         {
             CornerReadings.Clear();
             CenterReadings.Clear();
@@ -823,6 +829,7 @@ namespace OCLSA_Project_Version_01.Forms
 
         private async Task CheckDisplayAllFinalCorners()
         {
+            ShowMessage(@"Move weight to the Left Corner");
             ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move weight to the Left Corner", 5, true);
 
@@ -844,6 +851,8 @@ namespace OCLSA_Project_Version_01.Forms
             GetDisplaySaveCenterReadings(tbCenter);
 
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
+            ShowArmaturePosition(@"Center");
+            await DisplayWaitingStatus(@"Remove the weight from Center", 5, true);
 
             var trimmedCenterReading = lblReading.Text;
             TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));
@@ -924,7 +933,6 @@ namespace OCLSA_Project_Version_01.Forms
                 ShowMessage(@"Process is completed. Press OK to trim a new cell.");
 
                 ResetMainForm();
-
             }
             else
             {
@@ -941,7 +949,7 @@ namespace OCLSA_Project_Version_01.Forms
                 oneTrimCycleDuration.Reset();
 
                 DisplayDataTable();
-                ClearCornerAndCenterLists();
+                ClearLists();
             }
         }
 
