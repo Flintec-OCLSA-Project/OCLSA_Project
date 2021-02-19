@@ -197,9 +197,7 @@ namespace OCLSA_Project_Version_01.Forms
             LoadCellType = loadCell.TypeName;
 
             CheckDisplayCornerTrimValues(loadCell);
-
             GetMasterData(loadCell);
-
             DisplayMasterData();
 
             tbSerialNumber.ReadOnly = true;
@@ -315,7 +313,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                         await CheckInitialCornerTest(loadCell);
 
-                        if (CurrentStatus == true)
+                        if (CurrentStatus)
                         {
                             for (var i = 0; i < 15; i++)
                             {
@@ -900,14 +898,12 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 CurrentStatus = false;
 
-                ShowMessage(@"Corners are OK. No need to trim...!!! Move weight to the Left Corner.");
-                ShowArmaturePosition(@"Left");
+                tbTrimmedCyclesCount.Text = TrimCount.ToString();
+
+                if (await CheckFinalCenter(tbInitialCenterReading.Text)) return;
+
                 CornerReadings.Clear();
                 CenterReadings.Clear();
-                ClearDisplayedCornerReadings();
-
-                /*Checking FSO*/
-                tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
                 await CheckDisplayAllFinalCorners();
 
@@ -918,7 +914,6 @@ namespace OCLSA_Project_Version_01.Forms
                 }
 
                 ShowMessage(@"Load Cell is Passed");
-
                 SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                 ProcessDuration.Stop();
@@ -939,7 +934,6 @@ namespace OCLSA_Project_Version_01.Forms
                 CurrentStatus = true;
 
                 ShowMessage($@"Trim the {GetMinimumCornerName()} corner. Look Image...");
-
                 ShowTrimPosition(GetMinimumCornerName());
                 await DisplayWaitingStatus($@"Trim the {GetMinimumCornerName()} corner. Look Image", 5, true);
 
