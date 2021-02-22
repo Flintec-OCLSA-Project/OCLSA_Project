@@ -33,7 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AeroSuite, Version=1.0.6216.29077, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AeroSuite.1.0.50\lib\AeroSuite.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,32 +54,171 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsFormsAero, Version=3.1.1.0, Culture=neutral, PublicKeyToken=1e7518d9b51ece33, processorArchitecture=MSIL">
+      <HintPath>packages\Windows-Forms-Aero.3.1.1\lib\net461\WindowsFormsAero.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Common\EnumStringFormatter.cs" />
+    <Compile Include="Common\ImageConvertor.cs" />
+    <Compile Include="Common\ResultMessage.cs" />
+    <Compile Include="DataAccess\LoginForm\CheckUserInDbResult.cs" />
+    <Compile Include="DataAccess\LoginForm\User.cs" />
+    <Compile Include="DataAccess\MainForm\CheckCornerTestModeResult.cs" />
+    <Compile Include="DataAccess\MainForm\CheckFsoResult.cs" />
+    <Compile Include="DataAccess\MainForm\Corner.cs" />
+    <Compile Include="DataAccess\MainForm\MetalCategory.cs" />
+    <Compile Include="DataAccess\MainForm\RejectionCriteria.cs" />
+    <Compile Include="DataAccess\MainForm\Status.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MasterDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MasterDataForm.Designer.cs">
+      <DependentUpon>MasterDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101151022232_AddedModels.cs" />
+    <Compile Include="Migrations\202101151022232_AddedModels.Designer.cs">
+      <DependentUpon>202101151022232_AddedModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101181159372_AddedEmployeeModel.cs" />
+    <Compile Include="Migrations\202101181159372_AddedEmployeeModel.Designer.cs">
+      <DependentUpon>202101181159372_AddedEmployeeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.cs" />
+    <Compile Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.Designer.cs">
+      <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.cs" />
+    <Compile Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.Designer.cs">
+      <DependentUpon>202101260251439_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101260605103_AddedNewModel.cs" />
+    <Compile Include="Migrations\202101260605103_AddedNewModel.Designer.cs">
+      <DependentUpon>202101260605103_AddedNewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101260738459_AddedNewProperty.cs" />
+    <Compile Include="Migrations\202101260738459_AddedNewProperty.Designer.cs">
+      <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs" />
+    <Compile Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.Designer.cs">
+      <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.cs" />
+    <Compile Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.Designer.cs">
+      <DependentUpon>202102021003533_RemovedIdFromLoadcellModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021121437_AddedFSOCorrectionValueField.cs" />
+    <Compile Include="Migrations\202102021121437_AddedFSOCorrectionValueField.Designer.cs">
+      <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102030357074_AddedResistorCount.cs" />
+    <Compile Include="Migrations\202102030357074_AddedResistorCount.Designer.cs">
+      <DependentUpon>202102030357074_AddedResistorCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102030551100_AddedFsoCorrectionField.cs" />
+    <Compile Include="Migrations\202102030551100_AddedFsoCorrectionField.Designer.cs">
+      <DependentUpon>202102030551100_AddedFsoCorrectionField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102090606408_AddedTotalTimeInMinutesField.cs" />
+    <Compile Include="Migrations\202102090606408_AddedTotalTimeInMinutesField.Designer.cs">
+      <DependentUpon>202102090606408_AddedTotalTimeInMinutesField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102180616025_AddedNewProperties.cs" />
+    <Compile Include="Migrations\202102180616025_AddedNewProperties.Designer.cs">
+      <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.cs" />
+    <Compile Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.Designer.cs">
+      <DependentUpon>202102190404400_ChangedTypeOfTotalTimeProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\LoadCell.cs" />
+    <Compile Include="DataAccess\MainForm\TestMode.cs" />
+    <Compile Include="Models\TrimmedLoadCell.cs" />
+    <Compile Include="Models\Type.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MasterDataForm.resx">
+      <DependentUpon>MasterDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101151022232_AddedModels.resx">
+      <DependentUpon>202101151022232_AddedModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101181159372_AddedEmployeeModel.resx">
+      <DependentUpon>202101181159372_AddedEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101190303446_ChangedDataTypeInEmployeeModel.resx">
+      <DependentUpon>202101190303446_ChangedDataTypeInEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260251439_AddedNewFieldsToTypeModel.resx">
+      <DependentUpon>202101260251439_AddedNewFieldsToTypeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260605103_AddedNewModel.resx">
+      <DependentUpon>202101260605103_AddedNewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101260738459_AddedNewProperty.resx">
+      <DependentUpon>202101260738459_AddedNewProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.resx">
+      <DependentUpon>202101270647489_AddedNewPropertiesToTrimmedLoadCellModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021003533_RemovedIdFromLoadcellModel.resx">
+      <DependentUpon>202102021003533_RemovedIdFromLoadcellModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021121437_AddedFSOCorrectionValueField.resx">
+      <DependentUpon>202102021121437_AddedFSOCorrectionValueField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030357074_AddedResistorCount.resx">
+      <DependentUpon>202102030357074_AddedResistorCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030551100_AddedFsoCorrectionField.resx">
+      <DependentUpon>202102030551100_AddedFsoCorrectionField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102090606408_AddedTotalTimeInMinutesField.resx">
+      <DependentUpon>202102090606408_AddedTotalTimeInMinutesField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102180616025_AddedNewProperties.resx">
+      <DependentUpon>202102180616025_AddedNewProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190404400_ChangedTypeOfTotalTimeProperty.resx">
+      <DependentUpon>202102190404400_ChangedTypeOfTotalTimeProperty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -79,5 +228,54 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\Back.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\CalibratedWeight.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\Center.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\D1.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\D2.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\D3.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\D4.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\Front.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\Left.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\Right.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\CalibratedWeightNew.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\LoadCell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\TrimBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\TrimFront.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\TrimLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\TrimRight.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
