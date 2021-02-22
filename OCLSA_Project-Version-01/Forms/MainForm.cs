@@ -162,7 +162,7 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
-        private void GiveTareCommand()
+        private static void GiveTareCommand()
         {
             ShowMessage(@"Press TARE button to tare");
 
@@ -330,7 +330,7 @@ namespace OCLSA_Project_Version_01.Forms
                                 if (CheckToTrim())
                                 {
                                     ShowMessage(@"Corners are OK. No need to trim...!!! Remove the weight from Center");
-                                    ShowArmaturePosition(@"Center");
+                                    ShowArmaturePosition(@"NoWeight");
                                     await DisplayWaitingStatus(@"Remove the weight from Center", 10, false);
                                     break;
                                 }
@@ -512,7 +512,7 @@ namespace OCLSA_Project_Version_01.Forms
                     }
                 case nameof(MetalCategory.Steel):
                     {
-                        if (MinimumFsoReading < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
+                        if (MinimumFsoReadingFinal < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
                             ResistorsToAdd = 1;
 
                         if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFso)
@@ -852,7 +852,7 @@ namespace OCLSA_Project_Version_01.Forms
             GetDisplaySaveCenterReadings(tbCenter);
 
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
-            ShowArmaturePosition(@"Center");
+            ShowArmaturePosition(@"NoWeight");
             await DisplayWaitingStatus(@"Remove the weight from Center", 5, true);
 
             var trimmedCenterReading = lblReading.Text;
@@ -895,6 +895,7 @@ namespace OCLSA_Project_Version_01.Forms
             GetDisplaySaveCenterReadings(tbInitialCenterReading);
 
             ShowMessage(@"Please remove the weight");
+            ShowArmaturePosition(@"NoWeight");
             await DisplayWaitingStatus(@"Please remove the weight", 5, true);
 
             if (CheckToTrim())
@@ -1201,7 +1202,7 @@ namespace OCLSA_Project_Version_01.Forms
                     break;
 
                 case "Front":
-                    pbPositions.Image = Properties.Resources.Front;
+                    pbPositions.Image = Properties.Resources.Front_New;
                     break;
 
                 case "D1":
@@ -1226,6 +1227,10 @@ namespace OCLSA_Project_Version_01.Forms
 
                 case "FinalCenter":
                     pbPositions.Image = Properties.Resources.CalibratedWeight;
+                    break;
+
+                case "NoWeight":
+                    pbPositions.Image = Properties.Resources.NoWeight;
                     break;
             }
         }

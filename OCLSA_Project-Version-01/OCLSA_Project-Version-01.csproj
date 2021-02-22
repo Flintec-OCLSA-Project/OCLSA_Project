@@ -276,6 +276,11 @@
   <ItemGroup>
     <None Include="Resources\Pictures\TrimRight.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Pictures\Front New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\NoWeight.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

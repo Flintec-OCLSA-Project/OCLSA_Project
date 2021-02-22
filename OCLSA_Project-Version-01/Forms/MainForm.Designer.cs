@@ -76,9 +76,13 @@
             this.tbBridgeUnbalance = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel11 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pbPositions = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.aeroLinkLabel29 = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel30 = new AeroSuite.Controls.AeroLinkLabel();
+            this.lblMaximumFSOFinal = new AeroSuite.Controls.AeroLinkLabel();
+            this.lblMinimumFSOFinal = new AeroSuite.Controls.AeroLinkLabel();
+            this.aeroLinkLabel37 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel36 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel35 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel34 = new AeroSuite.Controls.AeroLinkLabel();
@@ -119,7 +123,6 @@
             this.lblLocation = new System.Windows.Forms.Label();
             this.lblStation = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pbImage = new System.Windows.Forms.PictureBox();
             this.lblReading = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblStable = new System.Windows.Forms.Label();
@@ -129,25 +132,22 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
-            this.aeroLinkLabel29 = new AeroSuite.Controls.AeroLinkLabel();
-            this.aeroLinkLabel30 = new AeroSuite.Controls.AeroLinkLabel();
-            this.lblMaximumFSOFinal = new AeroSuite.Controls.AeroLinkLabel();
-            this.lblMinimumFSOFinal = new AeroSuite.Controls.AeroLinkLabel();
-            this.aeroLinkLabel37 = new AeroSuite.Controls.AeroLinkLabel();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.pbPositions = new System.Windows.Forms.PictureBox();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPositions)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPositions)).BeginInit();
             this.SuspendLayout();
             // 
             // initialTimer
@@ -582,15 +582,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graphical Display";
             // 
-            // pbPositions
-            // 
-            this.pbPositions.Location = new System.Drawing.Point(6, 18);
-            this.pbPositions.Name = "pbPositions";
-            this.pbPositions.Size = new System.Drawing.Size(401, 245);
-            this.pbPositions.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbPositions.TabIndex = 0;
-            this.pbPositions.TabStop = false;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox5);
@@ -630,6 +621,56 @@
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Pass Fail Range";
+            // 
+            // aeroLinkLabel29
+            // 
+            this.aeroLinkLabel29.AutoSize = true;
+            this.aeroLinkLabel29.Location = new System.Drawing.Point(72, 104);
+            this.aeroLinkLabel29.Name = "aeroLinkLabel29";
+            this.aeroLinkLabel29.Size = new System.Drawing.Size(26, 17);
+            this.aeroLinkLabel29.TabIndex = 31;
+            this.aeroLinkLabel29.TabStop = true;
+            this.aeroLinkLabel29.Text = "<=";
+            // 
+            // aeroLinkLabel30
+            // 
+            this.aeroLinkLabel30.AutoSize = true;
+            this.aeroLinkLabel30.Location = new System.Drawing.Point(192, 104);
+            this.aeroLinkLabel30.Name = "aeroLinkLabel30";
+            this.aeroLinkLabel30.Size = new System.Drawing.Size(26, 17);
+            this.aeroLinkLabel30.TabIndex = 30;
+            this.aeroLinkLabel30.TabStop = true;
+            this.aeroLinkLabel30.Text = "<=";
+            // 
+            // lblMaximumFSOFinal
+            // 
+            this.lblMaximumFSOFinal.AutoSize = true;
+            this.lblMaximumFSOFinal.Location = new System.Drawing.Point(228, 104);
+            this.lblMaximumFSOFinal.Name = "lblMaximumFSOFinal";
+            this.lblMaximumFSOFinal.Size = new System.Drawing.Size(15, 17);
+            this.lblMaximumFSOFinal.TabIndex = 29;
+            this.lblMaximumFSOFinal.TabStop = true;
+            this.lblMaximumFSOFinal.Text = "0";
+            // 
+            // lblMinimumFSOFinal
+            // 
+            this.lblMinimumFSOFinal.AutoSize = true;
+            this.lblMinimumFSOFinal.Location = new System.Drawing.Point(16, 104);
+            this.lblMinimumFSOFinal.Name = "lblMinimumFSOFinal";
+            this.lblMinimumFSOFinal.Size = new System.Drawing.Size(15, 17);
+            this.lblMinimumFSOFinal.TabIndex = 28;
+            this.lblMinimumFSOFinal.TabStop = true;
+            this.lblMinimumFSOFinal.Text = "0";
+            // 
+            // aeroLinkLabel37
+            // 
+            this.aeroLinkLabel37.AutoSize = true;
+            this.aeroLinkLabel37.Location = new System.Drawing.Point(123, 104);
+            this.aeroLinkLabel37.Name = "aeroLinkLabel37";
+            this.aeroLinkLabel37.Size = new System.Drawing.Size(56, 17);
+            this.aeroLinkLabel37.TabIndex = 27;
+            this.aeroLinkLabel37.TabStop = true;
+            this.aeroLinkLabel37.Text = "FSO      ";
             // 
             // aeroLinkLabel36
             // 
@@ -1050,18 +1091,6 @@
             this.panel2.Size = new System.Drawing.Size(264, 100);
             this.panel2.TabIndex = 3;
             // 
-            // pbImage
-            // 
-            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
-            this.pbImage.Location = new System.Drawing.Point(166, 0);
-            this.pbImage.MaximumSize = new System.Drawing.Size(98, 100);
-            this.pbImage.MinimumSize = new System.Drawing.Size(98, 100);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(98, 100);
-            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbImage.TabIndex = 0;
-            this.pbImage.TabStop = false;
-            // 
             // lblReading
             // 
             this.lblReading.AutoSize = true;
@@ -1143,55 +1172,26 @@
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
             // 
-            // aeroLinkLabel29
+            // pbImage
             // 
-            this.aeroLinkLabel29.AutoSize = true;
-            this.aeroLinkLabel29.Location = new System.Drawing.Point(72, 104);
-            this.aeroLinkLabel29.Name = "aeroLinkLabel29";
-            this.aeroLinkLabel29.Size = new System.Drawing.Size(26, 17);
-            this.aeroLinkLabel29.TabIndex = 31;
-            this.aeroLinkLabel29.TabStop = true;
-            this.aeroLinkLabel29.Text = "<=";
+            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
+            this.pbImage.Location = new System.Drawing.Point(166, 0);
+            this.pbImage.MaximumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.MinimumSize = new System.Drawing.Size(98, 100);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(98, 100);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 0;
+            this.pbImage.TabStop = false;
             // 
-            // aeroLinkLabel30
+            // pbPositions
             // 
-            this.aeroLinkLabel30.AutoSize = true;
-            this.aeroLinkLabel30.Location = new System.Drawing.Point(192, 104);
-            this.aeroLinkLabel30.Name = "aeroLinkLabel30";
-            this.aeroLinkLabel30.Size = new System.Drawing.Size(26, 17);
-            this.aeroLinkLabel30.TabIndex = 30;
-            this.aeroLinkLabel30.TabStop = true;
-            this.aeroLinkLabel30.Text = "<=";
-            // 
-            // lblMaximumFSOFinal
-            // 
-            this.lblMaximumFSOFinal.AutoSize = true;
-            this.lblMaximumFSOFinal.Location = new System.Drawing.Point(228, 104);
-            this.lblMaximumFSOFinal.Name = "lblMaximumFSOFinal";
-            this.lblMaximumFSOFinal.Size = new System.Drawing.Size(15, 17);
-            this.lblMaximumFSOFinal.TabIndex = 29;
-            this.lblMaximumFSOFinal.TabStop = true;
-            this.lblMaximumFSOFinal.Text = "0";
-            // 
-            // lblMinimumFSOFinal
-            // 
-            this.lblMinimumFSOFinal.AutoSize = true;
-            this.lblMinimumFSOFinal.Location = new System.Drawing.Point(16, 104);
-            this.lblMinimumFSOFinal.Name = "lblMinimumFSOFinal";
-            this.lblMinimumFSOFinal.Size = new System.Drawing.Size(15, 17);
-            this.lblMinimumFSOFinal.TabIndex = 28;
-            this.lblMinimumFSOFinal.TabStop = true;
-            this.lblMinimumFSOFinal.Text = "0";
-            // 
-            // aeroLinkLabel37
-            // 
-            this.aeroLinkLabel37.AutoSize = true;
-            this.aeroLinkLabel37.Location = new System.Drawing.Point(123, 104);
-            this.aeroLinkLabel37.Name = "aeroLinkLabel37";
-            this.aeroLinkLabel37.Size = new System.Drawing.Size(56, 17);
-            this.aeroLinkLabel37.TabIndex = 27;
-            this.aeroLinkLabel37.TabStop = true;
-            this.aeroLinkLabel37.Text = "FSO      ";
+            this.pbPositions.Location = new System.Drawing.Point(6, 18);
+            this.pbPositions.Name = "pbPositions";
+            this.pbPositions.Size = new System.Drawing.Size(401, 245);
+            this.pbPositions.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPositions.TabIndex = 0;
+            this.pbPositions.TabStop = false;
             // 
             // MainForm
             // 
@@ -1216,7 +1216,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trimDataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPositions)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1229,9 +1228,10 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPositions)).EndInit();
             this.ResumeLayout(false);
 
         }
