@@ -162,6 +162,13 @@ namespace OCLSA_Project_Version_01.Forms
             }
         }
 
+        private void GiveTareCommand()
+        {
+            ShowMessage(@"Press TARE button to tare");
+
+            //Todo - Tare command
+        }
+
         private void tbSerialNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != Convert.ToChar(Keys.Return)) return;
@@ -251,8 +258,7 @@ namespace OCLSA_Project_Version_01.Forms
                 return;
             }
 
-            ShowMessage(@"Press TARE button to tare");
-            //WriteCommand("1");
+            GiveTareCommand();
 
             var currentReading = Math.Abs(Convert.ToDouble(lblReading.Text));
 
@@ -282,8 +288,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             tbInitialFSO.Text = initialFso;
 
-            ShowMessage(@"Press TARE button to tare");
-            //WriteCommand("1");
+            GiveTareCommand();
 
             ShowMessage(@"Move weight to Left Corner");
             ShowArmaturePosition(@"Left");
@@ -296,8 +301,7 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Move weight from Left Corner to Center", 10, false);
 
-            ShowMessage(@"Press TARE button to tare");
-            //WriteCommand("1");
+            GiveTareCommand();
 
             ShowMessage(@"Remove weight from Center & keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -579,8 +583,7 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Keep weight on the Center", 5, true);
 
-            ShowMessage(@"Press TARE button to tare");
-            //WriteCommand("1");
+            GiveTareCommand();
 
             ShowMessage(@"Remove the weight and keep on Left Corner");
             ShowArmaturePosition(@"Left");
@@ -600,8 +603,6 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
 
-            //ShowMessage(@"Press TARE button to tare");
-            //WriteCommand("1");
             GetDisplaySaveCenterReadings(tbCenter);
         }
 
