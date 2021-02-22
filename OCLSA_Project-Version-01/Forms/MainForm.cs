@@ -242,6 +242,8 @@ namespace OCLSA_Project_Version_01.Forms
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
+            btnStart.Enabled = false;
+
             if (CheckBridgeUnbalance())
             {
                 tbStatus.Text = Status.Rejected.ToString();
@@ -407,6 +409,8 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            btnStop.Enabled = false;
+
             var result = ResultMessage.Result(@"Do you want to stop the process?", @"Choose option");
 
             if (result == DialogResult.No) return;
@@ -753,8 +757,6 @@ namespace OCLSA_Project_Version_01.Forms
         {
             tbSerialNumber.ReadOnly = false;
             ClearAllInputsAndOutputs();
-            btnStart.Enabled = false;
-            btnStart.Enabled = false;
             ResistorsToAdd = 0;
             TrimCount = 0;
             FinalFso = 0.0;
