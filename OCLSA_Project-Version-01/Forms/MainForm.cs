@@ -45,9 +45,8 @@ namespace OCLSA_Project_Version_01.Forms
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
 
-        public double TrimmedFso { get; set; }
         public double CalculatedFso { get; set; }
-        public double FinalFso { get; set; }
+        public double Unbalance { get; set; }
 
         public Stopwatch ProcessDuration { get; set; }
 
@@ -321,7 +320,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                         if (CurrentStatus)
                         {
-                            for (var i = 0; i < 15; i++)
+                            for (var i = 0; i < 30; i++)
                             {
                                 var oneTrimCycleDuration = Stopwatch.StartNew();
 
@@ -329,6 +328,8 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 if (CheckToTrim())
                                 {
+                                    if (await CheckFinalCenter(tbCenter.Text)) break;
+
                                     ShowMessage(@"Corners are OK. No need to trim...!!! Remove the weight from Center");
                                     ShowArmaturePosition(@"NoWeight");
                                     await DisplayWaitingStatus(@"Remove the weight from Center", 10, false);
@@ -349,7 +350,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 ClearDisplayedCornerReadings();
 
-                                if (i <= 10) continue;
+                                if (i <= 15) continue;
 
                                 tbTrimmedCyclesCount.Text = TrimCount.ToString();
                                 _stopTrimming = true;
@@ -366,12 +367,29 @@ namespace OCLSA_Project_Version_01.Forms
 
                             tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
-                            if (await CheckFinalCenter(tbCenter.Text)) return;
-
                             ClearLists();
                             ClearDisplayedCornerReadings();
 
                             await CheckDisplayAllFinalCorners();
+
+                            await Task.Delay(TimeSpan.FromSeconds(2));
+                            var resultMessage = ResultMessage.Result("Want to test Final FSO with calibrated weight? " +
+                                                                     "Press YES to continue and NO to exit.", "Choose Option");
+
+                            if (resultMessage == DialogResult.No)
+                            {
+                                SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
+
+                                ProcessDuration.Stop();
+                                tbTotalTime.Text = DisplayTotalTime();
+                                EndingTime = DateTime.Now;
+
+                                SaveFinalDataToDb();
+
+                                ShowMessage(@"Process is completed");
+                                ResetMainForm();
+                                return;
+                            }
 
                             if (!IsCalculatedFsoInRange())
                             {
@@ -383,16 +401,12 @@ namespace OCLSA_Project_Version_01.Forms
                             SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                             ProcessDuration.Stop();
-
-                            DisplayFinalFso();
                             tbTotalTime.Text = DisplayTotalTime();
-
                             EndingTime = DateTime.Now;
 
                             SaveFinalDataToDb();
 
                             ShowMessage(@"Process is completed. Press OK to trim a new cell.");
-
                             ResetMainForm();
                         }
 
@@ -419,12 +433,15 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (result == DialogResult.No) return;
 
-            Application.ExitThread();
+            Application.Exit();
         }
 
         private async Task<bool> CheckFinalCenter(string centerReading)
         {
             if (Math.Abs(Convert.ToDouble(centerReading)) < MaximumCenterReading) return false;
+
+            _stopTrimming = true;
+            tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
             tbStatus.Text = Status.Rejected.ToString();
             await StopProcessAndExit(@"Load Cell is rejected due to High Zero...!!!", Status.Rejected,
@@ -598,7 +615,6 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Rotate the armature to Left position", 5, true);
 
-            await Task.Delay(TimeSpan.FromSeconds(2));
             ShowMessage(@"Remove the weight and keep on Center");
             ShowArmaturePosition(@"Center");
             await DisplayWaitingStatus(@"Remove the weight and keep on Center", 5, true);
@@ -636,7 +652,6 @@ namespace OCLSA_Project_Version_01.Forms
 
             EndingTime = DateTime.Now;
             ProcessDuration.Stop();
-
             tbTotalTime.Text = DisplayTotalTime();
 
             SaveFinalDataToDb();
@@ -719,9 +734,8 @@ namespace OCLSA_Project_Version_01.Forms
                     FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text)
                         ? 0d
                         : Convert.ToDouble(tbD4Reading.Text),
-                    TrimmedFso = TrimmedFso,
-                    FactoredFso = CalculatedFso,
-                    FinalFso = FinalFso,
+                    Unbalance = Unbalance,
+                    FinalFso = CalculatedFso,
                     Status = LoadCellStatus,
                     RejectCriteria = LoadCellRejectCriteria,
                     TrimCount = TrimCount,
@@ -748,11 +762,11 @@ namespace OCLSA_Project_Version_01.Forms
             return $@"{processDuration.Minutes:D2} : {processDuration.Seconds:D2}";
         }
 
-        private void DisplayFinalFso()
+        /*private void DisplayFinalFso()
         {
             FinalFso = CalculatedFso;
-            tbFinalFSO.Text = Math.Round(FinalFso, 5).ToString(CultureInfo.CurrentCulture);
-        }
+            tbUnbalance.Text = Math.Round(FinalFso, 5).ToString(CultureInfo.CurrentCulture);
+        }*/
 
         private void ResetMainForm()
         {
@@ -760,14 +774,12 @@ namespace OCLSA_Project_Version_01.Forms
             ClearAllInputsAndOutputs();
             ResistorsToAdd = 0;
             TrimCount = 0;
-            FinalFso = 0.0;
-            TrimmedFso = 0.0;
+            Unbalance = 0.0;
             CalculatedFso = 0.0;
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
             CurrentStatus = true;
-            trimDataGridView?.Rows.Clear();
 
             if (CenterReadings.Count != 0) CenterReadings.Clear();
             if (CornerReadings.Count != 0) CornerReadings.Clear();
@@ -779,7 +791,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var textBoxList = new List<TextBox>
             {
-                tbSerialNumber, tbBridgeUnbalance, tbInitialFSO, tbFinalFSO, tbTrimmedCyclesCount, tbTotalTime, tbStatus, tbInitialLeftCornerReading,
+                tbSerialNumber, tbBridgeUnbalance, tbInitialFSO, tbUnbalance, tbTrimmedCyclesCount, tbTotalTime, tbStatus, tbInitialLeftCornerReading,
                 tbInitialBackCornerReading, tbInitialRightCornerReading, tbInitialFrontCornerReading, tbInitialD1Reading, tbInitialD2Reading,
                 tbInitialD3Reading, tbInitialD4Reading, tbLeftCorner, tbFrontCorner, tbBackCorner, tbRightCorner, tbD1Reading, tbD2Reading, tbD3Reading,
                 tbD4Reading, tbCenter, tbInitialCenterReading
@@ -852,12 +864,17 @@ namespace OCLSA_Project_Version_01.Forms
             tbCenter.Text = lblReading.Text;
             GetDisplaySaveCenterReadings(tbCenter);
 
+            GiveTareCommand();
+
             ShowMessage(@"Remove the weight from Center. Trimming is completed...!!! Press OK to continue.");
             ShowArmaturePosition(@"NoWeight");
             await DisplayWaitingStatus(@"Remove the weight from Center", 5, true);
 
-            var trimmedCenterReading = lblReading.Text;
-            TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));
+            tbUnbalance.Text = lblReading.Text;
+            Unbalance = Convert.ToDouble(tbUnbalance.Text);
+
+            /*var trimmedCenterReading = lblReading.Text;
+            TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));*/
         }
 
         private void GetDisplaySaveCenterReadings(Control textBox)
@@ -903,8 +920,6 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 CurrentStatus = false;
 
-                tbTrimmedCyclesCount.Text = TrimCount.ToString();
-
                 if (await CheckFinalCenter(tbInitialCenterReading.Text)) return;
 
                 CornerReadings.Clear();
@@ -923,15 +938,12 @@ namespace OCLSA_Project_Version_01.Forms
 
                 ProcessDuration.Stop();
 
-                DisplayFinalFso();
                 tbTotalTime.Text = DisplayTotalTime();
-
                 EndingTime = DateTime.Now;
 
                 SaveFinalDataToDb();
 
                 ShowMessage(@"Process is completed. Press OK to trim a new cell.");
-
                 ResetMainForm();
             }
             else
@@ -1005,7 +1017,7 @@ namespace OCLSA_Project_Version_01.Forms
             var columns = from d in cornerList
                           select new
                           {
-                              Trim_Cycle = ++TrimCount,
+                              Cycle = ++TrimCount,
                               Left = d.LeftCorner,
                               Back = d.BackCorner,
                               Right = d.RightCorner,
