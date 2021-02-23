@@ -767,6 +767,7 @@ namespace OCLSA_Project_Version_01.Forms
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
             CurrentStatus = true;
+            trimDataGridView?.Rows.Clear();
 
             if (CenterReadings.Count != 0) CenterReadings.Clear();
             if (CornerReadings.Count != 0) CornerReadings.Clear();
@@ -792,7 +793,7 @@ namespace OCLSA_Project_Version_01.Forms
             var labelList = new List<Label>
             {
                 lblLeftCorner, lblBackCorner, lblRightCorner, lblFrontCorner, lblMaximumCenter, lblMaximumFSO,
-                lblMinimumFSO, lblMaximumUnbalance, lblMinimumUnbalance
+                lblMinimumFSO, lblMaximumUnbalance, lblMinimumUnbalance, lblMaximumFSOFinal, lblMinimumFSOFinal
             };
 
             foreach (var label in labelList)

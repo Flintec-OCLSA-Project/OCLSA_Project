@@ -35,8 +35,8 @@ namespace OCLSA_Project_Version_01.Forms
             this.tbMaximumCenter = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel4 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel5 = new AeroSuite.Controls.AeroLinkLabel();
-            this.tbMinimumFso = new WindowsFormsAero.TextBox();
-            this.tbMaximumFso = new WindowsFormsAero.TextBox();
+            this.tbMinimumFsoFinal = new WindowsFormsAero.TextBox();
+            this.tbMaximumFsoFinal = new WindowsFormsAero.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tbTestMode = new WindowsFormsAero.TextBox();
             this.aeroLinkLabel1 = new AeroSuite.Controls.AeroLinkLabel();
@@ -130,8 +130,8 @@ namespace OCLSA_Project_Version_01.Forms
             this.groupBox9.Controls.Add(this.tbMaximumCenter);
             this.groupBox9.Controls.Add(this.aeroLinkLabel4);
             this.groupBox9.Controls.Add(this.aeroLinkLabel5);
-            this.groupBox9.Controls.Add(this.tbMinimumFso);
-            this.groupBox9.Controls.Add(this.tbMaximumFso);
+            this.groupBox9.Controls.Add(this.tbMinimumFsoFinal);
+            this.groupBox9.Controls.Add(this.tbMaximumFsoFinal);
             this.groupBox9.Location = new System.Drawing.Point(20, 315);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(332, 155);
@@ -161,34 +161,34 @@ namespace OCLSA_Project_Version_01.Forms
             this.aeroLinkLabel4.AutoSize = true;
             this.aeroLinkLabel4.Location = new System.Drawing.Point(15, 74);
             this.aeroLinkLabel4.Name = "aeroLinkLabel4";
-            this.aeroLinkLabel4.Size = new System.Drawing.Size(85, 15);
+            this.aeroLinkLabel4.Size = new System.Drawing.Size(113, 15);
             this.aeroLinkLabel4.TabIndex = 22;
             this.aeroLinkLabel4.TabStop = true;
-            this.aeroLinkLabel4.Text = "Maximum FSO";
+            this.aeroLinkLabel4.Text = "Maximum FSO Final";
             // 
             // aeroLinkLabel5
             // 
             this.aeroLinkLabel5.AutoSize = true;
             this.aeroLinkLabel5.Location = new System.Drawing.Point(15, 39);
             this.aeroLinkLabel5.Name = "aeroLinkLabel5";
-            this.aeroLinkLabel5.Size = new System.Drawing.Size(83, 15);
+            this.aeroLinkLabel5.Size = new System.Drawing.Size(111, 15);
             this.aeroLinkLabel5.TabIndex = 23;
             this.aeroLinkLabel5.TabStop = true;
-            this.aeroLinkLabel5.Text = "Minimum FSO";
+            this.aeroLinkLabel5.Text = "Minimum FSO Final";
             // 
-            // tbMinimumFso
+            // tbMinimumFsoFinal
             // 
-            this.tbMinimumFso.Location = new System.Drawing.Point(179, 36);
-            this.tbMinimumFso.Name = "tbMinimumFso";
-            this.tbMinimumFso.Size = new System.Drawing.Size(123, 22);
-            this.tbMinimumFso.TabIndex = 24;
+            this.tbMinimumFsoFinal.Location = new System.Drawing.Point(179, 36);
+            this.tbMinimumFsoFinal.Name = "tbMinimumFsoFinal";
+            this.tbMinimumFsoFinal.Size = new System.Drawing.Size(123, 22);
+            this.tbMinimumFsoFinal.TabIndex = 24;
             // 
-            // tbMaximumFso
+            // tbMaximumFsoFinal
             // 
-            this.tbMaximumFso.Location = new System.Drawing.Point(179, 71);
-            this.tbMaximumFso.Name = "tbMaximumFso";
-            this.tbMaximumFso.Size = new System.Drawing.Size(123, 22);
-            this.tbMaximumFso.TabIndex = 25;
+            this.tbMaximumFsoFinal.Location = new System.Drawing.Point(179, 71);
+            this.tbMaximumFsoFinal.Name = "tbMaximumFsoFinal";
+            this.tbMaximumFsoFinal.Size = new System.Drawing.Size(123, 22);
+            this.tbMaximumFsoFinal.TabIndex = 25;
             // 
             // groupBox5
             // 
@@ -858,8 +858,8 @@ namespace OCLSA_Project_Version_01.Forms
         private WindowsFormsAero.TextBox tbMaximumCenter;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel4;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel5;
-        private WindowsFormsAero.TextBox tbMinimumFso;
-        private WindowsFormsAero.TextBox tbMaximumFso;
+        private WindowsFormsAero.TextBox tbMinimumFsoFinal;
+        private WindowsFormsAero.TextBox tbMaximumFsoFinal;
         private WindowsFormsAero.Button btnCancel;
         private WindowsFormsAero.Button btnSave;
         private System.Windows.Forms.Panel panel1;

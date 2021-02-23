@@ -136,8 +136,8 @@ namespace OCLSA_Project_Version_01.Forms
                 Convert.ToString(loadCellTypeInDb.LeftRightCornerDifference, CultureInfo.CurrentCulture);
             tbMinimumUnbalance.Text = Convert.ToString(loadCellTypeInDb.MinimumUnbalanceValue, CultureInfo.CurrentCulture);
             tbMaximumUnbalance.Text = Convert.ToString(loadCellTypeInDb.MaximumUnbalanceValue, CultureInfo.CurrentCulture);
-            tbMinimumFso.Text = Convert.ToString(loadCellTypeInDb.MinimumFsoValue, CultureInfo.CurrentCulture);
-            tbMaximumFso.Text = Convert.ToString(loadCellTypeInDb.MaximumFsoValue, CultureInfo.CurrentCulture);
+            tbMinimumFsoFinal.Text = Convert.ToString(loadCellTypeInDb.MinimumFsoValueFinal, CultureInfo.CurrentCulture);
+            tbMaximumFsoFinal.Text = Convert.ToString(loadCellTypeInDb.MaximumFsoValueFinal, CultureInfo.CurrentCulture);
             tbAppliedLoad.Text = Convert.ToString(loadCellTypeInDb.AppliedLoad, CultureInfo.CurrentCulture);
             tbFullLoad.Text = Convert.ToString(loadCellTypeInDb.Capacity, CultureInfo.CurrentCulture);
             tbFactor.Text = Convert.ToString(loadCellTypeInDb.Factor, CultureInfo.CurrentCulture);
@@ -227,12 +227,16 @@ namespace OCLSA_Project_Version_01.Forms
                     LeftRightCornerDifference = Convert.ToDouble(tbLeftRightCornerDifference.Text),
                     MinimumUnbalanceValue = Convert.ToDouble(tbMinimumUnbalance.Text),
                     MaximumUnbalanceValue = Convert.ToDouble(tbMaximumUnbalance.Text),
-                    MinimumFsoValue = Convert.ToDouble(tbMinimumFso.Text),
-                    MaximumFsoValue = Convert.ToDouble(tbMaximumFso.Text),
+                    MinimumFsoValueFinal = Convert.ToDouble(tbMinimumFsoFinal.Text),
+                    MaximumFsoValueFinal = Convert.ToDouble(tbMaximumFsoFinal.Text),
                     AppliedLoad = Convert.ToDouble(tbAppliedLoad.Text),
                     Capacity = Convert.ToDouble(tbFullLoad.Text),
                     Factor = Convert.ToDouble(tbFactor.Text),
-                    FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text)
+                    FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text),
+                    MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) *
+                                      (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text)),
+                    MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) *
+                                      (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text))
                 };
 
                 _context.Types.Add(loadCellType);
@@ -280,12 +284,16 @@ namespace OCLSA_Project_Version_01.Forms
             loadCellTypeExisting.LeftRightCornerDifference = Convert.ToDouble(tbLeftRightCornerDifference.Text);
             loadCellTypeExisting.MinimumUnbalanceValue = Convert.ToDouble(tbMinimumUnbalance.Text);
             loadCellTypeExisting.MaximumUnbalanceValue = Convert.ToDouble(tbMaximumUnbalance.Text);
-            loadCellTypeExisting.MinimumFsoValue = Convert.ToDouble(tbMinimumFso.Text);
-            loadCellTypeExisting.MaximumFsoValue = Convert.ToDouble(tbMaximumFso.Text);
+            loadCellTypeExisting.MinimumFsoValueFinal = Convert.ToDouble(tbMinimumFsoFinal.Text);
+            loadCellTypeExisting.MaximumFsoValueFinal = Convert.ToDouble(tbMaximumFsoFinal.Text);
             loadCellTypeExisting.AppliedLoad = Convert.ToDouble(tbAppliedLoad.Text);
             loadCellTypeExisting.Capacity = Convert.ToDouble(tbFullLoad.Text);
             loadCellTypeExisting.Factor = Convert.ToDouble(tbFactor.Text);
             loadCellTypeExisting.FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text);
+            loadCellTypeExisting.MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) *
+                                                   (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text));
+            loadCellTypeExisting.MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) *
+                                                   (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text));
 
             _context.SaveChanges();
         }
@@ -294,14 +302,14 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var textControlsWithOneCorner = new List<Control>
             {
-                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
                 tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
 
             var textControlsWithAllCorners = new List<Control>
             {
-                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
                 tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue,
                 tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue,
@@ -342,7 +350,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var inputsList = new List<Control>
             {
-                tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, btnSave,
                 tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
             };
@@ -373,7 +381,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var controls = new List<Control>
             {
-                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFso, tbMaximumFso,
+                tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, tbLeftCornerTrimValue,
                 tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue,
                 tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue, tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor,
