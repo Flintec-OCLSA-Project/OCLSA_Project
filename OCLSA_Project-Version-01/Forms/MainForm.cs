@@ -66,7 +66,7 @@ namespace OCLSA_Project_Version_01.Forms
 
         public bool CurrentStatus = true;
 
-        public bool Continue = false;
+        public bool Continue;
 
         public int NoOfTestRuns { get; set; }
 
@@ -186,7 +186,6 @@ namespace OCLSA_Project_Version_01.Forms
             ProcessDuration = Stopwatch.StartNew();
 
             var loadCell = CheckLoadCell();
-
             if (loadCell == null)
             {
                 ShowMessage(@"Load Cell is not found");
@@ -195,8 +194,6 @@ namespace OCLSA_Project_Version_01.Forms
             }
 
             var trimmedLoadCell = CheckTrimmedLoadCell();
-
-            //Todo - Direct user what to do when a serial number of trimmed cell is entered
             if (trimmedLoadCell != null)
             {
                 var result = ResultMessage.Result(@"Load Cell is tested before. Press YES to continue & NO to exit", @"Choose Option");
