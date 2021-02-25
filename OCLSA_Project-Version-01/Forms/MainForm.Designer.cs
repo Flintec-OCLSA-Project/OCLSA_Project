@@ -134,6 +134,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
+            this.lblNoOfTestRuns = new System.Windows.Forms.Label();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1139,7 +1140,7 @@
             this.lblStable.AutoSize = true;
             this.lblStable.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblStable.Location = new System.Drawing.Point(36, 69);
+            this.lblStable.Location = new System.Drawing.Point(35, 63);
             this.lblStable.Name = "lblStable";
             this.lblStable.Size = new System.Drawing.Size(0, 28);
             this.lblStable.TabIndex = 3;
@@ -1147,16 +1148,17 @@
             // lblWaiting
             // 
             this.lblWaiting.AutoSize = true;
-            this.lblWaiting.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWaiting.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWaiting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblWaiting.Location = new System.Drawing.Point(879, 21);
+            this.lblWaiting.Location = new System.Drawing.Point(862, 19);
             this.lblWaiting.Name = "lblWaiting";
-            this.lblWaiting.Size = new System.Drawing.Size(0, 28);
+            this.lblWaiting.Size = new System.Drawing.Size(0, 32);
             this.lblWaiting.TabIndex = 4;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel1.Controls.Add(this.lblNoOfTestRuns);
             this.panel1.Controls.Add(this.lblDisplayMessage);
             this.panel1.Controls.Add(this.lblWaiting);
             this.panel1.Controls.Add(this.lblStable);
@@ -1172,7 +1174,7 @@
             this.lblDisplayMessage.AutoSize = true;
             this.lblDisplayMessage.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDisplayMessage.ForeColor = System.Drawing.Color.Aqua;
-            this.lblDisplayMessage.Location = new System.Drawing.Point(484, 67);
+            this.lblDisplayMessage.Location = new System.Drawing.Point(470, 63);
             this.lblDisplayMessage.Name = "lblDisplayMessage";
             this.lblDisplayMessage.Size = new System.Drawing.Size(0, 28);
             this.lblDisplayMessage.TabIndex = 5;
@@ -1192,6 +1194,16 @@
             // 
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
+            // 
+            // lblNoOfTestRuns
+            // 
+            this.lblNoOfTestRuns.AutoSize = true;
+            this.lblNoOfTestRuns.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoOfTestRuns.ForeColor = System.Drawing.SystemColors.Info;
+            this.lblNoOfTestRuns.Location = new System.Drawing.Point(938, 61);
+            this.lblNoOfTestRuns.Name = "lblNoOfTestRuns";
+            this.lblNoOfTestRuns.Size = new System.Drawing.Size(0, 30);
+            this.lblNoOfTestRuns.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -1342,6 +1354,7 @@
         private AeroSuite.Controls.AeroLinkLabel lblMaximumFSOFinal;
         private AeroSuite.Controls.AeroLinkLabel lblMinimumFSOFinal;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel37;
+        private System.Windows.Forms.Label lblNoOfTestRuns;
     }
 }
 

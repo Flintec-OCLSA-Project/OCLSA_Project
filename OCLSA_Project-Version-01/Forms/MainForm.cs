@@ -208,10 +208,12 @@ namespace OCLSA_Project_Version_01.Forms
                 }
 
                 NoOfTestRuns = trimmedLoadCell.NoOfTestRuns + 1;
+                lblNoOfTestRuns.Text = $@"Test Run/s: {NoOfTestRuns}";
             }
             else
             {
                 NoOfTestRuns = 1;
+                lblNoOfTestRuns.Text = $@"Test Run/s: {NoOfTestRuns}";
             }
 
             if (Continue) return;
@@ -885,6 +887,8 @@ namespace OCLSA_Project_Version_01.Forms
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
             CurrentStatus = true;
+            NoOfTestRuns = 0;
+            lblNoOfTestRuns.Text = "";
 
             if (CenterReadings.Count != 0) CenterReadings.Clear();
             if (CornerReadings.Count != 0) CornerReadings.Clear();
