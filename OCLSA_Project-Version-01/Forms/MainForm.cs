@@ -196,7 +196,7 @@ namespace OCLSA_Project_Version_01.Forms
             var trimmedLoadCell = CheckTrimmedLoadCell();
             if (trimmedLoadCell != null)
             {
-                var result = ResultMessage.Result(@"Load Cell is tested before. Press YES to continue & NO to exit", @"Choose Option");
+                var result = ResultMessage.Result(@"Load Cell is tested before. Press YES to test again & NO to exit", @"Choose Option");
 
                 if (result == DialogResult.No)
                 {
@@ -227,6 +227,8 @@ namespace OCLSA_Project_Version_01.Forms
 
             btnStart.Enabled = true;
             btnStop.Enabled = true;
+
+            pbPositions.Focus();
         }
 
         private void TenSecondsCounter_Tick(object sender, EventArgs e)
@@ -407,13 +409,13 @@ namespace OCLSA_Project_Version_01.Forms
                                 return;
                             }
 
-                            if (!IsCalculatedFsoInRange())
+                            if (!await IsCalculatedFsoInRange())
                             {
                                 await AddResistorsToCorrectFso();
                                 return;
                             }
 
-                            ShowMessage(@"Load Cell is Passed");
+                            ShowMessage(@"FSO is OK. Load Cell is Passed");
                             SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                             ProcessDuration.Stop();
@@ -933,12 +935,13 @@ namespace OCLSA_Project_Version_01.Forms
 
         }
 
-        private bool IsCalculatedFsoInRange()
+        private async Task<bool> IsCalculatedFsoInRange()
         {
             ShowMessage(@"Press TARE button to tare");
 
             ShowMessage(@"Keep the calibrated weight on the Center");
             ShowArmaturePosition("FinalCenter");
+            await DisplayWaitingStatus(@"Keep the calibrated weight on the Center", 5, true);
 
             var calibratedCenterReading = lblReading.Text;
             CalculateFso(calibratedCenterReading);
@@ -1048,13 +1051,13 @@ namespace OCLSA_Project_Version_01.Forms
 
                 await CheckDisplayAllFinalCorners();
 
-                if (!IsCalculatedFsoInRange())
+                if (!await IsCalculatedFsoInRange())
                 {
                     await AddResistorsToCorrectFso();
                     return;
                 }
 
-                ShowMessage(@"Load Cell is Passed");
+                ShowMessage(@"FSO is OK. Load Cell is Passed");
                 SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                 ProcessDuration.Stop();
@@ -1265,7 +1268,9 @@ namespace OCLSA_Project_Version_01.Forms
 
         private static void ShowMessage(string message)
         {
-            MessageBox.Show(message);
+            const string caption = "Choose Option";
+            const MessageBoxIcon icon = MessageBoxIcon.Information;
+            MessageBox.Show(message, caption, (MessageBoxButtons)icon);
         }
 
         private async Task GetCornerReadings(string corner, Control textBox)
