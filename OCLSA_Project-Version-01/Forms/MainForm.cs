@@ -391,7 +391,7 @@ namespace OCLSA_Project_Version_01.Forms
                             GetDisplayUnbalance();
 
                             await Task.Delay(TimeSpan.FromSeconds(2));
-                            var resultMessage = ResultMessage.Result("Want to test Final FSO with calibrated weight? " +
+                            var resultMessage = ResultMessage.Result("Want to test FSO with calibrated weight? " +
                                                                      "Press YES to continue and NO to exit.", "Choose Option");
 
                             if (resultMessage == DialogResult.No)
@@ -766,7 +766,7 @@ namespace OCLSA_Project_Version_01.Forms
                     Operator = lblOperatorName.Text,
                     OperatorId = Convert.ToInt32(lblOperatorId.Text),
                     NoOfResistors = ResistorsToAdd,
-                    IsFsoCorrectionAvailable = IsFsoCorrectionAvailable ? "YES" : "NO",
+                    IsFsoCorrectionAvailable = IsFsoCorrectionAvailable,
                     TotalTime = totalTime,
                     NoOfTestRuns = NoOfTestRuns
                 };
@@ -855,7 +855,7 @@ namespace OCLSA_Project_Version_01.Forms
             trimmedCellInDb.Operator = lblOperatorName.Text;
             trimmedCellInDb.OperatorId = Convert.ToInt32(lblOperatorId.Text);
             trimmedCellInDb.NoOfResistors = ResistorsToAdd;
-            trimmedCellInDb.IsFsoCorrectionAvailable = IsFsoCorrectionAvailable ? "YES" : "NO";
+            trimmedCellInDb.IsFsoCorrectionAvailable = IsFsoCorrectionAvailable;
             trimmedCellInDb.TotalTime = totalTime;
             trimmedCellInDb.NoOfTestRuns = NoOfTestRuns;
 
@@ -888,6 +888,7 @@ namespace OCLSA_Project_Version_01.Forms
             CurrentStatus = true;
             NoOfTestRuns = 0;
             lblNoOfTestRuns.Text = "";
+            tbSerialNumber.Focus();
 
             if (CenterReadings.Count != 0) CenterReadings.Clear();
             if (CornerReadings.Count != 0) CornerReadings.Clear();
@@ -937,8 +938,6 @@ namespace OCLSA_Project_Version_01.Forms
 
         private async Task<bool> IsCalculatedFsoInRange()
         {
-            ShowMessage(@"Press TARE button to tare");
-
             ShowMessage(@"Keep the calibrated weight on the Center");
             ShowArmaturePosition("FinalCenter");
             await DisplayWaitingStatus(@"Keep the calibrated weight on the Center", 5, true);
@@ -959,11 +958,13 @@ namespace OCLSA_Project_Version_01.Forms
             var capacity = checkLoadCell.Type.Capacity;
             var factor = checkLoadCell.Type.Factor;
 
-            CalculatedFso = Math.Round((Convert.ToDouble(output) * capacity * factor) / appliedLoad, 5);
+            CalculatedFso = Math.Round((Math.Abs(Convert.ToDouble(output) * capacity * factor)) / appliedLoad, 5);
         }
 
         private async Task CheckDisplayAllFinalCorners()
         {
+            GiveTareCommand();
+
             ShowMessage(@"Move weight to the Left Corner");
             ShowArmaturePosition(@"Left");
             await DisplayWaitingStatus(@"Move weight to the Left Corner", 5, true);

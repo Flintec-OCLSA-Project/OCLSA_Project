@@ -98,7 +98,7 @@ namespace OCLSA_Project_Version_01.Models
         public int NoOfResistors { get; set; }
 
         [Required]
-        public string IsFsoCorrectionAvailable { get; set; }
+        public bool IsFsoCorrectionAvailable { get; set; }
 
         [Required]
         public string TotalTime { get; set; }
