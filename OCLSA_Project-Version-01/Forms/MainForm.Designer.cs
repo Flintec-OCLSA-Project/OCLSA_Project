@@ -1150,7 +1150,7 @@
             this.lblWaiting.AutoSize = true;
             this.lblWaiting.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWaiting.ForeColor = System.Drawing.Color.Gold;
-            this.lblWaiting.Location = new System.Drawing.Point(875, 19);
+            this.lblWaiting.Location = new System.Drawing.Point(890, 19);
             this.lblWaiting.Name = "lblWaiting";
             this.lblWaiting.Size = new System.Drawing.Size(0, 32);
             this.lblWaiting.TabIndex = 4;

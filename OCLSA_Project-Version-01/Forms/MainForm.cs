@@ -259,7 +259,7 @@ namespace OCLSA_Project_Version_01.Forms
             }
             else
             {
-                lblWaiting.Text = $@"Wait 0{_fiveSecondsCount} Seconds";
+                lblWaiting.Text = $@"Wait {_fiveSecondsCount} Seconds";
             }
         }
 
@@ -367,7 +367,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 ClearDisplayedCornerReadings();
 
-                                if (i <= 15) continue;
+                                if (i <= 2) continue;
 
                                 tbTrimmedCyclesCount.Text = TrimCount.ToString();
                                 _stopTrimming = true;
