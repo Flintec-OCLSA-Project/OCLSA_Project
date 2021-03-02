@@ -259,7 +259,7 @@ namespace OCLSA_Project_Version_01.Forms
             }
             else
             {
-                lblWaiting.Text = $@"Wait {_fiveSecondsCount} Seconds";
+                lblWaiting.Text = $@"Wait 0{_fiveSecondsCount} Seconds";
             }
         }
 
@@ -1271,7 +1271,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             const string caption = "Choose Option";
             const MessageBoxIcon icon = MessageBoxIcon.Information;
-            MessageBox.Show(message, caption, (MessageBoxButtons)icon);
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, icon);
         }
 
         private async Task GetCornerReadings(string corner, Control textBox)

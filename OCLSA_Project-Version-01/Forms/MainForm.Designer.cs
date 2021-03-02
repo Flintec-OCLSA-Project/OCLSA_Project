@@ -130,11 +130,11 @@
             this.lblStable = new System.Windows.Forms.Label();
             this.lblWaiting = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblNoOfTestRuns = new System.Windows.Forms.Label();
             this.lblDisplayMessage = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
-            this.lblNoOfTestRuns = new System.Windows.Forms.Label();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1149,8 +1149,8 @@
             // 
             this.lblWaiting.AutoSize = true;
             this.lblWaiting.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWaiting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblWaiting.Location = new System.Drawing.Point(862, 19);
+            this.lblWaiting.ForeColor = System.Drawing.Color.Gold;
+            this.lblWaiting.Location = new System.Drawing.Point(875, 19);
             this.lblWaiting.Name = "lblWaiting";
             this.lblWaiting.Size = new System.Drawing.Size(0, 32);
             this.lblWaiting.TabIndex = 4;
@@ -1166,8 +1166,18 @@
             this.panel1.Controls.Add(this.lblReading);
             this.panel1.Location = new System.Drawing.Point(12, 76);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1078, 100);
+            this.panel1.Size = new System.Drawing.Size(1088, 100);
             this.panel1.TabIndex = 2;
+            // 
+            // lblNoOfTestRuns
+            // 
+            this.lblNoOfTestRuns.AutoSize = true;
+            this.lblNoOfTestRuns.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoOfTestRuns.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lblNoOfTestRuns.Location = new System.Drawing.Point(938, 61);
+            this.lblNoOfTestRuns.Name = "lblNoOfTestRuns";
+            this.lblNoOfTestRuns.Size = new System.Drawing.Size(0, 30);
+            this.lblNoOfTestRuns.TabIndex = 6;
             // 
             // lblDisplayMessage
             // 
@@ -1194,16 +1204,6 @@
             // 
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
-            // 
-            // lblNoOfTestRuns
-            // 
-            this.lblNoOfTestRuns.AutoSize = true;
-            this.lblNoOfTestRuns.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoOfTestRuns.ForeColor = System.Drawing.SystemColors.Info;
-            this.lblNoOfTestRuns.Location = new System.Drawing.Point(938, 61);
-            this.lblNoOfTestRuns.Name = "lblNoOfTestRuns";
-            this.lblNoOfTestRuns.Size = new System.Drawing.Size(0, 30);
-            this.lblNoOfTestRuns.TabIndex = 6;
             // 
             // MainForm
             // 
