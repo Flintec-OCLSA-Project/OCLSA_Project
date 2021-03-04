@@ -64,9 +64,10 @@ namespace OCLSA_Project_Version_01.Forms
 
         public bool IsFsoCorrectionAvailable { get; set; }
 
-        public bool CurrentStatus = true;
+        public bool CurrentStatus;
 
         public bool Continue;
+        private bool _continueTrim;
 
         public int NoOfTestRuns { get; set; }
 
@@ -116,7 +117,6 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 ShowMessage(exception.Message);
             }
-
         }
 
         private void initialTimer_Tick(object sender, EventArgs e)
@@ -347,10 +347,13 @@ namespace OCLSA_Project_Version_01.Forms
                                 {
                                     if (await CheckFinalCenter(tbCenter.Text)) break;
 
-                                    ShowMessage(@"Corners are OK. No need to trim...!!! Remove the weight from Center");
-                                    ShowArmaturePosition(@"NoWeight");
-                                    await DisplayWaitingStatus(@"Remove the weight from Center", 10, false);
-                                    break;
+                                    if (_continueTrim)
+                                        ShowMessage(@"Press OK to continue trimming");
+                                    else
+                                    {
+                                        ShowMessage(@"Corners are OK. No need to trim ! Press OK to continue final corner check");
+                                        break;
+                                    }
                                 }
 
                                 await RemoveWeightAndShowTrimDetails();
@@ -466,10 +469,19 @@ namespace OCLSA_Project_Version_01.Forms
         {
             if (Math.Abs(Convert.ToDouble(centerReading)) < MaximumCenterReading) return false;
 
+            //Giving user to choose the option 
+            var result = ResultMessage.Result(@"HIGH ZERO ! Do you want to continue?", @"Choose option");
+            if (result == DialogResult.Yes)
+            {
+                _continueTrim = true;
+                return false;
+            }
+
             _stopTrimming = true;
             tbTrimmedCyclesCount.Text = TrimCount.ToString();
 
             tbStatus.Text = Status.Rejected.ToString();
+
             await StopProcessAndExit(@"Load Cell is rejected due to High Zero...!!!", Status.Rejected,
                 RejectionCriteria.HighZero);
             return true;
@@ -885,10 +897,10 @@ namespace OCLSA_Project_Version_01.Forms
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
-            CurrentStatus = true;
             NoOfTestRuns = 0;
             lblNoOfTestRuns.Text = "";
             tbSerialNumber.Focus();
+            _continueTrim = false;
 
             if (CenterReadings.Count != 0) CenterReadings.Clear();
             if (CornerReadings.Count != 0) CornerReadings.Clear();
@@ -1037,20 +1049,48 @@ namespace OCLSA_Project_Version_01.Forms
             tbInitialCenterReading.Text = lblReading.Text;
             GetDisplaySaveCenterReadings(tbInitialCenterReading);
 
-            ShowMessage(@"Please remove the weight");
-            ShowArmaturePosition(@"NoWeight");
-            await DisplayWaitingStatus(@"Please remove the weight", 5, true);
-
             if (CheckToTrim())
             {
+                if (await CheckFinalCenter(tbInitialCenterReading.Text))
+                {
+                    CurrentStatus = false;
+                    return;
+                }
+
+                if (_continueTrim)
+                {
+                    ShowMessage(@"Press OK to continue trimming");
+                    return;
+                }
+
                 CurrentStatus = false;
 
-                if (await CheckFinalCenter(tbInitialCenterReading.Text)) return;
+                ShowMessage(@"Corners are OK. No need to trim ! Press OK to continue final corner check.");
 
-                CornerReadings.Clear();
-                CenterReadings.Clear();
+                ClearLists();
+                ClearDisplayedCornerReadings();
 
                 await CheckDisplayAllFinalCorners();
+                GetDisplayUnbalance();
+
+                await Task.Delay(TimeSpan.FromSeconds(2));
+                var resultMessage = ResultMessage.Result("Want to correct FSO with calibrated weight by adding resistors? " +
+                                                         "Press YES to continue and NO to exit.", "Choose Option");
+
+                if (resultMessage == DialogResult.No)
+                {
+                    SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
+
+                    ProcessDuration.Stop();
+                    tbTotalTime.Text = DisplayTotalTime();
+                    EndingTime = DateTime.Now;
+
+                    SaveToDb();
+
+                    ShowMessage(@"Process is completed");
+                    ResetMainForm();
+                    return;
+                }
 
                 if (!await IsCalculatedFsoInRange())
                 {
@@ -1062,7 +1102,6 @@ namespace OCLSA_Project_Version_01.Forms
                 SetStatusAndRejectCriteria(Status.Passed, RejectionCriteria.No);
 
                 ProcessDuration.Stop();
-
                 tbTotalTime.Text = DisplayTotalTime();
                 EndingTime = DateTime.Now;
 
