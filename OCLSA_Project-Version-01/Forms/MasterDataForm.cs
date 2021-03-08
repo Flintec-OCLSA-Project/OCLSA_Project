@@ -142,6 +142,7 @@ namespace OCLSA_Project_Version_01.Forms
             tbFullLoad.Text = Convert.ToString(loadCellTypeInDb.Capacity, CultureInfo.CurrentCulture);
             tbFactor.Text = Convert.ToString(loadCellTypeInDb.Factor, CultureInfo.CurrentCulture);
             tbFsoCorrectionValue.Text = Convert.ToString(loadCellTypeInDb.FsoCorrectionValue, CultureInfo.CurrentCulture);
+            tbFsoFactor.Text = Convert.ToString(loadCellTypeInDb.FsoFactor, CultureInfo.CurrentCulture);
         }
 
         private Type FindLoadCellTypeInDb()
@@ -233,10 +234,9 @@ namespace OCLSA_Project_Version_01.Forms
                     Capacity = Convert.ToDouble(tbFullLoad.Text),
                     Factor = Convert.ToDouble(tbFactor.Text),
                     FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text),
-                    MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) *
-                                      (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text)),
-                    MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) *
-                                      (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text))
+                    MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor),
+                    MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor),
+                    FsoFactor = Convert.ToDouble(tbFsoFactor.Text)
                 };
 
                 _context.Types.Add(loadCellType);

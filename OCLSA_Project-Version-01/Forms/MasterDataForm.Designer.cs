@@ -96,6 +96,8 @@ namespace OCLSA_Project_Version_01.Forms
             this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel23 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbAppliedLoad = new WindowsFormsAero.TextBox();
+            this.aeroLinkLabel26 = new AeroSuite.Controls.AeroLinkLabel();
+            this.tbFsoFactor = new WindowsFormsAero.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -126,15 +128,17 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.aeroLinkLabel26);
+            this.groupBox9.Controls.Add(this.tbFsoFactor);
             this.groupBox9.Controls.Add(this.aeroLinkLabel22);
             this.groupBox9.Controls.Add(this.tbMaximumCenter);
             this.groupBox9.Controls.Add(this.aeroLinkLabel4);
             this.groupBox9.Controls.Add(this.aeroLinkLabel5);
             this.groupBox9.Controls.Add(this.tbMinimumFsoFinal);
             this.groupBox9.Controls.Add(this.tbMaximumFsoFinal);
-            this.groupBox9.Location = new System.Drawing.Point(20, 315);
+            this.groupBox9.Location = new System.Drawing.Point(20, 296);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(332, 155);
+            this.groupBox9.Size = new System.Drawing.Size(332, 174);
             this.groupBox9.TabIndex = 37;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Load Cell FSO Details";
@@ -142,7 +146,7 @@ namespace OCLSA_Project_Version_01.Forms
             // aeroLinkLabel22
             // 
             this.aeroLinkLabel22.AutoSize = true;
-            this.aeroLinkLabel22.Location = new System.Drawing.Point(15, 110);
+            this.aeroLinkLabel22.Location = new System.Drawing.Point(15, 136);
             this.aeroLinkLabel22.Name = "aeroLinkLabel22";
             this.aeroLinkLabel22.Size = new System.Drawing.Size(131, 15);
             this.aeroLinkLabel22.TabIndex = 26;
@@ -151,7 +155,7 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbMaximumCenter
             // 
-            this.tbMaximumCenter.Location = new System.Drawing.Point(179, 107);
+            this.tbMaximumCenter.Location = new System.Drawing.Point(179, 133);
             this.tbMaximumCenter.Name = "tbMaximumCenter";
             this.tbMaximumCenter.Size = new System.Drawing.Size(124, 22);
             this.tbMaximumCenter.TabIndex = 27;
@@ -159,7 +163,7 @@ namespace OCLSA_Project_Version_01.Forms
             // aeroLinkLabel4
             // 
             this.aeroLinkLabel4.AutoSize = true;
-            this.aeroLinkLabel4.Location = new System.Drawing.Point(15, 74);
+            this.aeroLinkLabel4.Location = new System.Drawing.Point(15, 70);
             this.aeroLinkLabel4.Name = "aeroLinkLabel4";
             this.aeroLinkLabel4.Size = new System.Drawing.Size(113, 15);
             this.aeroLinkLabel4.TabIndex = 22;
@@ -169,7 +173,7 @@ namespace OCLSA_Project_Version_01.Forms
             // aeroLinkLabel5
             // 
             this.aeroLinkLabel5.AutoSize = true;
-            this.aeroLinkLabel5.Location = new System.Drawing.Point(15, 39);
+            this.aeroLinkLabel5.Location = new System.Drawing.Point(15, 35);
             this.aeroLinkLabel5.Name = "aeroLinkLabel5";
             this.aeroLinkLabel5.Size = new System.Drawing.Size(111, 15);
             this.aeroLinkLabel5.TabIndex = 23;
@@ -178,14 +182,14 @@ namespace OCLSA_Project_Version_01.Forms
             // 
             // tbMinimumFsoFinal
             // 
-            this.tbMinimumFsoFinal.Location = new System.Drawing.Point(179, 36);
+            this.tbMinimumFsoFinal.Location = new System.Drawing.Point(179, 32);
             this.tbMinimumFsoFinal.Name = "tbMinimumFsoFinal";
             this.tbMinimumFsoFinal.Size = new System.Drawing.Size(123, 22);
             this.tbMinimumFsoFinal.TabIndex = 24;
             // 
             // tbMaximumFsoFinal
             // 
-            this.tbMaximumFsoFinal.Location = new System.Drawing.Point(179, 71);
+            this.tbMaximumFsoFinal.Location = new System.Drawing.Point(179, 67);
             this.tbMaximumFsoFinal.Name = "tbMaximumFsoFinal";
             this.tbMaximumFsoFinal.Size = new System.Drawing.Size(123, 22);
             this.tbMaximumFsoFinal.TabIndex = 25;
@@ -198,14 +202,14 @@ namespace OCLSA_Project_Version_01.Forms
             this.groupBox5.Controls.Add(this.aeroLinkLabel2);
             this.groupBox5.Location = new System.Drawing.Point(20, 29);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(332, 120);
+            this.groupBox5.Size = new System.Drawing.Size(332, 108);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load Cell Information";
             // 
             // tbTestMode
             // 
-            this.tbTestMode.Location = new System.Drawing.Point(179, 73);
+            this.tbTestMode.Location = new System.Drawing.Point(179, 70);
             this.tbTestMode.Name = "tbTestMode";
             this.tbTestMode.Size = new System.Drawing.Size(121, 22);
             this.tbTestMode.TabIndex = 25;
@@ -231,7 +235,7 @@ namespace OCLSA_Project_Version_01.Forms
             // aeroLinkLabel2
             // 
             this.aeroLinkLabel2.AutoSize = true;
-            this.aeroLinkLabel2.Location = new System.Drawing.Point(15, 76);
+            this.aeroLinkLabel2.Location = new System.Drawing.Point(15, 73);
             this.aeroLinkLabel2.Name = "aeroLinkLabel2";
             this.aeroLinkLabel2.Size = new System.Drawing.Size(61, 15);
             this.aeroLinkLabel2.TabIndex = 2;
@@ -244,7 +248,7 @@ namespace OCLSA_Project_Version_01.Forms
             this.groupBox6.Controls.Add(this.aeroLinkLabel6);
             this.groupBox6.Controls.Add(this.tbMaximumUnbalance);
             this.groupBox6.Controls.Add(this.tbMinimumUnbalance);
-            this.groupBox6.Location = new System.Drawing.Point(20, 169);
+            this.groupBox6.Location = new System.Drawing.Point(20, 156);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(332, 126);
             this.groupBox6.TabIndex = 35;
@@ -766,6 +770,23 @@ namespace OCLSA_Project_Version_01.Forms
             this.tbAppliedLoad.Size = new System.Drawing.Size(124, 22);
             this.tbAppliedLoad.TabIndex = 43;
             // 
+            // aeroLinkLabel26
+            // 
+            this.aeroLinkLabel26.AutoSize = true;
+            this.aeroLinkLabel26.Location = new System.Drawing.Point(15, 104);
+            this.aeroLinkLabel26.Name = "aeroLinkLabel26";
+            this.aeroLinkLabel26.Size = new System.Drawing.Size(64, 15);
+            this.aeroLinkLabel26.TabIndex = 28;
+            this.aeroLinkLabel26.TabStop = true;
+            this.aeroLinkLabel26.Text = "FSO Factor";
+            // 
+            // tbFsoFactor
+            // 
+            this.tbFsoFactor.Location = new System.Drawing.Point(179, 101);
+            this.tbFsoFactor.Name = "tbFsoFactor";
+            this.tbFsoFactor.Size = new System.Drawing.Size(124, 22);
+            this.tbFsoFactor.TabIndex = 29;
+            // 
             // MasterDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -877,5 +898,7 @@ namespace OCLSA_Project_Version_01.Forms
         private WindowsFormsAero.TextBox tbAppliedLoad;
         public WindowsFormsAero.TextBox tbTestMode;
         public WindowsFormsAero.TextBox tbLoadCellType;
+        private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel26;
+        private WindowsFormsAero.TextBox tbFsoFactor;
     }
 }

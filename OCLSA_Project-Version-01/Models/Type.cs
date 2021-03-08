@@ -63,5 +63,8 @@ namespace OCLSA_Project_Version_01.Models
 
         [Required]
         public double MinimumFsoValueFinal { get; set; }
+
+        [Required]
+        public double FsoFactor { get; set; }
     }
 }

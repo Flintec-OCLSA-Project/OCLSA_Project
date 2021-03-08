@@ -370,7 +370,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 ClearDisplayedCornerReadings();
 
-                                if (i <= 2) continue;
+                                if (i <= 15) continue;
 
                                 tbTrimmedCyclesCount.Text = TrimCount.ToString();
                                 _stopTrimming = true;

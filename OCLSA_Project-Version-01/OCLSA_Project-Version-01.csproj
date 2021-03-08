@@ -152,6 +152,10 @@
     <Compile Include="Migrations\202103020345448_AddedNoOfTestRunsProperty.Designer.cs">
       <DependentUpon>202103020345448_AddedNoOfTestRunsProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103080254102_AddFsoFactorToType.cs" />
+    <Compile Include="Migrations\202103080254102_AddFsoFactorToType.Designer.cs">
+      <DependentUpon>202103080254102_AddFsoFactorToType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -217,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103020345448_AddedNoOfTestRunsProperty.resx">
       <DependentUpon>202103020345448_AddedNoOfTestRunsProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103080254102_AddFsoFactorToType.resx">
+      <DependentUpon>202103080254102_AddFsoFactorToType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
