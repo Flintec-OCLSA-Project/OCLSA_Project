@@ -74,7 +74,7 @@ namespace OCLSA_Project_Version_01.Models
         public double FinalD4Corner { get; set; }
 
         [Required]
-        public double Unbalance { get; set; }
+        public double CalculatedFso { get; set; }
 
         [Required]
         public double FinalFso { get; set; }

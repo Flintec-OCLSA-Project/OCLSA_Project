@@ -69,7 +69,7 @@
             this.aeroLinkLabel15 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbTrimmedCyclesCount = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel14 = new AeroSuite.Controls.AeroLinkLabel();
-            this.tbUnbalance = new System.Windows.Forms.TextBox();
+            this.tbCalculatedFso = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel13 = new AeroSuite.Controls.AeroLinkLabel();
             this.tbInitialFSO = new System.Windows.Forms.TextBox();
             this.aeroLinkLabel12 = new AeroSuite.Controls.AeroLinkLabel();
@@ -448,7 +448,7 @@
             this.groupBox3.Controls.Add(this.aeroLinkLabel15);
             this.groupBox3.Controls.Add(this.tbTrimmedCyclesCount);
             this.groupBox3.Controls.Add(this.aeroLinkLabel14);
-            this.groupBox3.Controls.Add(this.tbUnbalance);
+            this.groupBox3.Controls.Add(this.tbCalculatedFso);
             this.groupBox3.Controls.Add(this.aeroLinkLabel13);
             this.groupBox3.Controls.Add(this.tbInitialFSO);
             this.groupBox3.Controls.Add(this.aeroLinkLabel12);
@@ -521,22 +521,22 @@
             this.aeroLinkLabel14.TabStop = true;
             this.aeroLinkLabel14.Text = "No of Trimmed Cycles";
             // 
-            // tbUnbalance
+            // tbCalculatedFso
             // 
-            this.tbUnbalance.Location = new System.Drawing.Point(161, 100);
-            this.tbUnbalance.Name = "tbUnbalance";
-            this.tbUnbalance.Size = new System.Drawing.Size(122, 25);
-            this.tbUnbalance.TabIndex = 35;
+            this.tbCalculatedFso.Location = new System.Drawing.Point(161, 100);
+            this.tbCalculatedFso.Name = "tbCalculatedFso";
+            this.tbCalculatedFso.Size = new System.Drawing.Size(122, 25);
+            this.tbCalculatedFso.TabIndex = 35;
             // 
             // aeroLinkLabel13
             // 
             this.aeroLinkLabel13.AutoSize = true;
             this.aeroLinkLabel13.Location = new System.Drawing.Point(13, 103);
             this.aeroLinkLabel13.Name = "aeroLinkLabel13";
-            this.aeroLinkLabel13.Size = new System.Drawing.Size(75, 17);
+            this.aeroLinkLabel13.Size = new System.Drawing.Size(98, 17);
             this.aeroLinkLabel13.TabIndex = 34;
             this.aeroLinkLabel13.TabStop = true;
-            this.aeroLinkLabel13.Text = "Unbalance ";
+            this.aeroLinkLabel13.Text = "Calculated FSO";
             // 
             // tbInitialFSO
             // 
@@ -1289,7 +1289,7 @@
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel15;
         private System.Windows.Forms.TextBox tbTrimmedCyclesCount;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel14;
-        private System.Windows.Forms.TextBox tbUnbalance;
+        private System.Windows.Forms.TextBox tbCalculatedFso;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel13;
         private System.Windows.Forms.TextBox tbInitialFSO;
         private AeroSuite.Controls.AeroLinkLabel aeroLinkLabel12;

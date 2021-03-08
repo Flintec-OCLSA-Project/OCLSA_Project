@@ -394,7 +394,7 @@ namespace OCLSA_Project_Version_01.Forms
                             ClearDisplayedCornerReadings();
 
                             await CheckDisplayAllFinalCorners();
-                            GetDisplayUnbalance();
+                            GetDisplayUnbalanceAndCalculatedFso();
 
                             await Task.Delay(TimeSpan.FromSeconds(2));
                             var resultMessage = ResultMessage.Result("Want to test FSO with calibrated weight? " +
@@ -773,7 +773,7 @@ namespace OCLSA_Project_Version_01.Forms
                     FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text)
                         ? 0d
                         : Convert.ToDouble(tbD4Reading.Text),
-                    Unbalance = Unbalance,
+                    CalculatedFso = CalculatedFsoForNonCalibratedWeight,
                     FinalFso = CalculatedFsoForCalibratedWeight,
                     Status = LoadCellStatus,
                     RejectCriteria = LoadCellRejectCriteria,
@@ -862,7 +862,7 @@ namespace OCLSA_Project_Version_01.Forms
             trimmedCellInDb.FinalD4Corner = string.IsNullOrWhiteSpace(tbD4Reading.Text)
                 ? 0d
                 : Convert.ToDouble(tbD4Reading.Text);
-            trimmedCellInDb.Unbalance = Unbalance;
+            trimmedCellInDb.CalculatedFso = CalculatedFsoForCalibratedWeight;
             trimmedCellInDb.FinalFso = CalculatedFsoForCalibratedWeight;
             trimmedCellInDb.Status = LoadCellStatus;
             trimmedCellInDb.RejectCriteria = LoadCellRejectCriteria;
@@ -928,7 +928,7 @@ namespace OCLSA_Project_Version_01.Forms
         {
             var textBoxList = new List<TextBox>
             {
-                tbSerialNumber, tbBridgeUnbalance, tbInitialFSO, tbUnbalance, tbTrimmedCyclesCount, tbTotalTime, tbStatus, tbInitialLeftCornerReading,
+                tbSerialNumber, tbBridgeUnbalance, tbInitialFSO, tbCalculatedFso, tbTrimmedCyclesCount, tbTotalTime, tbStatus, tbInitialLeftCornerReading,
                 tbInitialBackCornerReading, tbInitialRightCornerReading, tbInitialFrontCornerReading, tbInitialD1Reading, tbInitialD2Reading,
                 tbInitialD3Reading, tbInitialD4Reading, tbLeftCorner, tbFrontCorner, tbBackCorner, tbRightCorner, tbD1Reading, tbD2Reading, tbD3Reading,
                 tbD4Reading, tbCenter, tbInitialCenterReading
@@ -1012,10 +1012,10 @@ namespace OCLSA_Project_Version_01.Forms
             TrimmedFso = Math.Abs(Convert.ToDouble(trimmedCenterReading));*/
         }
 
-        private void GetDisplayUnbalance()
+        private void GetDisplayUnbalanceAndCalculatedFso()
         {
-            tbUnbalance.Text = Convert.ToString(Math.Abs(Convert.ToDouble(lblReading.Text)), CultureInfo.CurrentCulture);
-            Unbalance = Math.Abs(Convert.ToDouble(tbUnbalance.Text));
+            tbCalculatedFso.Text = Convert.ToString(Math.Abs(Convert.ToDouble(lblReading.Text)), CultureInfo.CurrentCulture);
+            Unbalance = Math.Abs(Convert.ToDouble(tbCalculatedFso.Text));
 
             var loadCellInDb = CheckLoadCell();
             if (loadCellInDb == null) return;
@@ -1080,7 +1080,7 @@ namespace OCLSA_Project_Version_01.Forms
                 ClearDisplayedCornerReadings();
 
                 await CheckDisplayAllFinalCorners();
-                GetDisplayUnbalance();
+                GetDisplayUnbalanceAndCalculatedFso();
 
                 await Task.Delay(TimeSpan.FromSeconds(2));
                 var resultMessage = ResultMessage.Result("Want to correct FSO with calibrated weight by adding resistors? " +

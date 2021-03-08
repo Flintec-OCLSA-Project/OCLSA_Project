@@ -160,6 +160,10 @@
     <Compile Include="Migrations\202103080504290_ChangeDataTypeOfFsoFactor.Designer.cs">
       <DependentUpon>202103080504290_ChangeDataTypeOfFsoFactor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103080939599_ChangePropertyNameInTrimmedLoadCell.cs" />
+    <Compile Include="Migrations\202103080939599_ChangePropertyNameInTrimmedLoadCell.Designer.cs">
+      <DependentUpon>202103080939599_ChangePropertyNameInTrimmedLoadCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\LoadCell.cs" />
@@ -231,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103080504290_ChangeDataTypeOfFsoFactor.resx">
       <DependentUpon>202103080504290_ChangeDataTypeOfFsoFactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103080939599_ChangePropertyNameInTrimmedLoadCell.resx">
+      <DependentUpon>202103080939599_ChangePropertyNameInTrimmedLoadCell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
