@@ -234,8 +234,8 @@ namespace OCLSA_Project_Version_01.Forms
                     Capacity = Convert.ToDouble(tbFullLoad.Text),
                     Factor = Convert.ToDouble(tbFactor.Text),
                     FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text),
-                    MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor),
-                    MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor),
+                    MinimumFsoValue = Math.Round(Convert.ToDouble(tbMinimumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor.Text), 5),
+                    MaximumFsoValue = Math.Round(Convert.ToDouble(tbMaximumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor.Text), 5),
                     FsoFactor = Convert.ToDouble(tbFsoFactor.Text)
                 };
 
@@ -290,10 +290,11 @@ namespace OCLSA_Project_Version_01.Forms
             loadCellTypeExisting.Capacity = Convert.ToDouble(tbFullLoad.Text);
             loadCellTypeExisting.Factor = Convert.ToDouble(tbFactor.Text);
             loadCellTypeExisting.FsoCorrectionValue = Convert.ToDouble(tbFsoCorrectionValue.Text);
-            loadCellTypeExisting.MinimumFsoValue = Convert.ToDouble(tbMinimumFsoFinal.Text) *
-                                                   (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text));
-            loadCellTypeExisting.MaximumFsoValue = Convert.ToDouble(tbMaximumFsoFinal.Text) *
-                                                   (Convert.ToDouble(tbFullLoad.Text) / Convert.ToDouble(tbAppliedLoad.Text));
+            loadCellTypeExisting.MinimumFsoValue =
+                Math.Round(Convert.ToDouble(tbMinimumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor.Text), 5);
+            loadCellTypeExisting.MaximumFsoValue =
+                Math.Round(Convert.ToDouble(tbMaximumFsoFinal.Text) * Convert.ToDouble(tbFsoFactor.Text), 5);
+            loadCellTypeExisting.FsoFactor = Convert.ToDouble(tbFsoFactor.Text);
 
             _context.SaveChanges();
         }
@@ -304,7 +305,7 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 tbLoadCellType, tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
-                tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
+                tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue, tbFsoFactor
             };
 
             var textControlsWithAllCorners = new List<Control>
@@ -313,7 +314,7 @@ namespace OCLSA_Project_Version_01.Forms
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue,
                 tbLeftCornerTrimValue, tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue,
                 tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue, tbBackRightCornerTrimValue,
-                tbFrontRightCornerTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
+                tbFrontRightCornerTrimValue, tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue, tbFsoFactor
             };
 
 
@@ -352,7 +353,7 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 tbTestMode, tbMinimumUnbalance, tbMaximumUnbalance, tbMinimumFsoFinal, tbMaximumFsoFinal,
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, btnSave,
-                tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue
+                tbAppliedLoad, tbFullLoad, tbFactor, tbFsoCorrectionValue, tbFsoFactor
             };
 
             foreach (var input in inputsList)
@@ -385,7 +386,7 @@ namespace OCLSA_Project_Version_01.Forms
                 tbMaximumCenter, tbFrontBackCornerDifference, tbLeftRightCornerDifference, tbExcessiveCornerValue, tbLeftCornerTrimValue,
                 tbBackCornerTrimValue, tbRightCornerTrimValue, tbFrontCornerTrimValue, tbFrontLeftCornerTrimValue, tbBackLeftCornerTrimValue,
                 tbBackRightCornerTrimValue, tbFrontRightCornerTrimValue, tbCornersTrimValue, tbAppliedLoad, tbFullLoad, tbFactor,
-                tbFsoCorrectionValue
+                tbFsoCorrectionValue, tbFsoFactor
             };
 
             var checkBoxControls = new List<RadioButton>

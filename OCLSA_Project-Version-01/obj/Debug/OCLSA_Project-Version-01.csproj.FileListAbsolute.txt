@@ -36,3 +36,4 @@ E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.ModifiedTrimmedLoadCellModel.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddedNoOfTestRunsProperty.resources
 E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.AddFsoFactorToType.resources
+E:\Flintec - Intern Docs\Development\OCLSA_Project\OCLSA_Project-Version-01\obj\Debug\OCLSA_Project_Version_01.Migrations.ChangeDataTypeOfFsoFactor.resources

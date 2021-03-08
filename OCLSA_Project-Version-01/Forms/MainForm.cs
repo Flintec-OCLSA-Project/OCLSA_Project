@@ -45,7 +45,8 @@ namespace OCLSA_Project_Version_01.Forms
         private int _tenSecondsCount = 10;
         private int _fiveSecondsCount = 5;
 
-        public double CalculatedFso { get; set; }
+        public double CalculatedFsoForCalibratedWeight { get; set; }
+        public double CalculatedFsoForNonCalibratedWeight { get; set; }
         public double Unbalance { get; set; }
 
         public Stopwatch ProcessDuration { get; set; }
@@ -348,10 +349,12 @@ namespace OCLSA_Project_Version_01.Forms
                                     if (await CheckFinalCenter(tbCenter.Text)) break;
 
                                     if (_continueTrim)
+                                    {
                                         ShowMessage(@"Press OK to continue trimming");
+                                    }
                                     else
                                     {
-                                        ShowMessage(@"Corners are OK. No need to trim ! Press OK to continue final corner check");
+                                        ShowMessage(@"Corners are OK. No need to trim! Press OK to continue final corner check");
                                         break;
                                     }
                                 }
@@ -567,10 +570,10 @@ namespace OCLSA_Project_Version_01.Forms
                     }
                 case nameof(MetalCategory.Steel):
                     {
-                        if (MinimumFsoReadingFinal < CalculatedFso && CalculatedFso < loadCellInDb.Type.FsoCorrectionValue)
+                        if (MinimumFsoReadingFinal < CalculatedFsoForCalibratedWeight && CalculatedFsoForCalibratedWeight < loadCellInDb.Type.FsoCorrectionValue)
                             ResistorsToAdd = 1;
 
-                        if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFso)
+                        if (loadCellInDb.Type.FsoCorrectionValue < CalculatedFsoForCalibratedWeight)
                             ResistorsToAdd = 3;
 
                         SetStatusAndRejectCriteria(Status.Failed, RejectionCriteria.HighFso);
@@ -771,7 +774,7 @@ namespace OCLSA_Project_Version_01.Forms
                         ? 0d
                         : Convert.ToDouble(tbD4Reading.Text),
                     Unbalance = Unbalance,
-                    FinalFso = CalculatedFso,
+                    FinalFso = CalculatedFsoForCalibratedWeight,
                     Status = LoadCellStatus,
                     RejectCriteria = LoadCellRejectCriteria,
                     TrimCount = TrimCount,
@@ -860,7 +863,7 @@ namespace OCLSA_Project_Version_01.Forms
                 ? 0d
                 : Convert.ToDouble(tbD4Reading.Text);
             trimmedCellInDb.Unbalance = Unbalance;
-            trimmedCellInDb.FinalFso = CalculatedFso;
+            trimmedCellInDb.FinalFso = CalculatedFsoForCalibratedWeight;
             trimmedCellInDb.Status = LoadCellStatus;
             trimmedCellInDb.RejectCriteria = LoadCellRejectCriteria;
             trimmedCellInDb.TrimCount = TrimCount;
@@ -893,7 +896,8 @@ namespace OCLSA_Project_Version_01.Forms
             ResistorsToAdd = 0;
             TrimCount = 0;
             Unbalance = 0.0;
-            CalculatedFso = 0.0;
+            CalculatedFsoForCalibratedWeight = 0.0;
+            CalculatedFsoForNonCalibratedWeight = 0.0;
             IsFsoCorrectionAvailable = false;
             ProcessDuration?.Reset();
             pbPositions.Image = Properties.Resources.LoadCell;
@@ -954,10 +958,10 @@ namespace OCLSA_Project_Version_01.Forms
             ShowArmaturePosition("FinalCenter");
             await DisplayWaitingStatus(@"Keep the calibrated weight on the Center", 5, true);
 
-            var calibratedCenterReading = lblReading.Text;
+            var calibratedCenterReading = Convert.ToString(Math.Abs(Convert.ToDouble(lblReading.Text)), CultureInfo.CurrentCulture);
             CalculateFso(calibratedCenterReading);
 
-            return MinimumFsoReadingFinal < CalculatedFso && CalculatedFso < MaximumFsoReadingFinal;
+            return MinimumFsoReadingFinal < CalculatedFsoForCalibratedWeight && CalculatedFsoForCalibratedWeight < MaximumFsoReadingFinal;
         }
 
         private void CalculateFso(string output)
@@ -970,7 +974,7 @@ namespace OCLSA_Project_Version_01.Forms
             var capacity = checkLoadCell.Type.Capacity;
             var factor = checkLoadCell.Type.Factor;
 
-            CalculatedFso = Math.Round((Math.Abs(Convert.ToDouble(output) * capacity * factor)) / appliedLoad, 5);
+            CalculatedFsoForCalibratedWeight = Math.Round((Math.Abs(Convert.ToDouble(output) * capacity * factor)) / appliedLoad, 5);
         }
 
         private async Task CheckDisplayAllFinalCorners()
@@ -1010,8 +1014,13 @@ namespace OCLSA_Project_Version_01.Forms
 
         private void GetDisplayUnbalance()
         {
-            tbUnbalance.Text = lblReading.Text;
-            Unbalance = Convert.ToDouble(tbUnbalance.Text);
+            tbUnbalance.Text = Convert.ToString(Math.Abs(Convert.ToDouble(lblReading.Text)), CultureInfo.CurrentCulture);
+            Unbalance = Math.Abs(Convert.ToDouble(tbUnbalance.Text));
+
+            var loadCellInDb = CheckLoadCell();
+            if (loadCellInDb == null) return;
+
+            CalculatedFsoForNonCalibratedWeight = Unbalance / loadCellInDb.Type.FsoFactor;
         }
 
         private void GetDisplaySaveCenterReadings(Control textBox)
