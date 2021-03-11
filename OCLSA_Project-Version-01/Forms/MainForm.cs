@@ -460,6 +460,45 @@ namespace OCLSA_Project_Version_01.Forms
             Application.Exit();
         }
 
+        private void ChangeColorOfTextBoxes(string testMode)
+        {
+            var mainCornerTextBoxes = new List<TextBox>
+            {
+                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner
+            };
+
+            var diagonalCornerTextBoxes = new List<TextBox>
+            {
+                tbD1Reading, tbD2Reading, tbD3Reading, tbD4Reading
+            };
+
+            switch (testMode)
+            {
+                case TestMode.CornerTest:
+                    {
+                        foreach (var textBox in mainCornerTextBoxes)
+                        {
+                            textBox.BackColor = Color.PaleTurquoise;
+                        }
+                        break;
+                    }
+
+                case TestMode.DiagonalTest:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        foreach (var textBox in mainCornerTextBoxes)
+                        {
+                            textBox.BackColor = Color.White;
+                        }
+                        break;
+                    }
+            }
+
+        }
+
         private void SaveToDb()
         {
             if (CheckTrimmedLoadCell() == null)
@@ -473,7 +512,7 @@ namespace OCLSA_Project_Version_01.Forms
             if (Math.Abs(Convert.ToDouble(centerReading)) < MaximumCenterReading) return false;
 
             //Giving user to choose the option 
-            var result = ResultMessage.Result(@"HIGH ZERO ! Do you want to continue?", @"Choose option");
+            var result = ResultMessage.Result(@"HIGH ZERO! Do you want to continue?", @"Choose option");
             if (result == DialogResult.Yes)
             {
                 _continueTrim = true;
@@ -882,12 +921,6 @@ namespace OCLSA_Project_Version_01.Forms
             var processDuration = ProcessDuration.Elapsed.Duration();
             return $@"{processDuration.Minutes:D2} : {processDuration.Seconds:D2}";
         }
-
-        /*private void DisplayFinalFso()
-        {
-            FinalFso = CalculatedFso;
-            tbUnbalance.Text = Math.Round(FinalFso, 5).ToString(CultureInfo.CurrentCulture);
-        }*/
 
         private void ResetMainForm()
         {
