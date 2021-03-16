@@ -79,6 +79,12 @@
             this.pbPositions = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblMinimumFSOFinal = new System.Windows.Forms.Label();
+            this.lblMinimumFSO = new System.Windows.Forms.Label();
+            this.lblMinimumUnbalance = new System.Windows.Forms.Label();
+            this.lblMaximumFSOFinal = new System.Windows.Forms.Label();
+            this.lblMaximumFSO = new System.Windows.Forms.Label();
+            this.lblMaximumUnbalance = new System.Windows.Forms.Label();
             this.aeroLinkLabel29 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel30 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel37 = new AeroSuite.Controls.AeroLinkLabel();
@@ -89,6 +95,11 @@
             this.aeroLinkLabel18 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel17 = new AeroSuite.Controls.AeroLinkLabel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblFrontCorner = new System.Windows.Forms.Label();
+            this.lblBackCorner = new System.Windows.Forms.Label();
+            this.lblLeftCorner = new System.Windows.Forms.Label();
+            this.lblRightCorner = new System.Windows.Forms.Label();
+            this.lblMaximumCenter = new System.Windows.Forms.Label();
             this.aeroLinkLabel28 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel27 = new AeroSuite.Controls.AeroLinkLabel();
             this.aeroLinkLabel26 = new AeroSuite.Controls.AeroLinkLabel();
@@ -124,17 +135,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TenSecondsCounter = new System.Windows.Forms.Timer(this.components);
             this.FiveSecondsCounter = new System.Windows.Forms.Timer(this.components);
-            this.lblMaximumCenter = new System.Windows.Forms.Label();
-            this.lblRightCorner = new System.Windows.Forms.Label();
-            this.lblLeftCorner = new System.Windows.Forms.Label();
-            this.lblBackCorner = new System.Windows.Forms.Label();
-            this.lblFrontCorner = new System.Windows.Forms.Label();
-            this.lblMinimumFSOFinal = new System.Windows.Forms.Label();
-            this.lblMinimumFSO = new System.Windows.Forms.Label();
-            this.lblMinimumUnbalance = new System.Windows.Forms.Label();
-            this.lblMaximumFSOFinal = new System.Windows.Forms.Label();
-            this.lblMaximumFSO = new System.Windows.Forms.Label();
-            this.lblMaximumUnbalance = new System.Windows.Forms.Label();
             this.horizontalPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -216,6 +216,7 @@
             // 
             // tbD2Reading
             // 
+            this.tbD2Reading.BackColor = System.Drawing.Color.White;
             this.tbD2Reading.Location = new System.Drawing.Point(423, 68);
             this.tbD2Reading.Name = "tbD2Reading";
             this.tbD2Reading.Size = new System.Drawing.Size(120, 25);
@@ -223,6 +224,7 @@
             // 
             // tbD1Reading
             // 
+            this.tbD1Reading.BackColor = System.Drawing.Color.White;
             this.tbD1Reading.Location = new System.Drawing.Point(38, 68);
             this.tbD1Reading.Name = "tbD1Reading";
             this.tbD1Reading.Size = new System.Drawing.Size(120, 25);
@@ -238,6 +240,7 @@
             // 
             // tbD3Reading
             // 
+            this.tbD3Reading.BackColor = System.Drawing.Color.White;
             this.tbD3Reading.Location = new System.Drawing.Point(423, 234);
             this.tbD3Reading.Name = "tbD3Reading";
             this.tbD3Reading.Size = new System.Drawing.Size(120, 25);
@@ -291,6 +294,7 @@
             // 
             // tbD4Reading
             // 
+            this.tbD4Reading.BackColor = System.Drawing.Color.White;
             this.tbD4Reading.Location = new System.Drawing.Point(40, 234);
             this.tbD4Reading.Name = "tbD4Reading";
             this.tbD4Reading.Size = new System.Drawing.Size(120, 25);
@@ -316,6 +320,7 @@
             // 
             // tbRightCorner
             // 
+            this.tbRightCorner.BackColor = System.Drawing.Color.White;
             this.tbRightCorner.Location = new System.Drawing.Point(423, 150);
             this.tbRightCorner.Name = "tbRightCorner";
             this.tbRightCorner.Size = new System.Drawing.Size(120, 25);
@@ -331,7 +336,7 @@
             // 
             // tbLeftCorner
             // 
-            this.tbLeftCorner.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLeftCorner.BackColor = System.Drawing.Color.White;
             this.tbLeftCorner.Location = new System.Drawing.Point(40, 150);
             this.tbLeftCorner.Name = "tbLeftCorner";
             this.tbLeftCorner.Size = new System.Drawing.Size(120, 25);
@@ -347,6 +352,7 @@
             // 
             // tbBackCorner
             // 
+            this.tbBackCorner.BackColor = System.Drawing.Color.White;
             this.tbBackCorner.Location = new System.Drawing.Point(232, 66);
             this.tbBackCorner.Name = "tbBackCorner";
             this.tbBackCorner.Size = new System.Drawing.Size(120, 25);
@@ -362,6 +368,7 @@
             // 
             // tbFrontCorner
             // 
+            this.tbFrontCorner.BackColor = System.Drawing.Color.White;
             this.tbFrontCorner.Location = new System.Drawing.Point(232, 234);
             this.tbFrontCorner.Name = "tbFrontCorner";
             this.tbFrontCorner.Size = new System.Drawing.Size(120, 25);
@@ -377,6 +384,7 @@
             // 
             // tbCenter
             // 
+            this.tbCenter.BackColor = System.Drawing.Color.White;
             this.tbCenter.Location = new System.Drawing.Point(232, 150);
             this.tbCenter.Name = "tbCenter";
             this.tbCenter.Size = new System.Drawing.Size(120, 25);
@@ -633,6 +641,66 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Pass Fail Range";
             // 
+            // lblMinimumFSOFinal
+            // 
+            this.lblMinimumFSOFinal.AutoSize = true;
+            this.lblMinimumFSOFinal.ForeColor = System.Drawing.Color.Red;
+            this.lblMinimumFSOFinal.Location = new System.Drawing.Point(13, 96);
+            this.lblMinimumFSOFinal.Name = "lblMinimumFSOFinal";
+            this.lblMinimumFSOFinal.Size = new System.Drawing.Size(15, 17);
+            this.lblMinimumFSOFinal.TabIndex = 34;
+            this.lblMinimumFSOFinal.Text = "0";
+            // 
+            // lblMinimumFSO
+            // 
+            this.lblMinimumFSO.AutoSize = true;
+            this.lblMinimumFSO.ForeColor = System.Drawing.Color.Red;
+            this.lblMinimumFSO.Location = new System.Drawing.Point(13, 65);
+            this.lblMinimumFSO.Name = "lblMinimumFSO";
+            this.lblMinimumFSO.Size = new System.Drawing.Size(15, 17);
+            this.lblMinimumFSO.TabIndex = 35;
+            this.lblMinimumFSO.Text = "0";
+            // 
+            // lblMinimumUnbalance
+            // 
+            this.lblMinimumUnbalance.AutoSize = true;
+            this.lblMinimumUnbalance.ForeColor = System.Drawing.Color.Red;
+            this.lblMinimumUnbalance.Location = new System.Drawing.Point(13, 34);
+            this.lblMinimumUnbalance.Name = "lblMinimumUnbalance";
+            this.lblMinimumUnbalance.Size = new System.Drawing.Size(15, 17);
+            this.lblMinimumUnbalance.TabIndex = 36;
+            this.lblMinimumUnbalance.Text = "0";
+            // 
+            // lblMaximumFSOFinal
+            // 
+            this.lblMaximumFSOFinal.AutoSize = true;
+            this.lblMaximumFSOFinal.ForeColor = System.Drawing.Color.Red;
+            this.lblMaximumFSOFinal.Location = new System.Drawing.Point(238, 96);
+            this.lblMaximumFSOFinal.Name = "lblMaximumFSOFinal";
+            this.lblMaximumFSOFinal.Size = new System.Drawing.Size(15, 17);
+            this.lblMaximumFSOFinal.TabIndex = 37;
+            this.lblMaximumFSOFinal.Text = "0";
+            // 
+            // lblMaximumFSO
+            // 
+            this.lblMaximumFSO.AutoSize = true;
+            this.lblMaximumFSO.ForeColor = System.Drawing.Color.Red;
+            this.lblMaximumFSO.Location = new System.Drawing.Point(238, 65);
+            this.lblMaximumFSO.Name = "lblMaximumFSO";
+            this.lblMaximumFSO.Size = new System.Drawing.Size(15, 17);
+            this.lblMaximumFSO.TabIndex = 38;
+            this.lblMaximumFSO.Text = "0";
+            // 
+            // lblMaximumUnbalance
+            // 
+            this.lblMaximumUnbalance.AutoSize = true;
+            this.lblMaximumUnbalance.ForeColor = System.Drawing.Color.Red;
+            this.lblMaximumUnbalance.Location = new System.Drawing.Point(238, 34);
+            this.lblMaximumUnbalance.Name = "lblMaximumUnbalance";
+            this.lblMaximumUnbalance.Size = new System.Drawing.Size(15, 17);
+            this.lblMaximumUnbalance.TabIndex = 39;
+            this.lblMaximumUnbalance.Text = "0";
+            // 
             // aeroLinkLabel29
             // 
             this.aeroLinkLabel29.AutoSize = true;
@@ -746,6 +814,56 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Corner and Center Trim Range";
+            // 
+            // lblFrontCorner
+            // 
+            this.lblFrontCorner.AutoSize = true;
+            this.lblFrontCorner.ForeColor = System.Drawing.Color.Red;
+            this.lblFrontCorner.Location = new System.Drawing.Point(213, 76);
+            this.lblFrontCorner.Name = "lblFrontCorner";
+            this.lblFrontCorner.Size = new System.Drawing.Size(15, 17);
+            this.lblFrontCorner.TabIndex = 33;
+            this.lblFrontCorner.Text = "0";
+            // 
+            // lblBackCorner
+            // 
+            this.lblBackCorner.AutoSize = true;
+            this.lblBackCorner.ForeColor = System.Drawing.Color.Red;
+            this.lblBackCorner.Location = new System.Drawing.Point(213, 103);
+            this.lblBackCorner.Name = "lblBackCorner";
+            this.lblBackCorner.Size = new System.Drawing.Size(15, 17);
+            this.lblBackCorner.TabIndex = 32;
+            this.lblBackCorner.Text = "0";
+            // 
+            // lblLeftCorner
+            // 
+            this.lblLeftCorner.AutoSize = true;
+            this.lblLeftCorner.ForeColor = System.Drawing.Color.Red;
+            this.lblLeftCorner.Location = new System.Drawing.Point(213, 130);
+            this.lblLeftCorner.Name = "lblLeftCorner";
+            this.lblLeftCorner.Size = new System.Drawing.Size(15, 17);
+            this.lblLeftCorner.TabIndex = 31;
+            this.lblLeftCorner.Text = "0";
+            // 
+            // lblRightCorner
+            // 
+            this.lblRightCorner.AutoSize = true;
+            this.lblRightCorner.ForeColor = System.Drawing.Color.Red;
+            this.lblRightCorner.Location = new System.Drawing.Point(213, 158);
+            this.lblRightCorner.Name = "lblRightCorner";
+            this.lblRightCorner.Size = new System.Drawing.Size(15, 17);
+            this.lblRightCorner.TabIndex = 30;
+            this.lblRightCorner.Text = "0";
+            // 
+            // lblMaximumCenter
+            // 
+            this.lblMaximumCenter.AutoSize = true;
+            this.lblMaximumCenter.ForeColor = System.Drawing.Color.Red;
+            this.lblMaximumCenter.Location = new System.Drawing.Point(213, 38);
+            this.lblMaximumCenter.Name = "lblMaximumCenter";
+            this.lblMaximumCenter.Size = new System.Drawing.Size(15, 17);
+            this.lblMaximumCenter.TabIndex = 29;
+            this.lblMaximumCenter.Text = "0";
             // 
             // aeroLinkLabel28
             // 
@@ -1095,116 +1213,6 @@
             // 
             this.FiveSecondsCounter.Interval = 1000;
             this.FiveSecondsCounter.Tick += new System.EventHandler(this.FiveSecondsCounter_Tick);
-            // 
-            // lblMaximumCenter
-            // 
-            this.lblMaximumCenter.AutoSize = true;
-            this.lblMaximumCenter.ForeColor = System.Drawing.Color.Red;
-            this.lblMaximumCenter.Location = new System.Drawing.Point(213, 38);
-            this.lblMaximumCenter.Name = "lblMaximumCenter";
-            this.lblMaximumCenter.Size = new System.Drawing.Size(15, 17);
-            this.lblMaximumCenter.TabIndex = 29;
-            this.lblMaximumCenter.Text = "0";
-            // 
-            // lblRightCorner
-            // 
-            this.lblRightCorner.AutoSize = true;
-            this.lblRightCorner.ForeColor = System.Drawing.Color.Red;
-            this.lblRightCorner.Location = new System.Drawing.Point(213, 158);
-            this.lblRightCorner.Name = "lblRightCorner";
-            this.lblRightCorner.Size = new System.Drawing.Size(15, 17);
-            this.lblRightCorner.TabIndex = 30;
-            this.lblRightCorner.Text = "0";
-            // 
-            // lblLeftCorner
-            // 
-            this.lblLeftCorner.AutoSize = true;
-            this.lblLeftCorner.ForeColor = System.Drawing.Color.Red;
-            this.lblLeftCorner.Location = new System.Drawing.Point(213, 130);
-            this.lblLeftCorner.Name = "lblLeftCorner";
-            this.lblLeftCorner.Size = new System.Drawing.Size(15, 17);
-            this.lblLeftCorner.TabIndex = 31;
-            this.lblLeftCorner.Text = "0";
-            // 
-            // lblBackCorner
-            // 
-            this.lblBackCorner.AutoSize = true;
-            this.lblBackCorner.ForeColor = System.Drawing.Color.Red;
-            this.lblBackCorner.Location = new System.Drawing.Point(213, 103);
-            this.lblBackCorner.Name = "lblBackCorner";
-            this.lblBackCorner.Size = new System.Drawing.Size(15, 17);
-            this.lblBackCorner.TabIndex = 32;
-            this.lblBackCorner.Text = "0";
-            // 
-            // lblFrontCorner
-            // 
-            this.lblFrontCorner.AutoSize = true;
-            this.lblFrontCorner.ForeColor = System.Drawing.Color.Red;
-            this.lblFrontCorner.Location = new System.Drawing.Point(213, 76);
-            this.lblFrontCorner.Name = "lblFrontCorner";
-            this.lblFrontCorner.Size = new System.Drawing.Size(15, 17);
-            this.lblFrontCorner.TabIndex = 33;
-            this.lblFrontCorner.Text = "0";
-            // 
-            // lblMinimumFSOFinal
-            // 
-            this.lblMinimumFSOFinal.AutoSize = true;
-            this.lblMinimumFSOFinal.ForeColor = System.Drawing.Color.Red;
-            this.lblMinimumFSOFinal.Location = new System.Drawing.Point(13, 96);
-            this.lblMinimumFSOFinal.Name = "lblMinimumFSOFinal";
-            this.lblMinimumFSOFinal.Size = new System.Drawing.Size(15, 17);
-            this.lblMinimumFSOFinal.TabIndex = 34;
-            this.lblMinimumFSOFinal.Text = "0";
-            // 
-            // lblMinimumFSO
-            // 
-            this.lblMinimumFSO.AutoSize = true;
-            this.lblMinimumFSO.ForeColor = System.Drawing.Color.Red;
-            this.lblMinimumFSO.Location = new System.Drawing.Point(13, 65);
-            this.lblMinimumFSO.Name = "lblMinimumFSO";
-            this.lblMinimumFSO.Size = new System.Drawing.Size(15, 17);
-            this.lblMinimumFSO.TabIndex = 35;
-            this.lblMinimumFSO.Text = "0";
-            // 
-            // lblMinimumUnbalance
-            // 
-            this.lblMinimumUnbalance.AutoSize = true;
-            this.lblMinimumUnbalance.ForeColor = System.Drawing.Color.Red;
-            this.lblMinimumUnbalance.Location = new System.Drawing.Point(13, 34);
-            this.lblMinimumUnbalance.Name = "lblMinimumUnbalance";
-            this.lblMinimumUnbalance.Size = new System.Drawing.Size(15, 17);
-            this.lblMinimumUnbalance.TabIndex = 36;
-            this.lblMinimumUnbalance.Text = "0";
-            // 
-            // lblMaximumFSOFinal
-            // 
-            this.lblMaximumFSOFinal.AutoSize = true;
-            this.lblMaximumFSOFinal.ForeColor = System.Drawing.Color.Red;
-            this.lblMaximumFSOFinal.Location = new System.Drawing.Point(238, 96);
-            this.lblMaximumFSOFinal.Name = "lblMaximumFSOFinal";
-            this.lblMaximumFSOFinal.Size = new System.Drawing.Size(15, 17);
-            this.lblMaximumFSOFinal.TabIndex = 37;
-            this.lblMaximumFSOFinal.Text = "0";
-            // 
-            // lblMaximumFSO
-            // 
-            this.lblMaximumFSO.AutoSize = true;
-            this.lblMaximumFSO.ForeColor = System.Drawing.Color.Red;
-            this.lblMaximumFSO.Location = new System.Drawing.Point(238, 65);
-            this.lblMaximumFSO.Name = "lblMaximumFSO";
-            this.lblMaximumFSO.Size = new System.Drawing.Size(15, 17);
-            this.lblMaximumFSO.TabIndex = 38;
-            this.lblMaximumFSO.Text = "0";
-            // 
-            // lblMaximumUnbalance
-            // 
-            this.lblMaximumUnbalance.AutoSize = true;
-            this.lblMaximumUnbalance.ForeColor = System.Drawing.Color.Red;
-            this.lblMaximumUnbalance.Location = new System.Drawing.Point(238, 34);
-            this.lblMaximumUnbalance.Name = "lblMaximumUnbalance";
-            this.lblMaximumUnbalance.Size = new System.Drawing.Size(15, 17);
-            this.lblMaximumUnbalance.TabIndex = 39;
-            this.lblMaximumUnbalance.Text = "0";
             // 
             // MainForm
             // 

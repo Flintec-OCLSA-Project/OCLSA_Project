@@ -336,6 +336,8 @@ namespace OCLSA_Project_Version_01.Forms
 
                         await CheckInitialCornerTest(loadCell);
 
+                        ChangeColorOfTextBoxes(TestMode.CornerTest);
+
                         if (CurrentStatus)
                         {
                             for (var i = 0; i < 30; i++)
@@ -472,19 +474,48 @@ namespace OCLSA_Project_Version_01.Forms
                 tbD1Reading, tbD2Reading, tbD3Reading, tbD4Reading
             };
 
+            var allCornerTextBoxes = new List<TextBox>
+            {
+                tbLeftCorner, tbBackCorner, tbRightCorner, tbFrontCorner,
+                tbD1Reading, tbD2Reading, tbD3Reading, tbD4Reading
+            };
+
             switch (testMode)
             {
                 case TestMode.CornerTest:
                     {
                         foreach (var textBox in mainCornerTextBoxes)
                         {
-                            textBox.BackColor = Color.PaleTurquoise;
+                            if (textBox.BackColor == Color.White)
+                                textBox.BackColor = Color.PaleTurquoise;
+
+                            if (textBox.BackColor == Color.PaleTurquoise)
+                                textBox.BackColor = Color.White;
                         }
                         break;
                     }
-
                 case TestMode.DiagonalTest:
                     {
+                        foreach (var textBox in diagonalCornerTextBoxes)
+                        {
+                            if (textBox.BackColor == Color.White)
+                                textBox.BackColor = Color.PaleTurquoise;
+
+                            if (textBox.BackColor == Color.PaleTurquoise)
+                                textBox.BackColor = Color.White;
+                        }
+                        break;
+                    }
+                case TestMode.FullTest:
+                    {
+                        foreach (var textBox in allCornerTextBoxes)
+                        {
+                            if (textBox.BackColor == Color.White)
+                                textBox.BackColor = Color.PaleTurquoise;
+
+                            if (textBox.BackColor == Color.PaleTurquoise)
+                                textBox.BackColor = Color.White;
+                        }
                         break;
                     }
                 default:
@@ -496,7 +527,25 @@ namespace OCLSA_Project_Version_01.Forms
                         break;
                     }
             }
+        }
 
+        private void ResetColorForTextBoxes()
+        {
+            var checkCornerTestMode = CheckCornerTestMode();
+            switch (checkCornerTestMode.TestModeInDb)
+            {
+                case TestMode.CornerTest:
+                    ChangeColorOfTextBoxes(TestMode.CornerTest);
+                    break;
+
+                case TestMode.DiagonalTest:
+                    ChangeColorOfTextBoxes(TestMode.DiagonalTest);
+                    break;
+
+                case TestMode.FullTest:
+                    ChangeColorOfTextBoxes(TestMode.FullTest);
+                    break;
+            }
         }
 
         private void SaveToDb()
@@ -955,6 +1004,8 @@ namespace OCLSA_Project_Version_01.Forms
             }
 
             if (Continue) Continue = false;
+
+            ResetColorForTextBoxes();
         }
 
         private void ClearAllInputsAndOutputs()
