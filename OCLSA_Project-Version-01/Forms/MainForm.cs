@@ -93,6 +93,7 @@ namespace OCLSA_Project_Version_01.Forms
             lblLocation.Text = location;
             lblStation.Text = station;
             pbImage.Image = image;
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -295,15 +296,18 @@ namespace OCLSA_Project_Version_01.Forms
             {
                 case true when result.IsFsoLow:
                     tbStatus.Text = Status.Rejected.ToString();
+                    DisplayFailureSymbol(Failure.LowInitialFso);
                     await StopProcessAndExit(@"Load Cell is rejected due to Low FSO...!!!", Status.Rejected, RejectionCriteria.LowFso);
                     return;
                 case true when result.IsFsoHigh:
                     tbStatus.Text = Status.Rejected.ToString();
+                    DisplayFailureSymbol(Failure.HighInitialFso);
                     await StopProcessAndExit(@"Load Cell is rejected due to High FSO...!!!", Status.Rejected, RejectionCriteria.HighFso);
                     return;
             }
 
             tbInitialFSO.Text = initialFso;
+            DisplaySuccessSymbol(Success.InitialFsoIsOk);
 
             GiveTareCommand();
 
@@ -379,6 +383,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 tbTrimmedCyclesCount.Text = TrimCount.ToString();
                                 _stopTrimming = true;
+                                DisplayFailureSymbol(Failure.ExcessiveNoOfCycles);
                                 await StopProcessAndExit(@"Further trimming is useless...!!! Press OK to stop the process.",
                                     Status.Failed, RejectionCriteria.Unstable);
                                 break;
@@ -391,6 +396,7 @@ namespace OCLSA_Project_Version_01.Forms
                             }
 
                             tbTrimmedCyclesCount.Text = TrimCount.ToString();
+                            DisplaySuccessSymbol(Success.NoOfCyclesIsOk);
 
                             ClearLists();
                             ClearDisplayedCornerReadings();
@@ -408,6 +414,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                                 ProcessDuration.Stop();
                                 tbTotalTime.Text = DisplayTotalTime();
+                                DisplaySuccessSymbol(Success.TimeIsOk);
                                 EndingTime = DateTime.Now;
 
                                 SaveToDb();
@@ -428,6 +435,7 @@ namespace OCLSA_Project_Version_01.Forms
 
                             ProcessDuration.Stop();
                             tbTotalTime.Text = DisplayTotalTime();
+                            DisplaySuccessSymbol(Success.TimeIsOk);
                             EndingTime = DateTime.Now;
 
                             SaveToDb();
@@ -695,6 +703,24 @@ namespace OCLSA_Project_Version_01.Forms
             LoadCellStatus = status.ToString();
             LoadCellRejectCriteria = EnumStringFormatter.ToDescriptionString(reason);
             tbStatus.Text = status.ToString();
+
+            switch (status)
+            {
+                case Status.Failed:
+                    DisplayFailureSymbol(Failure.StatusFailed);
+                    break;
+
+                case Status.Rejected:
+                    DisplayFailureSymbol(Failure.StatusFailed);
+                    break;
+
+                case Status.Passed:
+                    DisplaySuccessSymbol(Success.StatusIsOk);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(status), status, null);
+            }
         }
 
         private void ClearLists()
@@ -780,6 +806,7 @@ namespace OCLSA_Project_Version_01.Forms
             EndingTime = DateTime.Now;
             ProcessDuration.Stop();
             tbTotalTime.Text = DisplayTotalTime();
+            DisplaySuccessSymbol(Success.TimeIsOk);
 
             SaveToDb();
 
@@ -1006,6 +1033,19 @@ namespace OCLSA_Project_Version_01.Forms
             if (Continue) Continue = false;
 
             ResetColorForTextBoxes();
+
+            if (pbBridgeUnbalance.Image != null)
+                pbBridgeUnbalance.Image = null;
+
+            if (pbInitialFso.Image != null)
+                pbInitialFso.Image = null;
+
+            if (pbCalculatedFso.Image != null)
+                pbCalculatedFso.Image = null;
+
+            if (pbStatus.Image != null)
+                pbStatus.Image = null;
+
         }
 
         private void ClearAllInputsAndOutputs()
@@ -1104,7 +1144,8 @@ namespace OCLSA_Project_Version_01.Forms
             var loadCellInDb = CheckLoadCell();
             if (loadCellInDb == null) return;
 
-            CalculatedFsoForNonCalibratedWeight = Unbalance / loadCellInDb.Type.FsoFactor;
+            CalculatedFsoForNonCalibratedWeight = Unbalance * loadCellInDb.Type.FsoFactor;
+
         }
 
         private void GetDisplaySaveCenterReadings(Control textBox)
@@ -1387,14 +1428,16 @@ namespace OCLSA_Project_Version_01.Forms
             var bridgeUnbalance = lblReading.Text;
             tbBridgeUnbalance.Text = bridgeUnbalance;
 
-            if (Convert.ToDouble(bridgeUnbalance) <= MinimumUnbalanceReading &&
+            if (Convert.ToDouble(bridgeUnbalance) <= MinimumUnbalanceReading ||
                 MaximumUnbalanceReading <= Convert.ToDouble(bridgeUnbalance))
             {
+                DisplayFailureSymbol(Failure.HighBalance);
                 ShowMessage(@"Initial Bridge Reading is not within the range...!!!");
+
                 return true;
             }
 
-            EndingTime = DateTime.Now;
+            DisplaySuccessSymbol(Success.BridgeUnbalanceIsOk);
 
             return false;
         }
@@ -1504,6 +1547,76 @@ namespace OCLSA_Project_Version_01.Forms
                 case "NoWeight":
                     pbPositions.Image = Properties.Resources.NoWeight;
                     break;
+            }
+        }
+
+        private void DisplaySuccessSymbol(Success success)
+        {
+            switch (success)
+            {
+                case Success.BridgeUnbalanceIsOk:
+                    pbBridgeUnbalance.Image = Properties.Resources.GreenTick;
+                    break;
+
+                case Success.InitialFsoIsOk:
+                    pbInitialFso.Image = Properties.Resources.GreenTick;
+                    break;
+
+                case Success.CalculatedFsoIsOk:
+                    pbCalculatedFso.Image = Properties.Resources.GreenTick;
+                    break;
+
+                case Success.NoOfCyclesIsOk:
+                    pbNoOfCycles.Image = Properties.Resources.GreenTick;
+                    break;
+
+                case Success.TimeIsOk:
+                    pbTotalTime.Image = Properties.Resources.GreenTick;
+                    break;
+
+                case Success.StatusIsOk:
+                    pbStatus.Image = Properties.Resources.GreenTick;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(success), success, null);
+            }
+        }
+
+        private void DisplayFailureSymbol(Failure failure)
+        {
+            switch (failure)
+            {
+                case Failure.HighBalance:
+                    pbBridgeUnbalance.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.LowInitialFso:
+                    pbInitialFso.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.HighInitialFso:
+                    pbInitialFso.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.LowCalculatedFso:
+                    pbCalculatedFso.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.HighCalculatedFso:
+                    pbCalculatedFso.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.StatusFailed:
+                    pbStatus.Image = Properties.Resources.RedTick;
+                    break;
+
+                case Failure.ExcessiveNoOfCycles:
+                    pbNoOfCycles.Image = Properties.Resources.RedTick;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(failure), failure, null);
             }
         }
     }

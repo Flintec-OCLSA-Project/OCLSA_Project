@@ -67,9 +67,11 @@
     <Compile Include="DataAccess\MainForm\CheckCornerTestModeResult.cs" />
     <Compile Include="DataAccess\MainForm\CheckFsoResult.cs" />
     <Compile Include="DataAccess\MainForm\Corner.cs" />
+    <Compile Include="DataAccess\MainForm\Failure.cs" />
     <Compile Include="DataAccess\MainForm\MetalCategory.cs" />
     <Compile Include="DataAccess\MainForm\RejectionCriteria.cs" />
     <Compile Include="DataAccess\MainForm\Status.cs" />
+    <Compile Include="DataAccess\MainForm\Success.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +318,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Pictures\NoWeight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\RedTick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures\GreenTick.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

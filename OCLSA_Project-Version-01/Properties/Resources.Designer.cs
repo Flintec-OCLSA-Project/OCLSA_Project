@@ -153,6 +153,16 @@ namespace OCLSA_Project_Version_01.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GreenTick {
+            get {
+                object obj = ResourceManager.GetObject("GreenTick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Left {
             get {
                 object obj = ResourceManager.GetObject("Left", resourceCulture);
@@ -176,6 +186,16 @@ namespace OCLSA_Project_Version_01.Properties {
         internal static System.Drawing.Bitmap NoWeight {
             get {
                 object obj = ResourceManager.GetObject("NoWeight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RedTick {
+            get {
+                object obj = ResourceManager.GetObject("RedTick", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
