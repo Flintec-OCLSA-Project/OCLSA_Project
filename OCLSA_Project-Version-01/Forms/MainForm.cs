@@ -467,7 +467,20 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (result == DialogResult.No) return;
 
-            Application.Exit();
+            ExitFromMainForm();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExitFromMainForm();
+        }
+
+        private void ExitFromMainForm()
+        {
+            Hide();
+            var loginForm = new LoginForm();
+            loginForm.ShowDialog();
+            Close();
         }
 
         private void ChangeColorOfTextBoxes(string testMode)
@@ -540,6 +553,7 @@ namespace OCLSA_Project_Version_01.Forms
         private void ResetColorForTextBoxes()
         {
             var checkCornerTestMode = CheckCornerTestMode();
+
             switch (checkCornerTestMode.TestModeInDb)
             {
                 case TestMode.CornerTest:
@@ -583,6 +597,7 @@ namespace OCLSA_Project_Version_01.Forms
 
             await StopProcessAndExit(@"Load Cell is rejected due to High Zero...!!!", Status.Rejected,
                 RejectionCriteria.HighZero);
+
             return true;
         }
 
@@ -1045,6 +1060,12 @@ namespace OCLSA_Project_Version_01.Forms
 
             if (pbStatus.Image != null)
                 pbStatus.Image = null;
+
+            if (pbNoOfCycles.Image != null)
+                pbNoOfCycles.Image = null;
+
+            if (pbTotalTime.Image != null)
+                pbTotalTime.Image = null;
 
         }
 
